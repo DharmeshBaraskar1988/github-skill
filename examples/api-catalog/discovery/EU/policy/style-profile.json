@@ -1,0 +1,51 @@
+{
+  "examples": [
+    "/home/claude/copilot-api-skills/tests/output/api-catalog/style-examples/_global/house-style-example.yaml"
+  ],
+  "operations": 3,
+  "conventions": {
+    "operationIdCase": "camelCase",
+    "tagCase": "mixed",
+    "pathSegmentCase": "kebab-case",
+    "propertyCase": "camelCase",
+    "pluralCollections": true,
+    "requiredInfoFields": [
+      "contact",
+      "description",
+      "x-audience"
+    ],
+    "standardErrorResponses": [
+      "400",
+      "401",
+      "500"
+    ],
+    "errorSchemaUsed": "ProblemDetails",
+    "securitySchemeNames": {
+      "http:bearer": "bearerAuth"
+    },
+    "commonHeaderParameters": [
+      "X-Correlation-ID"
+    ],
+    "vendorExtensions": [],
+    "summaryShare": 1.0,
+    "descriptionShare": 0.0
+  },
+  "fingerprints": {
+    "paths": [
+      "/invoices",
+      "/invoices/{invoiceId}",
+      "/payment-plans"
+    ],
+    "schemas": [
+      "Invoice",
+      "PaymentPlan"
+    ],
+    "textHashes": [
+      "befe15205a930a32",
+      "d7bbfc6611dcd380"
+    ]
+  },
+  "folders": [
+    "/home/claude/copilot-api-skills/tests/output/api-catalog/style-examples/_global"
+  ]
+}

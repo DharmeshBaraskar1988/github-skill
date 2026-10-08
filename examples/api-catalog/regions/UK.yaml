@@ -1,0 +1,7 @@
+region: UK
+maxIterations: 5
+regionalViewData: ../regional-view/regional-view-data.json
+reference: {json: ../reference/acord.reference.json, name: "SAMPLE (not ACORD)", version: "0.1"}
+baseline: ../canonical/EU/releases/1.0.0/canonical-model.json
+alignment: {outputDir: ../alignment/UK}
+canonical: {outputDir: ../canonical/UK, version: 1.0.0, title: UK Canonical Insurance API}

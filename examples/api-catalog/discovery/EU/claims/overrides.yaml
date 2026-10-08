@@ -1,0 +1,10 @@
+# Agent-maintained corrections. Every entry needs a 'note' saying what was checked in code.
+endpoints:
+  - match: {method: GET, path: /health}
+    exclude: true
+    reason: Liveness probe, ExcludeFromDescription() in Program.cs - infrastructure only
+  - match: {operationId: GetFnolStatus}
+    note: FnolFunctions.GetStatus writes the result of Lookup(reference) which returns FnolReceipt
+    set:
+      summary: Get the processing status of a FNOL submission
+      responses: {"200": FnolReceipt, "404": null}

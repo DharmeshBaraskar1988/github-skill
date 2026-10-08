@@ -1,0 +1,38 @@
+{
+  "skill": "api-discovery",
+  "status": "pass",
+  "iteration": 0,
+  "region": "EU",
+  "application": "claims",
+  "counts": {
+    "projects": 3,
+    "inventoryEndpoints": 13,
+    "specOperations": 12,
+    "excludedEndpoints": 1,
+    "schemas": 16,
+    "nonHttpFunctions": 1
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "D11",
+      "message": "Descriptions missing: 5 operations, 6 schemas, 70 properties",
+      "fix": "Add summaries/descriptions via overrides.yaml (endpoints[].set.summary, types.<Name>.description)"
+    },
+    {
+      "code": "D12",
+      "message": "info fields used by all style examples are missing: ['contact', 'x-audience']",
+      "fix": "Add them under `info:` in api-catalog.config.yaml with YOUR values (never copy the examples' values)"
+    },
+    {
+      "code": "D12",
+      "message": "12 operations lack header parameters ['X-Correlation-ID'] that the style examples always declare",
+      "fix": "Check the code/middleware; if the API really accepts them add via overrides addParams, otherwise accept"
+    },
+    {
+      "code": "D12",
+      "message": "Style examples give every operation a summary; 5 here have none: ['updateClaim', 'deleteClaim', 'approveClaim', 'getClaimsClaimants', 'deleteDocuments']",
+      "fix": "Write summaries from the code's meaning in overrides (set.summary)"
+    }
+  ]
+}

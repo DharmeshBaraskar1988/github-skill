@@ -1,0 +1,29 @@
+{
+  "skill": "regional-view",
+  "status": "pass",
+  "iteration": 0,
+  "totals": {
+    "regions": 2,
+    "applications": 3,
+    "operations": 20,
+    "domains": 4,
+    "capabilities": 18,
+    "entities": 26,
+    "relations": 26,
+    "duplicateGroups": 2,
+    "crossAppDuplicates": 11
+  },
+  "applications": [
+    "EU/claims",
+    "EU/policy",
+    "UK/quote"
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "code": "R06",
+      "message": "UK/quote came from an external spec (external/UK/quote/openapi.json) - analysed inline, not validated",
+      "fix": "Run the api-analysis skill on it to get decisions + validation"
+    }
+  ]
+}

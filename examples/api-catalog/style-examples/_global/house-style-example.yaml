@@ -1,0 +1,81 @@
+# HOUSE-STYLE EXAMPLE (invented). The discovery skill learns conventions from it
+# (casing, error responses, headers, info fields, security naming) and never copies its paths, schemas or texts.
+openapi: 3.0.3
+info:
+  title: Billing Example API
+  version: 2.3.0
+  description: Example used only to show the house style for generated API specifications in this organisation.
+  contact: {name: Example Team, email: example-team@example.invalid}
+  x-audience: internal
+servers:
+  - url: https://{host}
+    variables: {host: {default: billing.example.invalid}}
+tags:
+  - name: Invoices
+  - name: Payment Plans
+paths:
+  /invoices:
+    get:
+      operationId: listInvoices
+      summary: List invoices
+      tags: [Invoices]
+      parameters:
+        - {name: X-Correlation-ID, in: header, required: false, schema: {type: string}}
+      responses:
+        "200": {description: OK, content: {application/json: {schema: {type: array, items: {$ref: '#/components/schemas/Invoice'}}}}}
+        "400": {$ref: '#/components/responses/Problem'}
+        "401": {$ref: '#/components/responses/Problem'}
+        "500": {$ref: '#/components/responses/Problem'}
+      security: [{bearerAuth: []}]
+  /invoices/{invoiceId}:
+    get:
+      operationId: getInvoice
+      summary: Get an invoice
+      tags: [Invoices]
+      parameters:
+        - {name: invoiceId, in: path, required: true, schema: {type: string}}
+        - {name: X-Correlation-ID, in: header, required: false, schema: {type: string}}
+      responses:
+        "200": {description: OK, content: {application/json: {schema: {$ref: '#/components/schemas/Invoice'}}}}
+        "400": {$ref: '#/components/responses/Problem'}
+        "401": {$ref: '#/components/responses/Problem'}
+        "404": {$ref: '#/components/responses/Problem'}
+        "500": {$ref: '#/components/responses/Problem'}
+      security: [{bearerAuth: []}]
+  /payment-plans:
+    post:
+      operationId: createPaymentPlan
+      summary: Create a payment plan
+      tags: [Payment Plans]
+      parameters:
+        - {name: X-Correlation-ID, in: header, required: false, schema: {type: string}}
+      requestBody: {content: {application/json: {schema: {$ref: '#/components/schemas/PaymentPlan'}}}}
+      responses:
+        "201": {description: Created, content: {application/json: {schema: {$ref: '#/components/schemas/PaymentPlan'}}}}
+        "400": {$ref: '#/components/responses/Problem'}
+        "401": {$ref: '#/components/responses/Problem'}
+        "500": {$ref: '#/components/responses/Problem'}
+      security: [{bearerAuth: []}]
+components:
+  securitySchemes:
+    bearerAuth: {type: http, scheme: bearer, bearerFormat: JWT}
+  responses:
+    Problem:
+      description: Error
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/ProblemDetails'}}}
+  schemas:
+    ProblemDetails:
+      type: object
+      properties: {type: {type: string}, title: {type: string}, status: {type: integer}, detail: {type: string}}
+    Invoice:
+      type: object
+      description: An invoice issued to a customer for one billing period of an insurance contract.
+      properties:
+        invoiceId: {type: string}
+        totalAmount: {type: number}
+        dueDate: {type: string, format: date}
+    PaymentPlan:
+      type: object
+      properties:
+        planId: {type: string}
+        instalmentCount: {type: integer}

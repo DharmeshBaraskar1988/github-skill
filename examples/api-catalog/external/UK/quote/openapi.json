@@ -1,0 +1,15 @@
+{"openapi":"3.0.1","info":{"title":"Quote API","version":"2.1"},
+ "paths":{
+  "/quotes":{"post":{"operationId":"CreateQuote","tags":["Quotes"],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/QuoteRequest"}}}},
+     "responses":{"201":{"description":"Created","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Quote"}}}}}}},
+  "/quotes/{quoteRef}":{"get":{"operationId":"GetQuote","tags":["Quotes"],"parameters":[{"name":"quoteRef","in":"path","required":true,"schema":{"type":"string"}}],
+     "responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Quote"}}}}}}},
+  "/quotes/{quoteRef}/bind":{"post":{"operationId":"BindQuote","parameters":[{"name":"quoteRef","in":"path","required":true,"schema":{"type":"string"}}],
+     "responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PolicyRef"}}}}}}}},
+ "components":{"schemas":{
+  "QuoteRequest":{"type":"object","properties":{"productCode":{"type":"string"},"holder":{"$ref":"#/components/schemas/Customer"},"startDate":{"type":"string","format":"date"}}},
+  "Quote":{"type":"object","description":"Priced quotation.","properties":{"quoteRef":{"type":"string"},"productCode":{"type":"string"},"premium":{"$ref":"#/components/schemas/Money"},"validUntil":{"type":"string","format":"date"},"holder":{"$ref":"#/components/schemas/Customer"}}},
+  "Customer":{"type":"object","properties":{"firstName":{"type":"string"},"lastName":{"type":"string"},"email":{"type":"string"},"address":{"$ref":"#/components/schemas/Address"}}},
+  "Address":{"type":"object","properties":{"line1":{"type":"string"},"line2":{"type":"string"},"city":{"type":"string"},"postCode":{"type":"string"},"country":{"type":"string"}}},
+  "Money":{"type":"object","properties":{"amount":{"type":"number"},"currency":{"type":"string"}}},
+  "PolicyRef":{"type":"object","properties":{"policyNumber":{"type":"string"}}}}}}
