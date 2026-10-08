@@ -1,0 +1,7 @@
+# Organisation vocabulary for alignment (merged with the built-in generic list).
+words:          # token -> token (applied to every word)
+  polref: policynumber
+compounds:      # whole attribute name (after removing the entity name) -> canonical key
+  brokercode: intermediarycode
+entities:       # entity name (lower, no spaces) -> reference entity name (lower)
+  broker: intermediary

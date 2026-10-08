@@ -1,0 +1,49 @@
+# api-catalog.config.yaml - one per repository (application). Paths are relative to this file.
+region: EU                    # region code used in folder names and the regional view
+application: claims           # application / product name (lowercase, no spaces)
+version: 1.0.0                # info.version of the generated spec
+catalogRoot: api-catalog      # where style-examples/, regions/ ... live (central mode: "..")
+info:                         # YOUR values for info fields the style examples always have (never copied from examples)
+  contact: {name: Claims Platform Team, email: claims-platform@your-company.example}
+  # x-audience: internal
+# title: Claims API
+# description: ...
+
+sourceRoots: [src]            # folders to scan for *.csproj
+exclude:                      # extra glob excludes (tests/bin/obj/Migrations are excluded by default)
+  - "**/Samples/**"
+# includeProjects: [Claims.Api, Claims.Functions, Claims.Domain]   # optional allow-list
+
+# servers: placeholders only - never real hosts or keys
+servers:
+  - url: https://{host}
+    description: Injected per environment
+    variables:
+      host: {default: claims.eu.example.internal}
+
+maxIterations: 5              # validation loop limit for every skill
+
+discovery:
+  outputDir: api-catalog/discovery/EU/claims
+  requireDescriptions: false  # true -> missing summaries/descriptions are errors (D11)
+  # styleExamples: [api-catalog/style-examples/_global, api-catalog/style-examples/EU]   # default
+  style: {strict: false, operationIdCase: true, tagCase: true, securitySchemeNames: true, addStandardErrors: true}
+
+analysis:
+  outputDir: api-catalog/analysis/EU/claims
+  domainsXlsx: api-catalog/domains.xlsx      # business domain catalogue (Excel)
+  domainsJson: api-catalog/domains.json      # generated from the Excel by load_domains.py
+  minDomainScore: 2           # keyword score needed for a confident domain match
+  minDomainMargin: 1          # lead over the 2nd best domain
+  nearDuplicateThreshold: 0.8 # attribute containment for near-duplicate detection
+  strictDomains: false        # true -> low-confidence mappings are errors (A04)
+  strictCapabilities: false   # true -> capabilities missing from the Excel are errors (A05)
+  requireDescriptions: false  # true -> entities/attributes without description are errors (A11)
+  useBusinessNames: true      # ClaimantDto -> Claimant when unambiguous
+  treeDepth: 4
+
+regionalView:
+  inputDir: api-catalog       # folder holding analysis outputs and/or dumped OpenAPI specs
+  outputDir: api-catalog/regional-view
+  title: API Catalogue - Regional View
+  crossAppThreshold: 0.8

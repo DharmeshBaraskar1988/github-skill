@@ -1,0 +1,33 @@
+{
+ "format": "acord-alignment-review",
+ "version": 1,
+ "region": "EU",
+ "slice": "all",
+ "alignmentGeneratedAt": "2026-10-08T17:35:40+00:00",
+ "reviewer": "Marco (Policy architect)",
+ "exportedAt": "now",
+ "entities": {
+  "Coverage": {
+   "decision": "approve",
+   "basis": "bbdc1504bf"
+  },
+  "IssuePolicyRequest": {
+   "decision": "approve",
+   "basis": "7d3da9da5f"
+  },
+  "PolicyDetails": {
+   "decision": "approve",
+   "basis": "0d770b375c"
+  },
+  "PolicyStatus": {
+   "decision": "approve",
+   "basis": "8b286df317"
+  },
+  "PolicySummary": {
+   "decision": "approve",
+   "basis": "cd85d82f53"
+  }
+ },
+ "attributes": {},
+ "endpoints": {}
+}

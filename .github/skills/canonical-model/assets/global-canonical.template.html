@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+:root{--bg:#f6f7f9;--panel:#fff;--ink:#18212b;--muted:#5f6b78;--line:#e2e6eb;--soft:#eef1f5;--accent:#1f5fae;--accent-soft:#e6eef9;
+  --ok:#1d7a4c;--ok-soft:#e3f3ea;--warn:#9a6200;--warn-soft:#fbf0dc;--bad:#b3261e;--bad-soft:#fbe5e3;--code-bg:#fbfcfd;
+  --k:#1f5fae;--s:#1d7a4c;--n:#9a4a00;--b:#7a4fb3;--get:#1d7a4c;--post:#1f5fae;--put:#9a6200;--patch:#7a4fb3;--delete:#b3261e;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1419;--panel:#161d24;--ink:#e3e8ee;--muted:#93a0ad;--line:#26313c;--soft:#1c252e;
+  --accent:#6aa4ee;--accent-soft:#1a2b40;--ok:#5cc28d;--ok-soft:#15291f;--warn:#e0a84a;--warn-soft:#2c2414;--bad:#ef7d74;--bad-soft:#341b19;--code-bg:#11171d;
+  --k:#7fb2f0;--s:#7fd0a4;--n:#f0b36a;--b:#c4a2f0;--get:#5cc28d;--post:#6aa4ee;--put:#e0a84a;--patch:#b48ce8;--delete:#ef7d74}}
+:root[data-theme="dark"]{--bg:#0f1419;--panel:#161d24;--ink:#e3e8ee;--muted:#93a0ad;--line:#26313c;--soft:#1c252e;
+  --accent:#6aa4ee;--accent-soft:#1a2b40;--ok:#5cc28d;--ok-soft:#15291f;--warn:#e0a84a;--warn-soft:#2c2414;--bad:#ef7d74;--bad-soft:#341b19;--code-bg:#11171d;
+  --k:#7fb2f0;--s:#7fd0a4;--n:#f0b36a;--b:#c4a2f0;--get:#5cc28d;--post:#6aa4ee;--put:#e0a84a;--patch:#b48ce8;--delete:#ef7d74}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--sans)}
+header{padding:16px 24px 8px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end}
+h1{margin:0;font-size:20px;font-weight:650} .meta{color:var(--muted);font-size:12px}
+button,select,input{font:inherit;color:var(--ink)}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:5px 11px;cursor:pointer}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--panel);padding:5px 12px;cursor:pointer;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 24px;display:flex;flex-direction:column;gap:7px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+label.ctl,.ctl{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+select,input[type=search]{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+input[type=search]{min-width:220px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 10px;cursor:pointer;font-size:13px;user-select:none}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.linkbtn{background:none;border:0;color:var(--accent);cursor:pointer;font-size:12px;padding:0 3px}
+nav.tabs{display:flex;gap:2px;overflow-x:auto}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:7px 12px;cursor:pointer;color:var(--muted);white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+main{padding:16px 24px 48px;max-width:1600px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums} .kpi span{color:var(--muted);font-size:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:hidden}
+.panel>h2{font-size:14px;margin:0;padding:11px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.panel>h2 small{color:var(--muted);font-weight:400} .pad{padding:12px 14px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;background:var(--soft)} tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.mono{font-family:var(--mono);font-size:12px} .muted{color:var(--muted)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--soft);color:var(--muted);margin:1px 2px 1px 0;white-space:nowrap}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.bad{background:var(--bad-soft);color:var(--bad)}.tag.acc{background:var(--accent-soft);color:var(--accent)}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:middle}
+.dot.used{background:var(--ok)} .dot.avail{border:2px solid var(--ok)}
+.m{font-family:var(--mono);font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;border:1px solid currentColor}
+.m.GET{color:var(--get)}.m.POST{color:var(--post)}.m.PUT{color:var(--put)}.m.PATCH{color:var(--patch)}.m.DELETE{color:var(--delete)}
+.split{display:grid;grid-template-columns:300px 1fr;gap:14px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.elist{max-height:72vh;overflow:auto}
+.eitem{padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;justify-content:space-between;gap:8px}
+.eitem:hover{background:var(--soft)} .eitem[aria-current="true"]{background:var(--accent-soft)}
+.eitem small{color:var(--muted)}
+.code{background:var(--code-bg);font:12.5px/1.55 var(--mono);overflow:auto;max-height:75vh;padding:8px 0;margin:0}
+.ln{display:flex;white-space:pre} .ln .g{flex:0 0 52px;text-align:right;padding-right:12px;color:var(--muted);user-select:none}
+.k{color:var(--k)}.s{color:var(--s)}.n{color:var(--n)}.b{color:var(--b)}
+.empty{padding:22px;color:var(--muted);text-align:center}
+.toast{position:fixed;bottom:16px;right:16px;background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:.92}
+@media (max-width:600px){header,main,.bar{padding-left:16px;padding-right:16px}input[type=search]{min-width:0;width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>{{TITLE}}</h1><div class="meta" id="meta"></div></div>
+  <button class="btn" id="themeBtn" title="Light / dark">◐</button>
+</header>
+<div class="bar">
+  <div class="row">
+    <span class="ctl">Regions</span><span id="regions" class="row"></span>
+    <label class="ctl">Region means <select id="regMode"><option value="used">used by the region's APIs</option><option value="available">available in the region's canonical</option></select></label>
+  </div>
+  <div class="row"><span class="ctl">Applications</span><span id="apps" class="row"></span><button class="linkbtn" id="appsAll">all</button><button class="linkbtn" id="appsNone">none</button></div>
+  <div class="row">
+    <label class="ctl">Domain <select id="domain"></select></label>
+    <label class="ctl">Origin <select id="origin"><option value="">All</option><option value="ACORD">ACORD-based</option><option value="custom">Custom</option></select></label>
+    <input type="search" id="q" placeholder="Search entity, attribute, path, operationId…" aria-label="Search">
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</div>
+<main id="main"></main>
+<div class="toast" id="toast"></div>
+<script>
+const DATA=/*__DATA__*/null;
+const M=DATA.model, SPEC=DATA.spec;
+const REGS=M.regions.map(r=>r.region);
+const ALL_APPS=[...new Set([...M.entities.flatMap(e=>e.applications),...M.endpoints.flatMap(e=>e.applications)])].sort();
+const TABS=[["overview","Overview"],["entities","Entities & attributes"],["endpoints","Endpoints (APIs)"],["spec","OpenAPI spec (YAML / JSON)"]];
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function store(k,v){try{localStorage.setItem("global:"+k,JSON.stringify(v))}catch(e){}}
+function load(k){try{const v=localStorage.getItem("global:"+k);return v?JSON.parse(v):null}catch(e){return null}}
+const S={tab:"overview",regs:new Set(REGS),mode:"used",apps:new Set(ALL_APPS),domain:"",origin:"",q:"",entity:null,fmt:load("fmt")||"yaml"};
+(function(){const t=load("theme");if(t)document.documentElement.dataset.theme=t;const h=location.hash.slice(1);if(TABS.some(x=>x[0]===h))S.tab=h})();
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1500)}
+const allApps=()=>S.apps.size===ALL_APPS.length;
+const inter=(a,b)=>a.some(x=>b.has(x));
+const originOk=e=>!S.origin||(S.origin==="ACORD"?e.origin==="ACORD":e.origin!=="ACORD");
+const domOk=d=>!S.domain||d===S.domain;
+function entOk(e){
+  if(!originOk(e)||!domOk(e.domain))return false;
+  if(!inter(S.mode==="used"?e.usedBy:e.availableIn,S.regs)){ if(!(S.mode==="used"&&!e.usedBy.length&&inter(e.availableIn,S.regs)&&e.kind==="enum")) return false;}
+  if(!allApps()&&!inter(e.applications,S.apps))return false;
+  if(S.q){const q=S.q.toLowerCase();if(![e.name,e.description,...e.attributes.map(a=>a.name)].join(" ").toLowerCase().includes(q))return false}
+  return true}
+function epOk(o){
+  if(!inter(o.regions,S.regs)||!domOk(o.domain))return false;
+  if(!allApps()&&!inter(o.applications,S.apps))return false;
+  if(S.q){const q=S.q.toLowerCase();if(!(o.path+" "+o.operationId+" "+o.method).toLowerCase().includes(q))return false}
+  return true}
+const regDots=(e)=>REGS.map(r=>`<td class="c">${e.usedBy.includes(r)?'<span class="dot used" title="used by '+r+' APIs"></span>':e.availableIn.includes(r)?'<span class="dot avail" title="available in '+r+' canonical"></span>':'<span class="muted">·</span>'}</td>`).join("");
+const originTag=o=>o==="ACORD"?'<span class="tag ok">ACORD</span>':'<span class="tag warn">custom</span>';
+
+function renderBar(){
+  $("#meta").textContent=`Generated ${String(M.generatedAt||"").replace("T"," ").slice(0,16)} UTC · regions: ${M.regions.map(r=>r.region+" v"+r.version+(r.released?"":" (not released)")).join(", ")}`;
+  $("#regions").innerHTML=REGS.map(r=>`<span class="chip" role="button" tabindex="0" data-reg="${r}" aria-pressed="${S.regs.has(r)}">${r}</span>`).join("");
+  $("#apps").innerHTML=ALL_APPS.map(a=>`<span class="chip" role="button" tabindex="0" data-app="${esc(a)}" aria-pressed="${S.apps.has(a)}">${esc(a)}</span>`).join("");
+  const doms=[...new Set(M.entities.map(e=>e.domain).concat(M.endpoints.map(e=>e.domain)).filter(Boolean))].sort();
+  $("#domain").innerHTML=`<option value="">All</option>`+doms.map(d=>`<option ${d===S.domain?"selected":""}>${esc(d)}</option>`).join("");
+  $("#regMode").value=S.mode;
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<button data-tab="${k}" aria-selected="${S.tab===k}">${l}</button>`).join("");
+}
+
+function overview(){
+  const es=M.entities.filter(entOk), eps=M.endpoints.filter(epOk);
+  const k=(v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
+  let h=`<div class="kpis">${k(es.length,"Entities")}${k(es.filter(e=>e.origin==="ACORD").length,"ACORD-based")}${k(es.filter(e=>e.origin!=="ACORD").length,"Custom")}${k(es.reduce((a,e)=>a+e.attributes.length,0),"Attributes")}${k(eps.length,"Endpoints")}${k(M.conflicts.length,"Conflicts")}</div>`;
+  h+=`<section class="panel"><h2>Entity × region <small><span class="dot used"></span> used by the region's APIs · <span class="dot avail"></span> in the region's canonical (e.g. from the baseline)</small></h2>`;
+  h+=es.length?`<div class="scroll"><table><thead><tr><th>Entity</th><th>Origin</th><th>Domain</th>${REGS.map(r=>`<th class="c">${r}</th>`).join("")}<th>Applications</th></tr></thead><tbody>${
+    es.map(e=>`<tr><td><a href="#" data-goto="${esc(e.name)}"><b>${esc(e.name)}</b></a>${e.reference?` <span class="muted mono">← ${esc(e.reference.entity)}</span>`:""}</td><td>${originTag(e.origin)}</td><td>${esc(e.domain||"")}</td>${regDots(e)}<td>${e.applications.map(a=>`<span class="tag acc">${esc(a)}</span>`).join("")}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Nothing matches the filters.</div>`;
+  h+=`</section>`;
+  if(M.conflicts.length) h+=`<section class="panel"><h2>Conflicts between regions <small>${M.conflicts.length}</small></h2><div class="scroll"><table><thead><tr><th>Kind</th><th>Item</th><th>Detail</th></tr></thead><tbody>${M.conflicts.map(c=>`<tr><td>${esc(c.kind)}</td><td class="mono">${esc(c.item)}</td><td>${esc(c.detail)}</td></tr>`).join("")}</tbody></table></div></section>`;
+  return h;
+}
+function entities(){
+  const es=M.entities.filter(entOk);
+  if(!es.length) return `<section class="panel"><div class="empty">Nothing matches the filters.</div></section>`;
+  const sel=es.find(e=>e.name===S.entity)||es[0];S.entity=sel.name;
+  const attrs=sel.attributes.filter(a=>inter(S.mode==="used"&&a.usedBy.length?a.usedBy:a.availableIn,S.regs));
+  return `<div class="split"><section class="panel"><h2>Entities <small>${es.length}</small></h2><div class="elist">${es.map(e=>`<div class="eitem" data-entity="${esc(e.name)}" aria-current="${e===sel}"><span><b>${esc(e.name)}</b><br><small>${esc(e.domain||"")} · ${e.availableIn.join(", ")}</small></span>${originTag(e.origin)}</div>`).join("")}</div></section>
+  <div><section class="panel"><h2><span>${esc(sel.name)} ${originTag(sel.origin)}</span><small>${sel.reference?esc(sel.reference.source+":"+sel.reference.entity):"no reference"} · introduced in ${esc(sel.introducedIn)}</small></h2><div class="pad">
+   ${sel.description?`<p style="margin-top:0">${esc(sel.description)}</p>`:""}
+   <div>Available in: ${sel.availableIn.map(r=>`<span class="tag acc">${r}</span>`).join("")} · Used by: ${sel.usedBy.map(r=>`<span class="tag ok">${r}</span>`).join("")||"—"} · Approach: ${Object.entries(sel.approachByRegion).map(([r,a])=>`${r} ${esc(a)}`).join(", ")}</div>
+   <div class="muted" style="margin-top:6px;font-size:12px">Sources: ${sel.sourceSchemas.map(esc).join(", ")||"—"}</div></div></section>
+  ${sel.kind==="enum"?`<section class="panel"><h2>Code values</h2><div class="scroll"><table><thead><tr><th>Value</th><th>Regions</th></tr></thead><tbody>${sel.enumValues.map(v=>`<tr><td class="mono">${esc(v)}</td><td>${(sel.valueRegions[v]||[]).map(r=>`<span class="tag acc">${r}</span>`).join("")}</td></tr>`).join("")}</tbody></table></div></section>`:
+  `<section class="panel"><h2>Attributes <small>${attrs.length} of ${sel.attributes.length} in the selected regions</small></h2><div class="scroll"><table><thead><tr><th>Attribute</th><th>Type</th><th>Reference</th><th>Ext.</th><th>Available in</th><th>Used by</th><th>Applications</th><th>Description</th></tr></thead><tbody>${
+   attrs.map(a=>`<tr><td class="mono">${esc(a.name)}${a.required?'<span style="color:var(--bad)">*</span>':""}</td><td>${a.refEntity?`<a href="#" data-goto="${esc(a.refEntity)}">${a.isCollection?"list of ":""}${esc(a.refEntity)}</a>`:esc(a.type+(a.format?"("+a.format+")":""))}</td><td class="mono">${a.reference?esc(a.reference.entity+"."+a.reference.attribute):""}</td><td>${a.extension?'<span class="tag warn">ext</span>':""}</td><td>${a.availableIn.map(r=>`<span class="tag acc">${r}</span>`).join("")}</td><td>${a.usedBy.map(r=>`<span class="tag ok">${r}</span>`).join("")}</td><td>${a.applications.map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</td><td>${esc(a.description||"")}</td></tr>`).join("")}</tbody></table></div></section>`}
+  </div></div>`;
+}
+function endpoints(){
+  const eps=M.endpoints.filter(epOk);
+  if(!eps.length) return `<section class="panel"><div class="empty">Nothing matches the filters.</div></section>`;
+  return `<section class="panel"><h2>Canonical endpoints <small>${eps.length}</small></h2><div class="scroll"><table><thead><tr><th>Endpoint</th><th>operationId</th><th>Domain</th>${REGS.map(r=>`<th class="c">${r}</th>`).join("")}<th>Applications</th><th>Source operations</th></tr></thead><tbody>${
+   eps.map(o=>`<tr><td><span class="m ${o.method}">${o.method}</span> <span class="mono">${esc(o.path)}</span></td><td class="mono">${esc(o.operationId)}</td><td>${esc(o.domain||"")}</td>${REGS.map(r=>`<td class="c">${o.regions.includes(r)?'<span class="dot used"></span>':'<span class="muted">·</span>'}</td>`).join("")}<td>${o.applications.map(a=>`<span class="tag acc">${esc(a)}</span>`).join("")}</td><td class="muted" style="font-size:12px">${o.sources.map(s=>esc(s.id)).join("<br>")}</td></tr>`).join("")}</tbody></table></div></section>`;
+}
+
+// ---------- filtered spec ----------
+function filteredSpec(){
+  const spec=JSON.parse(JSON.stringify(SPEC));
+  const eps=new Set(M.endpoints.filter(epOk).map(o=>o.method.toLowerCase()+" "+o.path));
+  const paths={};
+  for(const [p,item] of Object.entries(spec.paths||{})){const it={};for(const [m,op] of Object.entries(item)){if(eps.has(m+" "+p))it[m]=op}if(Object.keys(it).length)paths[p]=it}
+  spec.paths=paths;
+  const schemas=spec.components.schemas;const keep=new Set(M.entities.filter(entOk).map(e=>e.name));
+  const refsIn=n=>{const out=[];JSON.stringify(n,(k,v)=>{if(k==="$ref"&&typeof v==="string")out.push(v.split("/").pop());return v});return out};
+  const queue=[...refsIn(paths),...keep];
+  while(queue.length){const n=queue.pop();if(!schemas[n])continue;keep.add(n);const r=refsIn(schemas[n]).filter(x=>!keep.has(x));r.forEach(x=>{keep.add(x);queue.push(x)})}
+  const regionFiltered=S.regs.size<REGS.length;
+  const out={};
+  for(const n of Object.keys(schemas).sort()){ if(!keep.has(n))continue; const s=schemas[n];
+    if(regionFiltered&&s.properties){for(const [pn,ps] of Object.entries(s.properties)){const av=ps["x-available-in"];if(av&&!av.some(r=>S.regs.has(r)))delete s.properties[pn]}
+      if(s.required)s.required=s.required.filter(r=>r in s.properties)}
+    if(regionFiltered&&s.enum&&s["x-value-regions"])s.enum=s.enum.filter(v=>(s["x-value-regions"][v]||[]).some(r=>S.regs.has(r)));
+    out[n]=s}
+  spec.components.schemas=out;
+  const tagsUsed=new Set(Object.values(paths).flatMap(it=>Object.values(it).flatMap(op=>op.tags||[])));
+  spec.tags=(spec.tags||[]).filter(t=>tagsUsed.has(t.name));
+  spec.info["x-filter"]={regions:[...S.regs],regionMeans:S.mode,applications:allApps()?"all":[...S.apps],domain:S.domain||"all",origin:S.origin||"all",search:S.q||undefined};
+  if(!spec.info["x-filter"].search)delete spec.info["x-filter"].search;
+  return spec;
+}
+function needsQuote(s){return s===""||/^[\s]|[\s]$/.test(s)||/[:#\[\]{},&*!|>'"%@`]/.test(s)||/^[-?]/.test(s)||/^(true|false|null|yes|no|on|off|~|y|n)$/i.test(s)||/^[-+]?(\d|\.\d)/.test(s)||s.includes("\n")}
+const sc=v=>v===null?"null":typeof v==="string"?(needsQuote(v)?JSON.stringify(v):v):String(v);
+const isScalar=v=>v===null||typeof v!=="object";
+const key=k=>needsQuote(k)?JSON.stringify(k):k;
+function toYaml(v,ind=0){const pad=" ".repeat(ind);
+  if(Array.isArray(v)){if(!v.length)return pad+"[]";return v.map(x=>{if(isScalar(x))return pad+"- "+sc(x);if(Array.isArray(x)&&!x.length)return pad+"- []";if(!Array.isArray(x)&&!Object.keys(x).length)return pad+"- {}";const inner=toYaml(x,ind+2);return pad+"- "+inner.slice(ind+2)}).join("\n")}
+  if(v&&typeof v==="object"){const ks=Object.keys(v);if(!ks.length)return pad+"{}";return ks.map(k=>{const x=v[k];if(x===undefined)return null;if(isScalar(x))return pad+key(k)+": "+sc(x);if(Array.isArray(x)&&!x.length)return pad+key(k)+": []";if(!Array.isArray(x)&&!Object.keys(x).length)return pad+key(k)+": {}";return pad+key(k)+":\n"+toYaml(x,Array.isArray(x)?ind:ind+2)}).filter(x=>x!==null).join("\n")}
+  return pad+sc(v)}
+function hl(line,fmt){
+  if(fmt==="yaml"){const m=line.match(/^(\s*(?:-\s+)*)("[^"]*"|[^\s"#][^:#]*?):(\s|$)(.*)$/);if(m)return `${esc(m[1])}<span class="k">${esc(m[2])}</span>:${m[3]}${val(m[4])}`;const d=line.match(/^(\s*-\s+)(.*)$/);return d?esc(d[1])+val(d[2]):val(line)}
+  let out="",last=0;const re=/("(?:[^"\\]|\\.)*")(\s*:)?|(-?\d+(?:\.\d+)?)|\b(true|false|null)\b/g;let m;
+  while((m=re.exec(line))){out+=esc(line.slice(last,m.index));out+=m[1]&&m[2]?`<span class="k">${esc(m[1])}</span>${m[2]}`:m[1]?`<span class="s">${esc(m[1])}</span>`:m[3]?`<span class="n">${m[3]}</span>`:`<span class="b">${m[4]}</span>`;last=re.lastIndex}
+  return out+esc(line.slice(last))}
+function val(v){const t=v.trim();if(!t)return esc(v);const lead=v.slice(0,v.length-v.trimStart().length);
+  if(/^-?\d+(\.\d+)?$/.test(t))return lead+`<span class="n">${esc(t)}</span>`;if(/^(true|false|null)$/.test(t))return lead+`<span class="b">${t}</span>`;return lead+`<span class="s">${esc(t)}</span>`}
+let SPEC_TEXT="";
+function specView(){
+  const spec=filteredSpec();SPEC_TEXT=S.fmt==="yaml"?toYaml(spec)+"\n":JSON.stringify(spec,null,2);
+  const lines=SPEC_TEXT.replace(/\n$/,"").split("\n");
+  const np=Object.keys(spec.paths).length,ns=Object.keys(spec.components.schemas).length;
+  return `<section class="panel"><h2><span>Filtered canonical OpenAPI <small>${np} paths · ${ns} schemas · ${lines.length} lines</small></span>
+   <span class="row"><span class="seg"><button id="fy" aria-pressed="${S.fmt==="yaml"}">YAML</button><button id="fj" aria-pressed="${S.fmt==="json"}">JSON</button></span>
+   <button class="btn" id="copySpec">Copy</button><button class="btn" id="dlSpec">⭳ Download</button></span></h2>
+   <div class="pad muted" style="font-size:12px;padding-bottom:0">The spec follows the filters above: only endpoints of the selected regions / applications / domain, the schemas they need plus the matching entities${S.regs.size<REGS.length?", and only attributes and code values available in the selected regions":""}.</div>
+   <div class="code">${lines.map((l,i)=>`<div class="ln"><span class="g">${i+1}</span><span>${hl(l,S.fmt)||" "}</span></div>`).join("")}</div></section>`;
+}
+const VIEWS={overview,entities,endpoints,spec:specView};
+function render(){renderBar();$("#main").innerHTML=VIEWS[S.tab]()}
+document.addEventListener("click",e=>{
+  const t=e.target;
+  const tab=t.closest("[data-tab]");if(tab){S.tab=tab.dataset.tab;history.replaceState(null,"","#"+S.tab);render();return}
+  const rg=t.closest("[data-reg]");if(rg){const r=rg.dataset.reg;S.regs.has(r)?S.regs.delete(r):S.regs.add(r);render();return}
+  const ap=t.closest("[data-app]");if(ap){const a=ap.dataset.app;S.apps.has(a)?S.apps.delete(a):S.apps.add(a);render();return}
+  const it=t.closest("[data-entity]");if(it){S.entity=it.dataset.entity;render();return}
+  const go=t.closest("[data-goto]");if(go){e.preventDefault();S.entity=go.dataset.goto;S.tab="entities";S.q="";$("#q").value="";render();window.scrollTo(0,0);return}
+  if(t.id==="appsAll"){ALL_APPS.forEach(a=>S.apps.add(a));render()}
+  if(t.id==="appsNone"){S.apps.clear();render()}
+  if(t.id==="fy"){S.fmt="yaml";store("fmt","yaml");render()} if(t.id==="fj"){S.fmt="json";store("fmt","json");render()}
+  if(t.id==="copySpec"){navigator.clipboard.writeText(SPEC_TEXT).then(()=>toast("Copied")).catch(()=>toast("Copy not allowed here - use Download"))}
+  if(t.id==="dlSpec"){const name="canonical-openapi-"+[...S.regs].join("-")+(allApps()?"":"-"+[...S.apps].map(a=>a.split("/").pop()).join("-"))+(S.fmt==="yaml"?".yaml":".json");
+    const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([SPEC_TEXT],{type:S.fmt==="yaml"?"application/yaml":"application/json"}));a.download=name;a.click()}
+  if(t.id==="themeBtn"){const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store("theme",r.dataset.theme)}
+});
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("chip")){e.preventDefault();e.target.click()}});
+$("#regMode").addEventListener("change",e=>{S.mode=e.target.value;render()});
+$("#domain").addEventListener("change",e=>{S.domain=e.target.value;render()});
+$("#origin").addEventListener("change",e=>{S.origin=e.target.value;render()});
+let qt;$("#q").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{S.q=e.target.value.trim();$("#main").innerHTML=VIEWS[S.tab]()},150)});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,3058 @@
+{
+ "entities": [
+  {
+   "id": "QuoteRequest",
+   "name": "QuoteRequest",
+   "kind": "object",
+   "domain": "Quote",
+   "description": "",
+   "roles": [
+    "request"
+   ],
+   "apps": [
+    "UK/quote"
+   ],
+   "members": [
+    {
+     "appId": "UK/quote",
+     "entity": "QuoteRequest",
+     "schemas": [
+      "QuoteRequest"
+     ],
+     "sourceProjects": [
+      ""
+     ]
+    }
+   ],
+   "usage": [
+    {
+     "appId": "UK/quote",
+     "operationId": "CreateQuote",
+     "roles": [
+      "request"
+     ],
+     "direct": true
+    }
+   ],
+   "enumValues": [],
+   "excluded": null,
+   "status": "full",
+   "recommendation": "use-as-is",
+   "recommendationLabel": "Use reference as-is",
+   "alignmentPercent": 93,
+   "match": {
+    "reference": "Quote",
+    "source": "acord",
+    "score": 0.93,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 0.5,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "productCode",
+      "status": "match",
+      "reference": "productCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Product code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "holder",
+      "status": "similar",
+      "reference": "proposedHolder",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Party",
+      "referenceRequired": false,
+      "referenceDescription": "Prospective policy holder.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "startDate",
+      "status": "match",
+      "reference": "effectiveDate",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string(date)",
+      "referenceRequired": false,
+      "referenceDescription": "Requested start date.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "bestCandidate": {
+    "reference": "Quote",
+    "source": "acord",
+    "score": 0.93,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 0.5,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "productCode",
+      "status": "match",
+      "reference": "productCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Product code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "holder",
+      "status": "similar",
+      "reference": "proposedHolder",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Party",
+      "referenceRequired": false,
+      "referenceDescription": "Prospective policy holder.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "startDate",
+      "status": "match",
+      "reference": "effectiveDate",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string(date)",
+      "referenceRequired": false,
+      "referenceDescription": "Requested start date.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "candidates": [
+    {
+     "reference": "Quote",
+     "source": "acord",
+     "score": 0.93,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.5,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "productCode",
+       "status": "match",
+       "reference": "productCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Product code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "holder",
+       "status": "similar",
+       "reference": "proposedHolder",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Party",
+       "referenceRequired": false,
+       "referenceDescription": "Prospective policy holder.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "startDate",
+       "status": "match",
+       "reference": "effectiveDate",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string(date)",
+       "referenceRequired": false,
+       "referenceDescription": "Requested start date.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Policy",
+     "source": "baseline",
+     "score": 0.75,
+     "nameSimilarity": 0.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.3,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "productCode",
+       "status": "match",
+       "reference": "productCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Product code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "holder",
+       "status": "match",
+       "reference": "policyHolder",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Party",
+       "referenceRequired": false,
+       "referenceDescription": "Policy holder.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "startDate",
+       "status": "match",
+       "reference": "effectiveDate",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string(date)",
+       "referenceRequired": true,
+       "referenceDescription": "Start of cover.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Policy",
+     "source": "acord",
+     "score": 0.7,
+     "nameSimilarity": 0.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.38,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "productCode",
+       "status": "match",
+       "reference": "productCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Product code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "holder",
+       "status": "match",
+       "reference": "policyHolder",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Party",
+       "referenceRequired": false,
+       "referenceDescription": "Policy holder.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "startDate",
+       "status": "match",
+       "reference": "effectiveDate",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string(date)",
+       "referenceRequired": true,
+       "referenceDescription": "Start of cover.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    }
+   ],
+   "matchHow": "auto",
+   "ambiguous": false,
+   "proposedCanonicalName": "Quote",
+   "referenceSource": "acord",
+   "attributes": [
+    {
+     "name": "productCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "QuoteRequest",
+       "schemas": [
+        "QuoteRequest"
+       ],
+       "attribute": "productCode"
+      }
+     ],
+     "match": {
+      "name": "productCode",
+      "status": "match",
+      "reference": "productCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Product code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "productCode",
+     "recommendation": "map-to-reference",
+     "id": "QuoteRequest.productCode",
+     "basis": "9cbbd9d96d"
+    },
+    {
+     "name": "holder",
+     "type": "object",
+     "format": "",
+     "refEntity": "Customer",
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "QuoteRequest",
+       "schemas": [
+        "QuoteRequest"
+       ],
+       "attribute": "holder"
+      }
+     ],
+     "match": {
+      "name": "holder",
+      "status": "similar",
+      "reference": "proposedHolder",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Party",
+      "referenceRequired": false,
+      "referenceDescription": "Prospective policy holder.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "proposedHolder",
+     "recommendation": "map-to-reference",
+     "id": "QuoteRequest.holder",
+     "basis": "a8c660c91e"
+    },
+    {
+     "name": "startDate",
+     "type": "string(date)",
+     "format": "date",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "QuoteRequest",
+       "schemas": [
+        "QuoteRequest"
+       ],
+       "attribute": "startDate"
+      }
+     ],
+     "match": {
+      "name": "startDate",
+      "status": "match",
+      "reference": "effectiveDate",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string(date)",
+      "referenceRequired": false,
+      "referenceDescription": "Requested start date.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "effectiveDate",
+     "recommendation": "map-to-reference",
+     "id": "QuoteRequest.startDate",
+     "basis": "1283a4a221"
+    }
+   ],
+   "basis": "97fd273216",
+   "mergesWith": [
+    "Quote"
+   ]
+  },
+  {
+   "id": "Quote",
+   "name": "Quote",
+   "kind": "object",
+   "domain": "Quote",
+   "description": "Priced quotation.",
+   "roles": [
+    "response"
+   ],
+   "apps": [
+    "UK/quote"
+   ],
+   "members": [
+    {
+     "appId": "UK/quote",
+     "entity": "Quote",
+     "schemas": [
+      "Quote"
+     ],
+     "sourceProjects": [
+      ""
+     ]
+    }
+   ],
+   "usage": [
+    {
+     "appId": "UK/quote",
+     "operationId": "CreateQuote",
+     "roles": [
+      "response"
+     ],
+     "direct": true
+    },
+    {
+     "appId": "UK/quote",
+     "operationId": "GetQuote",
+     "roles": [
+      "response"
+     ],
+     "direct": true
+    }
+   ],
+   "enumValues": [],
+   "excluded": null,
+   "status": "full",
+   "recommendation": "use-as-is",
+   "recommendationLabel": "Use reference as-is",
+   "alignmentPercent": 87,
+   "match": {
+    "reference": "Quote",
+    "source": "acord",
+    "score": 0.874,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 0.83,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "quoteRef",
+      "status": "match",
+      "reference": "quoteIdentifier",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Quote reference.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "productCode",
+      "status": "match",
+      "reference": "productCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Product code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "premium",
+      "status": "similar",
+      "reference": "premiumAmount",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "MonetaryAmount",
+      "referenceRequired": false,
+      "referenceDescription": "Quoted premium.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "validUntil",
+      "status": "similar",
+      "reference": "expirationDate",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string(date)",
+      "referenceRequired": false,
+      "referenceDescription": "Quote valid until.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "holder",
+      "status": "similar",
+      "reference": "proposedHolder",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Party",
+      "referenceRequired": false,
+      "referenceDescription": "Prospective policy holder.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "bestCandidate": {
+    "reference": "Quote",
+    "source": "acord",
+    "score": 0.874,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 0.83,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "quoteRef",
+      "status": "match",
+      "reference": "quoteIdentifier",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Quote reference.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "productCode",
+      "status": "match",
+      "reference": "productCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Product code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "premium",
+      "status": "similar",
+      "reference": "premiumAmount",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "MonetaryAmount",
+      "referenceRequired": false,
+      "referenceDescription": "Quoted premium.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "validUntil",
+      "status": "similar",
+      "reference": "expirationDate",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string(date)",
+      "referenceRequired": false,
+      "referenceDescription": "Quote valid until.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "holder",
+      "status": "similar",
+      "reference": "proposedHolder",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Party",
+      "referenceRequired": false,
+      "referenceDescription": "Prospective policy holder.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "candidates": [
+    {
+     "reference": "Quote",
+     "source": "acord",
+     "score": 0.874,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.83,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "quoteRef",
+       "status": "match",
+       "reference": "quoteIdentifier",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Quote reference.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "productCode",
+       "status": "match",
+       "reference": "productCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Product code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "premium",
+       "status": "similar",
+       "reference": "premiumAmount",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "MonetaryAmount",
+       "referenceRequired": false,
+       "referenceDescription": "Quoted premium.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "validUntil",
+       "status": "similar",
+       "reference": "expirationDate",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string(date)",
+       "referenceRequired": false,
+       "referenceDescription": "Quote valid until.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "holder",
+       "status": "similar",
+       "reference": "proposedHolder",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Party",
+       "referenceRequired": false,
+       "referenceDescription": "Prospective policy holder.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Policy",
+     "source": "baseline",
+     "score": 0.526,
+     "nameSimilarity": 0.0,
+     "coverage": 0.8,
+     "referenceCoverage": 0.4,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "quoteRef",
+       "status": "no-match",
+       "reference": null,
+       "score": 0.0
+      },
+      {
+       "name": "productCode",
+       "status": "match",
+       "reference": "productCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Product code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "premium",
+       "status": "similar",
+       "reference": "premiumAmount",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "MonetaryAmount",
+       "referenceRequired": false,
+       "referenceDescription": "Total premium.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "validUntil",
+       "status": "similar",
+       "reference": "expirationDate",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string(date)",
+       "referenceRequired": true,
+       "referenceDescription": "End of cover.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "holder",
+       "status": "match",
+       "reference": "policyHolder",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Party",
+       "referenceRequired": false,
+       "referenceDescription": "Policy holder.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Policy",
+     "source": "acord",
+     "score": 0.476,
+     "nameSimilarity": 0.0,
+     "coverage": 0.8,
+     "referenceCoverage": 0.5,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "quoteRef",
+       "status": "no-match",
+       "reference": null,
+       "score": 0.0
+      },
+      {
+       "name": "productCode",
+       "status": "match",
+       "reference": "productCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Product code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "premium",
+       "status": "similar",
+       "reference": "premiumAmount",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "MonetaryAmount",
+       "referenceRequired": false,
+       "referenceDescription": "Total premium.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "validUntil",
+       "status": "similar",
+       "reference": "expirationDate",
+       "score": 0.7,
+       "nameSimilarity": 0.6,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string(date)",
+       "referenceRequired": true,
+       "referenceDescription": "End of cover.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "holder",
+       "status": "match",
+       "reference": "policyHolder",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Party",
+       "referenceRequired": false,
+       "referenceDescription": "Policy holder.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    }
+   ],
+   "matchHow": "auto",
+   "ambiguous": false,
+   "proposedCanonicalName": "Quote",
+   "referenceSource": "acord",
+   "attributes": [
+    {
+     "name": "quoteRef",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Quote",
+       "schemas": [
+        "Quote"
+       ],
+       "attribute": "quoteRef"
+      }
+     ],
+     "match": {
+      "name": "quoteRef",
+      "status": "match",
+      "reference": "quoteIdentifier",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Quote reference.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "quoteIdentifier",
+     "recommendation": "map-to-reference",
+     "id": "Quote.quoteRef",
+     "basis": "2794dafe5d"
+    },
+    {
+     "name": "productCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Quote",
+       "schemas": [
+        "Quote"
+       ],
+       "attribute": "productCode"
+      }
+     ],
+     "match": {
+      "name": "productCode",
+      "status": "match",
+      "reference": "productCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Product code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "productCode",
+     "recommendation": "map-to-reference",
+     "id": "Quote.productCode",
+     "basis": "9cbbd9d96d"
+    },
+    {
+     "name": "premium",
+     "type": "object",
+     "format": "",
+     "refEntity": "Money",
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Quote",
+       "schemas": [
+        "Quote"
+       ],
+       "attribute": "premium"
+      }
+     ],
+     "match": {
+      "name": "premium",
+      "status": "similar",
+      "reference": "premiumAmount",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "MonetaryAmount",
+      "referenceRequired": false,
+      "referenceDescription": "Quoted premium.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "premiumAmount",
+     "recommendation": "map-to-reference",
+     "id": "Quote.premium",
+     "basis": "b34f248c96"
+    },
+    {
+     "name": "validUntil",
+     "type": "string(date)",
+     "format": "date",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Quote",
+       "schemas": [
+        "Quote"
+       ],
+       "attribute": "validUntil"
+      }
+     ],
+     "match": {
+      "name": "validUntil",
+      "status": "similar",
+      "reference": "expirationDate",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string(date)",
+      "referenceRequired": false,
+      "referenceDescription": "Quote valid until.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "expirationDate",
+     "recommendation": "map-to-reference",
+     "id": "Quote.validUntil",
+     "basis": "9761836007"
+    },
+    {
+     "name": "holder",
+     "type": "object",
+     "format": "",
+     "refEntity": "Customer",
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Quote",
+       "schemas": [
+        "Quote"
+       ],
+       "attribute": "holder"
+      }
+     ],
+     "match": {
+      "name": "holder",
+      "status": "similar",
+      "reference": "proposedHolder",
+      "score": 0.7,
+      "nameSimilarity": 0.6,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Party",
+      "referenceRequired": false,
+      "referenceDescription": "Prospective policy holder.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "proposedHolder",
+     "recommendation": "map-to-reference",
+     "id": "Quote.holder",
+     "basis": "a8c660c91e"
+    }
+   ],
+   "basis": "2e2e710319",
+   "mergesWith": [
+    "QuoteRequest"
+   ]
+  },
+  {
+   "id": "Customer",
+   "name": "Customer",
+   "kind": "object",
+   "domain": "Quote",
+   "description": "",
+   "roles": [
+    "shared"
+   ],
+   "apps": [
+    "UK/quote"
+   ],
+   "members": [
+    {
+     "appId": "UK/quote",
+     "entity": "Customer",
+     "schemas": [
+      "Customer"
+     ],
+     "sourceProjects": [
+      ""
+     ]
+    }
+   ],
+   "usage": [
+    {
+     "appId": "UK/quote",
+     "operationId": "CreateQuote",
+     "roles": [
+      "request",
+      "response"
+     ],
+     "direct": false
+    },
+    {
+     "appId": "UK/quote",
+     "operationId": "GetQuote",
+     "roles": [
+      "response"
+     ],
+     "direct": false
+    }
+   ],
+   "enumValues": [],
+   "excluded": null,
+   "status": "full",
+   "recommendation": "use-as-is",
+   "recommendationLabel": "Reuse baseline canonical",
+   "alignmentPercent": 100,
+   "match": {
+    "reference": "Party",
+    "source": "baseline",
+    "score": 1.0,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 0.8,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "firstName",
+      "status": "match",
+      "reference": "givenName",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "First name.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "lastName",
+      "status": "match",
+      "reference": "surname",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Family name.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "email",
+      "status": "match",
+      "reference": "emailAddress",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "E-mail address.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "address",
+      "status": "match",
+      "reference": "address",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Address",
+      "referenceRequired": false,
+      "referenceDescription": "Main postal address.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "bestCandidate": {
+    "reference": "Party",
+    "source": "baseline",
+    "score": 1.0,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 0.8,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "firstName",
+      "status": "match",
+      "reference": "givenName",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "First name.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "lastName",
+      "status": "match",
+      "reference": "surname",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Family name.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "email",
+      "status": "match",
+      "reference": "emailAddress",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "E-mail address.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "address",
+      "status": "match",
+      "reference": "address",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Address",
+      "referenceRequired": false,
+      "referenceDescription": "Main postal address.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "candidates": [
+    {
+     "reference": "Party",
+     "source": "baseline",
+     "score": 1.0,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.8,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "firstName",
+       "status": "match",
+       "reference": "givenName",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "First name.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "lastName",
+       "status": "match",
+       "reference": "surname",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "Family name.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "email",
+       "status": "match",
+       "reference": "emailAddress",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "E-mail address.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "address",
+       "status": "match",
+       "reference": "address",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Address",
+       "referenceRequired": false,
+       "referenceDescription": "Main postal address.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Party",
+     "source": "acord",
+     "score": 1.0,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.67,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "firstName",
+       "status": "match",
+       "reference": "givenName",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "First name.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "lastName",
+       "status": "match",
+       "reference": "surname",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "Family name.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "email",
+       "status": "match",
+       "reference": "emailAddress",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "E-mail address.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "address",
+       "status": "match",
+       "reference": "address",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Address",
+       "referenceRequired": false,
+       "referenceDescription": "Main postal address.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "ClaimParty",
+     "source": "baseline",
+     "score": 0.75,
+     "nameSimilarity": 0.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.67,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "firstName",
+       "status": "match",
+       "reference": "givenName",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "First name.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "lastName",
+       "status": "match",
+       "reference": "surname",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "Family name.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "email",
+       "status": "match",
+       "reference": "emailAddress",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "E-mail address.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "address",
+       "status": "match",
+       "reference": "address",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "Address",
+       "referenceRequired": false,
+       "referenceDescription": "Postal address.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    }
+   ],
+   "matchHow": "auto",
+   "ambiguous": false,
+   "proposedCanonicalName": "Party",
+   "referenceSource": "baseline",
+   "attributes": [
+    {
+     "name": "firstName",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Customer",
+       "schemas": [
+        "Customer"
+       ],
+       "attribute": "firstName"
+      }
+     ],
+     "match": {
+      "name": "firstName",
+      "status": "match",
+      "reference": "givenName",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "First name.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "givenName",
+     "recommendation": "map-to-reference",
+     "id": "Customer.firstName",
+     "basis": "0ae823e746"
+    },
+    {
+     "name": "lastName",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Customer",
+       "schemas": [
+        "Customer"
+       ],
+       "attribute": "lastName"
+      }
+     ],
+     "match": {
+      "name": "lastName",
+      "status": "match",
+      "reference": "surname",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Family name.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "surname",
+     "recommendation": "map-to-reference",
+     "id": "Customer.lastName",
+     "basis": "7a9e4607e9"
+    },
+    {
+     "name": "email",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Customer",
+       "schemas": [
+        "Customer"
+       ],
+       "attribute": "email"
+      }
+     ],
+     "match": {
+      "name": "email",
+      "status": "match",
+      "reference": "emailAddress",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "E-mail address.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "emailAddress",
+     "recommendation": "map-to-reference",
+     "id": "Customer.email",
+     "basis": "d24092a6ee"
+    },
+    {
+     "name": "address",
+     "type": "object",
+     "format": "",
+     "refEntity": "Address",
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Customer",
+       "schemas": [
+        "Customer"
+       ],
+       "attribute": "address"
+      }
+     ],
+     "match": {
+      "name": "address",
+      "status": "match",
+      "reference": "address",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "Address",
+      "referenceRequired": false,
+      "referenceDescription": "Main postal address.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "address",
+     "recommendation": "map-to-reference",
+     "id": "Customer.address",
+     "basis": "5fad2e4470"
+    }
+   ],
+   "basis": "5cd8d63973",
+   "mergesWith": []
+  },
+  {
+   "id": "Address",
+   "name": "Address",
+   "kind": "object",
+   "domain": "Quote",
+   "description": "",
+   "roles": [
+    "shared"
+   ],
+   "apps": [
+    "UK/quote"
+   ],
+   "members": [
+    {
+     "appId": "UK/quote",
+     "entity": "Address",
+     "schemas": [
+      "Address"
+     ],
+     "sourceProjects": [
+      ""
+     ]
+    }
+   ],
+   "usage": [
+    {
+     "appId": "UK/quote",
+     "operationId": "CreateQuote",
+     "roles": [
+      "request",
+      "response"
+     ],
+     "direct": false
+    },
+    {
+     "appId": "UK/quote",
+     "operationId": "GetQuote",
+     "roles": [
+      "response"
+     ],
+     "direct": false
+    }
+   ],
+   "enumValues": [],
+   "excluded": null,
+   "status": "full",
+   "recommendation": "use-as-is",
+   "recommendationLabel": "Reuse baseline canonical",
+   "alignmentPercent": 100,
+   "match": {
+    "reference": "Address",
+    "source": "baseline",
+    "score": 1.0,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 1.0,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "line1",
+      "status": "match",
+      "reference": "addressLine1",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "First address line.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "line2",
+      "status": "match",
+      "reference": "addressLine2",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Second address line.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "city",
+      "status": "match",
+      "reference": "city",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "City or town.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "postCode",
+      "status": "match",
+      "reference": "postalCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Postal / ZIP code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "country",
+      "status": "match",
+      "reference": "countryCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "ISO 3166 country code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "bestCandidate": {
+    "reference": "Address",
+    "source": "baseline",
+    "score": 1.0,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 1.0,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "line1",
+      "status": "match",
+      "reference": "addressLine1",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "First address line.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "line2",
+      "status": "match",
+      "reference": "addressLine2",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Second address line.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "city",
+      "status": "match",
+      "reference": "city",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "City or town.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "postCode",
+      "status": "match",
+      "reference": "postalCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Postal / ZIP code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "country",
+      "status": "match",
+      "reference": "countryCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "ISO 3166 country code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "candidates": [
+    {
+     "reference": "Address",
+     "source": "baseline",
+     "score": 1.0,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 1.0,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "line1",
+       "status": "match",
+       "reference": "addressLine1",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "First address line.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "line2",
+       "status": "match",
+       "reference": "addressLine2",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "Second address line.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "city",
+       "status": "match",
+       "reference": "city",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "City or town.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "postCode",
+       "status": "match",
+       "reference": "postalCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "Postal / ZIP code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "country",
+       "status": "match",
+       "reference": "countryCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "ISO 3166 country code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Address",
+     "source": "acord",
+     "score": 1.0,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.83,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "line1",
+       "status": "match",
+       "reference": "addressLine1",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "First address line.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "line2",
+       "status": "match",
+       "reference": "addressLine2",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "Second address line.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "city",
+       "status": "match",
+       "reference": "city",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "City or town.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "postCode",
+       "status": "match",
+       "reference": "postalCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": false,
+       "referenceDescription": "Postal / ZIP code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "country",
+       "status": "match",
+       "reference": "countryCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "ISO 3166 country code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    }
+   ],
+   "matchHow": "auto",
+   "ambiguous": false,
+   "proposedCanonicalName": "Address",
+   "referenceSource": "baseline",
+   "attributes": [
+    {
+     "name": "line1",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Address",
+       "schemas": [
+        "Address"
+       ],
+       "attribute": "line1"
+      }
+     ],
+     "match": {
+      "name": "line1",
+      "status": "match",
+      "reference": "addressLine1",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "First address line.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "addressLine1",
+     "recommendation": "map-to-reference",
+     "id": "Address.line1",
+     "basis": "f2e7866a75"
+    },
+    {
+     "name": "line2",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Address",
+       "schemas": [
+        "Address"
+       ],
+       "attribute": "line2"
+      }
+     ],
+     "match": {
+      "name": "line2",
+      "status": "match",
+      "reference": "addressLine2",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Second address line.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "addressLine2",
+     "recommendation": "map-to-reference",
+     "id": "Address.line2",
+     "basis": "35d09fde69"
+    },
+    {
+     "name": "city",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Address",
+       "schemas": [
+        "Address"
+       ],
+       "attribute": "city"
+      }
+     ],
+     "match": {
+      "name": "city",
+      "status": "match",
+      "reference": "city",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "City or town.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "city",
+     "recommendation": "map-to-reference",
+     "id": "Address.city",
+     "basis": "9e8fda8210"
+    },
+    {
+     "name": "postCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Address",
+       "schemas": [
+        "Address"
+       ],
+       "attribute": "postCode"
+      }
+     ],
+     "match": {
+      "name": "postCode",
+      "status": "match",
+      "reference": "postalCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": false,
+      "referenceDescription": "Postal / ZIP code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "postalCode",
+     "recommendation": "map-to-reference",
+     "id": "Address.postCode",
+     "basis": "70bf1c5a7c"
+    },
+    {
+     "name": "country",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Address",
+       "schemas": [
+        "Address"
+       ],
+       "attribute": "country"
+      }
+     ],
+     "match": {
+      "name": "country",
+      "status": "match",
+      "reference": "countryCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "ISO 3166 country code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "countryCode",
+     "recommendation": "map-to-reference",
+     "id": "Address.country",
+     "basis": "30954383c4"
+    }
+   ],
+   "basis": "6dfe3054d7",
+   "mergesWith": []
+  },
+  {
+   "id": "Money",
+   "name": "Money",
+   "kind": "object",
+   "domain": "Quote",
+   "description": "",
+   "roles": [
+    "response"
+   ],
+   "apps": [
+    "UK/quote"
+   ],
+   "members": [
+    {
+     "appId": "UK/quote",
+     "entity": "Money",
+     "schemas": [
+      "Money"
+     ],
+     "sourceProjects": [
+      ""
+     ]
+    }
+   ],
+   "usage": [
+    {
+     "appId": "UK/quote",
+     "operationId": "CreateQuote",
+     "roles": [
+      "response"
+     ],
+     "direct": false
+    },
+    {
+     "appId": "UK/quote",
+     "operationId": "GetQuote",
+     "roles": [
+      "response"
+     ],
+     "direct": false
+    }
+   ],
+   "enumValues": [],
+   "excluded": null,
+   "status": "full",
+   "recommendation": "use-as-is",
+   "recommendationLabel": "Reuse baseline canonical",
+   "alignmentPercent": 100,
+   "match": {
+    "reference": "MonetaryAmount",
+    "source": "baseline",
+    "score": 1.0,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 1.0,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "amount",
+      "status": "match",
+      "reference": "amount",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "number(double)",
+      "referenceRequired": true,
+      "referenceDescription": "Numeric value.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "currency",
+      "status": "match",
+      "reference": "currencyCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "ISO 4217 currency code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "bestCandidate": {
+    "reference": "MonetaryAmount",
+    "source": "baseline",
+    "score": 1.0,
+    "nameSimilarity": 1.0,
+    "coverage": 1.0,
+    "referenceCoverage": 1.0,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "amount",
+      "status": "match",
+      "reference": "amount",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "number(double)",
+      "referenceRequired": true,
+      "referenceDescription": "Numeric value.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     {
+      "name": "currency",
+      "status": "match",
+      "reference": "currencyCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "ISO 4217 currency code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "candidates": [
+    {
+     "reference": "MonetaryAmount",
+     "source": "baseline",
+     "score": 1.0,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 1.0,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "amount",
+       "status": "match",
+       "reference": "amount",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "number(double)",
+       "referenceRequired": true,
+       "referenceDescription": "Numeric value.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "currency",
+       "status": "match",
+       "reference": "currencyCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "ISO 4217 currency code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "MonetaryAmount",
+     "source": "acord",
+     "score": 1.0,
+     "nameSimilarity": 1.0,
+     "coverage": 1.0,
+     "referenceCoverage": 1.0,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "amount",
+       "status": "match",
+       "reference": "amount",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "number(double)",
+       "referenceRequired": true,
+       "referenceDescription": "Numeric value.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      },
+      {
+       "name": "currency",
+       "status": "match",
+       "reference": "currencyCode",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "ISO 4217 currency code.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    }
+   ],
+   "matchHow": "auto",
+   "ambiguous": false,
+   "proposedCanonicalName": "MonetaryAmount",
+   "referenceSource": "baseline",
+   "attributes": [
+    {
+     "name": "amount",
+     "type": "number",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Money",
+       "schemas": [
+        "Money"
+       ],
+       "attribute": "amount"
+      }
+     ],
+     "match": {
+      "name": "amount",
+      "status": "match",
+      "reference": "amount",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "number(double)",
+      "referenceRequired": true,
+      "referenceDescription": "Numeric value.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "amount",
+     "recommendation": "map-to-reference",
+     "id": "Money.amount",
+     "basis": "62bc1424c6"
+    },
+    {
+     "name": "currency",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "Money",
+       "schemas": [
+        "Money"
+       ],
+       "attribute": "currency"
+      }
+     ],
+     "match": {
+      "name": "currency",
+      "status": "match",
+      "reference": "currencyCode",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "ISO 4217 currency code.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "currencyCode",
+     "recommendation": "map-to-reference",
+     "id": "Money.currency",
+     "basis": "52b539cb0e"
+    }
+   ],
+   "basis": "b0653dc898",
+   "mergesWith": []
+  },
+  {
+   "id": "PolicyRef",
+   "name": "PolicyRef",
+   "kind": "object",
+   "domain": "Quote",
+   "description": "",
+   "roles": [
+    "response"
+   ],
+   "apps": [
+    "UK/quote"
+   ],
+   "members": [
+    {
+     "appId": "UK/quote",
+     "entity": "PolicyRef",
+     "schemas": [
+      "PolicyRef"
+     ],
+     "sourceProjects": [
+      ""
+     ]
+    }
+   ],
+   "usage": [
+    {
+     "appId": "UK/quote",
+     "operationId": "BindQuote",
+     "roles": [
+      "response"
+     ],
+     "direct": true
+    }
+   ],
+   "enumValues": [],
+   "excluded": null,
+   "status": "full",
+   "recommendation": "use-as-is",
+   "recommendationLabel": "Reuse baseline canonical",
+   "alignmentPercent": 99,
+   "match": {
+    "reference": "Policy",
+    "source": "baseline",
+    "score": 0.99,
+    "nameSimilarity": 0.8,
+    "coverage": 1.0,
+    "referenceCoverage": 0.1,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "policyNumber",
+      "status": "match",
+      "reference": "policyNumber",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Policy number.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "bestCandidate": {
+    "reference": "Policy",
+    "source": "baseline",
+    "score": 0.99,
+    "nameSimilarity": 0.8,
+    "coverage": 1.0,
+    "referenceCoverage": 0.1,
+    "typeConflicts": 0,
+    "attributes": [
+     {
+      "name": "policyNumber",
+      "status": "match",
+      "reference": "policyNumber",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Policy number.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     }
+    ]
+   },
+   "candidates": [
+    {
+     "reference": "Policy",
+     "source": "baseline",
+     "score": 0.99,
+     "nameSimilarity": 0.8,
+     "coverage": 1.0,
+     "referenceCoverage": 0.1,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "policyNumber",
+       "status": "match",
+       "reference": "policyNumber",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Policy number.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Policy",
+     "source": "acord",
+     "score": 0.94,
+     "nameSimilarity": 0.8,
+     "coverage": 1.0,
+     "referenceCoverage": 0.12,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "policyNumber",
+       "status": "match",
+       "reference": "policyNumber",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Policy number.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    },
+    {
+     "reference": "Claim",
+     "source": "baseline",
+     "score": 0.75,
+     "nameSimilarity": 0.0,
+     "coverage": 1.0,
+     "referenceCoverage": 0.08,
+     "typeConflicts": 0,
+     "attributes": [
+      {
+       "name": "policyNumber",
+       "status": "match",
+       "reference": "claimNumber",
+       "score": 1.0,
+       "nameSimilarity": 1.0,
+       "typeCompatibility": 1.0,
+       "how": "auto",
+       "referenceType": "string",
+       "referenceRequired": true,
+       "referenceDescription": "Business claim number.",
+       "referenceInherited": false,
+       "referenceCodeValues": []
+      }
+     ]
+    }
+   ],
+   "matchHow": "auto",
+   "ambiguous": false,
+   "proposedCanonicalName": "Policy",
+   "referenceSource": "baseline",
+   "attributes": [
+    {
+     "name": "policyNumber",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "nullable": false,
+     "description": "",
+     "enum": null,
+     "sources": [
+      {
+       "appId": "UK/quote",
+       "entity": "PolicyRef",
+       "schemas": [
+        "PolicyRef"
+       ],
+       "attribute": "policyNumber"
+      }
+     ],
+     "match": {
+      "name": "policyNumber",
+      "status": "match",
+      "reference": "policyNumber",
+      "score": 1.0,
+      "nameSimilarity": 1.0,
+      "typeCompatibility": 1.0,
+      "how": "auto",
+      "referenceType": "string",
+      "referenceRequired": true,
+      "referenceDescription": "Policy number.",
+      "referenceInherited": false,
+      "referenceCodeValues": []
+     },
+     "proposedCanonicalName": "policyNumber",
+     "recommendation": "map-to-reference",
+     "id": "PolicyRef.policyNumber",
+     "basis": "fb90b03174"
+    }
+   ],
+   "basis": "27114521f0",
+   "mergesWith": []
+  }
+ ],
+ "endpoints": [
+  {
+   "id": "UK/quote:CreateQuote",
+   "appId": "UK/quote",
+   "operationId": "CreateQuote",
+   "method": "POST",
+   "path": "/quotes",
+   "domain": "Quote",
+   "capability": "Create Quote",
+   "summary": "",
+   "entities": [
+    "Quote",
+    "QuoteRequest"
+   ],
+   "alignmentPercent": 90,
+   "status": "full",
+   "proposedPath": "/quotes",
+   "request": {
+    "contentType": "application/json",
+    "schema": "QuoteRequest",
+    "type": "QuoteRequest",
+    "isArray": false
+   },
+   "responses": {
+    "201": {
+     "contentType": "application/json",
+     "schema": "Quote",
+     "type": "Quote",
+     "isArray": false
+    }
+   },
+   "parameters": [],
+   "security": [],
+   "basis": "17a74bf1cf"
+  },
+  {
+   "id": "UK/quote:GetQuote",
+   "appId": "UK/quote",
+   "operationId": "GetQuote",
+   "method": "GET",
+   "path": "/quotes/{quoteRef}",
+   "domain": "Quote",
+   "capability": "Get Quote",
+   "summary": "",
+   "entities": [
+    "Quote"
+   ],
+   "alignmentPercent": 87,
+   "status": "partial",
+   "proposedPath": "/quotes/{quoteRef}",
+   "request": null,
+   "responses": {
+    "200": {
+     "contentType": "application/json",
+     "schema": "Quote",
+     "type": "Quote",
+     "isArray": false
+    }
+   },
+   "parameters": [
+    {
+     "name": "quoteRef",
+     "in": "path",
+     "required": true,
+     "type": "string",
+     "format": "",
+     "schema": null,
+     "isArray": false
+    }
+   ],
+   "security": [],
+   "basis": "55fb35ad66"
+  },
+  {
+   "id": "UK/quote:BindQuote",
+   "appId": "UK/quote",
+   "operationId": "BindQuote",
+   "method": "POST",
+   "path": "/quotes/{quoteRef}/bind",
+   "domain": "Quote",
+   "capability": "Bind Quote",
+   "summary": "",
+   "entities": [
+    "PolicyRef"
+   ],
+   "alignmentPercent": 99,
+   "status": "full",
+   "proposedPath": "/quotes/{quoteRef}/bind",
+   "request": null,
+   "responses": {
+    "200": {
+     "contentType": "application/json",
+     "schema": "PolicyRef",
+     "type": "PolicyRef",
+     "isArray": false
+    }
+   },
+   "parameters": [
+    {
+     "name": "quoteRef",
+     "in": "path",
+     "required": true,
+     "type": "string",
+     "format": "",
+     "schema": null,
+     "isArray": false
+    }
+   ],
+   "security": [],
+   "basis": "20615be6b4"
+  }
+ ],
+ "domains": [
+  {
+   "name": "Quote",
+   "entities": 6,
+   "full": 6,
+   "partial": 0,
+   "none": 0,
+   "alignmentPercent": 96,
+   "referenceSubjectAreas": [
+    "Claims",
+    "Quote",
+    "Policy"
+   ],
+   "endpoints": 3,
+   "endpointAlignmentPercent": 92
+  }
+ ],
+ "apps": [
+  {
+   "name": "UK/quote",
+   "entities": 6,
+   "full": 6,
+   "partial": 0,
+   "none": 0,
+   "alignmentPercent": 96,
+   "referenceSubjectAreas": [
+    "Claims",
+    "Quote",
+    "Policy"
+   ]
+  }
+ ],
+ "summary": {
+  "entities": 6,
+  "full": 6,
+  "partial": 0,
+  "none": 0,
+  "ambiguous": 0,
+  "attributes": 20,
+  "attributesMatched": 20,
+  "typeConflicts": 0,
+  "endpoints": 3,
+  "alignmentPercent": 96,
+  "review": {
+   "entity_approved": 6,
+   "endpoint_default": 3
+  }
+ },
+ "review": {
+  "counts": {
+   "entity_approved": 6,
+   "endpoint_default": 3
+  },
+  "state": {
+   "entities": {
+    "QuoteRequest": {
+     "decision": "approve",
+     "basis": "97fd273216",
+     "reviewer": "Priya (UK architect)",
+     "at": "2026-10-08T17:35:44+00:00",
+     "file": "review-decisions.json",
+     "state": "approved"
+    },
+    "Quote": {
+     "decision": "approve",
+     "basis": "2e2e710319",
+     "reviewer": "Priya (UK architect)",
+     "at": "2026-10-08T17:35:44+00:00",
+     "file": "review-decisions.json",
+     "state": "approved"
+    },
+    "Customer": {
+     "decision": "approve",
+     "basis": "5cd8d63973",
+     "reviewer": "Priya (UK architect)",
+     "at": "2026-10-08T17:35:44+00:00",
+     "file": "review-decisions.json",
+     "state": "approved"
+    },
+    "Address": {
+     "decision": "approve",
+     "basis": "6dfe3054d7",
+     "reviewer": "Priya (UK architect)",
+     "at": "2026-10-08T17:35:44+00:00",
+     "file": "review-decisions.json",
+     "state": "approved"
+    },
+    "Money": {
+     "decision": "approve",
+     "basis": "b0653dc898",
+     "reviewer": "Priya (UK architect)",
+     "at": "2026-10-08T17:35:44+00:00",
+     "file": "review-decisions.json",
+     "state": "approved"
+    },
+    "PolicyRef": {
+     "decision": "approve",
+     "basis": "27114521f0",
+     "reviewer": "Priya (UK architect)",
+     "at": "2026-10-08T17:35:44+00:00",
+     "file": "review-decisions.json",
+     "state": "approved"
+    }
+   },
+   "attributes": {
+    "QuoteRequest.productCode": {
+     "state": "default"
+    },
+    "QuoteRequest.holder": {
+     "state": "default"
+    },
+    "QuoteRequest.startDate": {
+     "state": "default"
+    },
+    "Quote.quoteRef": {
+     "state": "default"
+    },
+    "Quote.productCode": {
+     "state": "default"
+    },
+    "Quote.premium": {
+     "state": "default"
+    },
+    "Quote.validUntil": {
+     "state": "default"
+    },
+    "Quote.holder": {
+     "state": "default"
+    },
+    "Customer.firstName": {
+     "state": "default"
+    },
+    "Customer.lastName": {
+     "state": "default"
+    },
+    "Customer.email": {
+     "state": "default"
+    },
+    "Customer.address": {
+     "state": "default"
+    },
+    "Address.line1": {
+     "state": "default"
+    },
+    "Address.line2": {
+     "state": "default"
+    },
+    "Address.city": {
+     "state": "default"
+    },
+    "Address.postCode": {
+     "state": "default"
+    },
+    "Address.country": {
+     "state": "default"
+    },
+    "Money.amount": {
+     "state": "default"
+    },
+    "Money.currency": {
+     "state": "default"
+    },
+    "PolicyRef.policyNumber": {
+     "state": "default"
+    }
+   },
+   "endpoints": {
+    "UK/quote:CreateQuote": {
+     "state": "default"
+    },
+    "UK/quote:GetQuote": {
+     "state": "default"
+    },
+    "UK/quote:BindQuote": {
+     "state": "default"
+    }
+   }
+  },
+  "staleKeys": []
+ },
+ "appEntityToRegional": {
+  "UK/quote:QuoteRequest": "QuoteRequest",
+  "UK/quote:Quote": "Quote",
+  "UK/quote:Customer": "Customer",
+  "UK/quote:Address": "Address",
+  "UK/quote:Money": "Money",
+  "UK/quote:PolicyRef": "PolicyRef"
+ },
+ "references": [
+  {
+   "name": "EU canonical",
+   "source": "baseline",
+   "version": "1.0.0",
+   "entities": 11,
+   "sourceFile": ""
+  },
+  {
+   "name": "SAMPLE (not ACORD)",
+   "source": "acord",
+   "version": "0.1",
+   "entities": 11,
+   "sourceFile": "reference-sample.xlsx"
+  }
+ ],
+ "meta": {
+  "generatedAt": "2026-10-08T17:35:44+00:00",
+  "region": "UK",
+  "scope": {
+   "region": "UK",
+   "appIds": [
+    "UK/quote"
+   ],
+   "apps": [],
+   "domains": [],
+   "entities": [],
+   "slice": "all"
+  },
+  "regionalViewData": "../../regional-view/regional-view-data.json",
+  "baseline": "../../canonical/EU/releases/1.0.0/canonical-model.json",
+  "thresholds": {},
+  "overridesFile": null,
+  "approvalsFile": "approvals.yaml"
+ },
+ "overrides": {}
+}

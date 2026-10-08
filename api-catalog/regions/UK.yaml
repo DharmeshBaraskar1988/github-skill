@@ -1,0 +1,9 @@
+# Region config for UK - built on the released EU canonical model
+region: UK
+maxIterations: 5
+regionalViewData: ../regional-view/regional-view-data.json
+reference: {json: ../reference/acord.reference.json, name: ACORD, version: ""}
+baseline: ../canonical/EU/releases/1.0.0/canonical-model.json   # approved EU baseline (immutable release)
+synonyms: ../reference/synonyms.yaml
+alignment: {outputDir: ../alignment/UK}
+canonical: {outputDir: ../canonical/UK, version: 1.0.0, title: UK Canonical Insurance API}

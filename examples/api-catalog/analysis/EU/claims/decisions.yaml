@@ -1,0 +1,20 @@
+# Agent-maintained analysis decisions. Each entry carries a note with the evidence checked.
+domainAssignments:
+  GetFnolStatus:
+    domain: Claims
+    capability: Register Claim
+    note: Status lookup of a FNOL submission is part of the register-claim journey (FnolFunctions.GetStatus)
+  GetClaimsClaimants:
+    domain: Claims
+    capability: Manage Claimants
+    note: Lists claimants of a claim - catalogue capability Manage Claimants
+duplicates:
+  - members: [ClaimantDto, PolicyHolderInfo]
+    decision: keep-separate
+    note: PolicyHolderInfo is the FNOL reporter (may not be a claimant); ClaimantDto has ClaimantId/PolicyHolderId identity
+descriptions:
+  ApprovalRequest: Approval of a claim with the agreed settlement amount.
+  ClaimDocument: Document (photo, invoice, report) attached to a claim.
+  CreateClaimRequest: Data needed to register a new claim.
+  FnolReceipt: Acknowledgement returned when a FNOL is accepted.
+  UpdateClaimRequest: Changes to an existing claim.

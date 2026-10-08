@@ -1,0 +1,13 @@
+# Region config for EU - see .github/skills/acord-alignment/templates/region.config.template.yaml for every option
+region: EU
+maxIterations: 5
+regionalViewData: ../regional-view/regional-view-data.json
+reference:
+  source: ../reference/acord                  # <- your licensed ACORD model: a file or this folder (xlsx / xsd / yaml / json)
+  name: ACORD
+  version: ""                                 # <- the ACORD release you are licensed for
+  json: ../reference/acord.reference.json
+baseline: null                                # EU is the first region: no baseline
+synonyms: ../reference/synonyms.yaml
+alignment: {outputDir: ../alignment/EU}
+canonical: {outputDir: ../canonical/EU, version: 1.0.0, title: EU Canonical Insurance API}

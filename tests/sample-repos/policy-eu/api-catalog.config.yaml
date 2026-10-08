@@ -1,0 +1,9 @@
+catalogRoot: ../../output/api-catalog
+region: EU
+application: policy
+sourceRoots: [src]
+discovery:
+  outputDir: ../../output/api-catalog/discovery/EU/policy
+analysis:
+  outputDir: ../../output/api-catalog/analysis/EU/policy
+  domainsJson: ../../output/api-catalog/domains.json

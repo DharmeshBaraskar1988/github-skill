@@ -1,0 +1,18 @@
+{
+  "skill": "canonical-model/global",
+  "status": "pass",
+  "iteration": 0,
+  "summary": {
+    "regions": 2,
+    "entities": 12,
+    "acordEntities": 11,
+    "customEntities": 1,
+    "attributes": 58,
+    "endpoints": 18,
+    "sharedByAllRegions": 11,
+    "conflicts": 0,
+    "lineageRows": 100
+  },
+  "errors": [],
+  "warnings": []
+}

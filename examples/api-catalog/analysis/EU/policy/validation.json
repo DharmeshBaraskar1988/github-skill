@@ -1,0 +1,34 @@
+{
+  "skill": "api-analysis",
+  "status": "pass",
+  "iteration": 0,
+  "region": "EU",
+  "application": "policy",
+  "counts": {
+    "operations": 5,
+    "unclassifiedOperations": 0,
+    "lowConfidenceOperations": 0,
+    "capabilities": 5,
+    "proposedCapabilities": 1,
+    "schemas": 9,
+    "entities": 8,
+    "relations": 9,
+    "duplicateGroups": 0,
+    "undecidedDuplicateGroups": 0,
+    "schemasMerged": 0,
+    "schemasRenamed": 0
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "A05",
+      "message": "1 capabilities are not in the catalogue: Policy: Get Policyholder",
+      "fix": "Map to an existing capability via decisions.yaml domainAssignments.capability, or add them to the Excel"
+    },
+    {
+      "code": "A11",
+      "message": "5 entities and 31 attributes lack descriptions (entities: Address, Coverage, IssuePolicyRequest, Money, PolicyStatus)",
+      "fix": "Write business descriptions in decisions.yaml descriptions: {Entity: ..., Entity.attribute: ...}"
+    }
+  ]
+}

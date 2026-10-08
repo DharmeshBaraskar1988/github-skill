@@ -1,0 +1,5 @@
+entityMatches:
+  PolicyHolderInfo:
+    reference: Party
+    source: acord
+    note: FNOL reporter (FnolFunctions.cs PolicyHolderInfo) is any person reporting the loss, not necessarily a claim party; Party is the generic person entity

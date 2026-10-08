@@ -1,0 +1,75 @@
+# Deterministic re-run of the whole catalogue on every change: rebuilds every stage from source +
+# overrides/decisions and fails the build if any validator fails. This is the enforcement that also
+# covers VS Code / Visual Studio users, where repository hooks may not run.
+name: api-catalog
+on:
+  pull_request:
+    paths: ["api-catalog/**", ".github/skills/**", "src/**"]
+  # Regions are processed in file-name order; name them so baselines come first (e.g. 01-EU.yaml, 02-UK.yaml)
+  # or keep the baseline pointing at a release folder (immutable), as in the template.
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -r .github/skills/requirements.txt
+      - name: Discovery + analysis per application
+        shell: bash
+        run: |
+          set -euo pipefail
+          D=.github/skills/api-discovery/scripts; A=.github/skills/api-analysis/scripts
+          shopt -s nullglob
+          configs=(api-catalog/configs/*.yaml api-catalog.config.yaml)
+          for cfg in "${configs[@]}"; do
+            [ -f "$cfg" ] || continue
+            echo "::group::$cfg"
+            out=$(python -c "import yaml,sys,pathlib;c=yaml.safe_load(open('$cfg'));b=pathlib.Path('$cfg').parent;print(b/c['discovery']['outputDir'], b/c['analysis']['outputDir'], b/c['analysis']['domainsJson'], b/c['analysis'].get('domainsXlsx','api-catalog/domains.xlsx'))")
+            read disc ana dom xlsx <<< "$out"
+            python $D/scan_dotnet.py --config "$cfg"
+            python $D/build_openapi.py --config "$cfg"
+            python $D/validate_discovery.py --dir "$disc" --config "$cfg"
+            [ -f "$xlsx" ] && python $A/load_domains.py --xlsx "$xlsx" --out "$dom"
+            python $A/analyze.py --config "$cfg"
+            python $A/validate_analysis.py --dir "$ana" --spec "$disc/openapi.yaml" --domains "$dom" --config "$cfg"
+            echo "::endgroup::"
+          done
+      - name: Regional view
+        run: |
+          python .github/skills/regional-view/scripts/build_regional_view.py --input api-catalog --domains api-catalog/domains.json --out api-catalog/regional-view
+          python .github/skills/regional-view/scripts/validate_regional_view.py --out api-catalog/regional-view
+      - name: ACORD alignment + canonical model per region
+        shell: bash
+        run: |
+          set -euo pipefail
+          AL=.github/skills/acord-alignment/scripts; CA=.github/skills/canonical-model/scripts
+          shopt -s nullglob
+          for rc in api-catalog/regions/*.yaml; do
+            echo "::group::$rc"
+            python $AL/align.py --config "$rc"
+            out=$(python -c "import yaml,pathlib;c=yaml.safe_load(open('$rc'));b=pathlib.Path('$rc').parent;print(b/(c.get('alignment') or {}).get('outputDir','../alignment/'+c['region']))")
+            python $AL/validate_alignment.py --dir "$out"
+            if [ -f "$out/approvals.yaml" ]; then
+              python $CA/build_canonical.py --config "$rc"
+              python $CA/validate_canonical.py --config "$rc"   # fails while reviews are pending (unless allowPending)
+            else
+              echo "::notice::$rc not reviewed yet - canonical model skipped"
+            fi
+            echo "::endgroup::"
+          done
+      - name: Global canonical model
+        shell: bash
+        run: |
+          if ls api-catalog/canonical/*/releases/*/canonical-model.json >/dev/null 2>&1; then
+            python .github/skills/canonical-model/scripts/merge_global.py --catalog api-catalog
+            python .github/skills/canonical-model/scripts/validate_global.py --catalog api-catalog
+          else
+            echo "::notice::no released region yet - global canonical skipped"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-catalog
+          path: api-catalog/

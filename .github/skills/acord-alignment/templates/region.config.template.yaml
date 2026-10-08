@@ -1,0 +1,28 @@
+# api-catalog/regions/<REGION>.yaml - one per region. Paths are relative to this file.
+region: EU
+maxIterations: 5
+regionalViewData: ../regional-view/regional-view-data.json   # from the regional-view skill
+
+reference:                       # ACORD export, normalised by load_reference.py
+  source: ../reference/acord-export.xlsx      # your licensed ACORD model (xlsx / xsd / json)
+  name: ACORD
+  version: ""                                   # e.g. the ACORD model release you are licensed for
+  json: ../reference/acord.reference.json
+baseline: null                   # approved canonical of another region, e.g. ../canonical/EU/canonical-model.json for UK
+synonyms: ../reference/synonyms.yaml
+
+alignment:
+  outputDir: ../alignment/EU     # slices (--apps claims) go to ../alignment/EU/claims
+  scope: {apps: [], domains: [], entities: []}   # empty = whole region
+  fullMatchThreshold: 0.8        # + all our attributes matched + no type conflicts = "full"
+  partialMatchThreshold: 0.45
+  ambiguityMargin: 0.05
+  baselinePreference: 0.05       # bonus for baseline candidates over ACORD ones
+
+canonical:
+  outputDir: ../canonical/EU
+  version: 1.0.0
+  title: EU Canonical Insurance API
+  allowPending: false            # true -> pending items are left out (listed) instead of failing
+  endpointApproval: implicit     # implicit: endpoints are in unless excluded; explicit: each needs "include"
+  includeUnmatchedReferenceAttributes: false   # use-as-is: also add reference attributes we do not use

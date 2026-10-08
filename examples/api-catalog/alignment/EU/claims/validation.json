@@ -1,0 +1,28 @@
+{
+  "skill": "acord-alignment",
+  "status": "pass",
+  "iteration": 0,
+  "region": "EU",
+  "slice": "claims",
+  "summary": {
+    "entities": 12,
+    "full": 4,
+    "partial": 6,
+    "none": 2,
+    "ambiguous": 0,
+    "attributes": 49,
+    "attributesMatched": 38,
+    "typeConflicts": 0,
+    "endpoints": 12,
+    "alignmentPercent": 70,
+    "review": {
+      "entity_pending": 12,
+      "endpoint_default": 12
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "info": [
+    "review: {'entity_pending': 12, 'endpoint_default': 12}"
+  ]
+}

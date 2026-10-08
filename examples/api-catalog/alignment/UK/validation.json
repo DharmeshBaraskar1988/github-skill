@@ -1,0 +1,28 @@
+{
+  "skill": "acord-alignment",
+  "status": "pass",
+  "iteration": 0,
+  "region": "UK",
+  "slice": "all",
+  "summary": {
+    "entities": 6,
+    "full": 6,
+    "partial": 0,
+    "none": 0,
+    "ambiguous": 0,
+    "attributes": 20,
+    "attributesMatched": 20,
+    "typeConflicts": 0,
+    "endpoints": 3,
+    "alignmentPercent": 96,
+    "review": {
+      "entity_pending": 6,
+      "endpoint_default": 3
+    }
+  },
+  "errors": [],
+  "warnings": [],
+  "info": [
+    "review: {'entity_pending': 6, 'endpoint_default': 3}"
+  ]
+}

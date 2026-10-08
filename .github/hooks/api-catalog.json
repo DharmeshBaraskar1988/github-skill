@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "python3 .github/hooks/scripts/guard_tools.py",
+        "powershell": "python .github/hooks/scripts/guard_tools.py",
+        "timeoutSec": 10
+      }
+    ],
+    "agentStop": [
+      {
+        "type": "command",
+        "bash": "python3 .github/hooks/scripts/stop_gate.py",
+        "powershell": "python .github/hooks/scripts/stop_gate.py",
+        "timeoutSec": 20
+      }
+    ],
+    "subagentStop": [
+      {
+        "type": "command",
+        "bash": "python3 .github/hooks/scripts/stop_gate.py",
+        "powershell": "python .github/hooks/scripts/stop_gate.py",
+        "timeoutSec": 20
+      }
+    ]
+  }
+}

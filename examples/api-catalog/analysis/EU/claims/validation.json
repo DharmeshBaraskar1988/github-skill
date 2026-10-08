@@ -1,0 +1,29 @@
+{
+  "skill": "api-analysis",
+  "status": "pass",
+  "iteration": 0,
+  "region": "EU",
+  "application": "claims",
+  "counts": {
+    "operations": 12,
+    "unclassifiedOperations": 0,
+    "lowConfidenceOperations": 0,
+    "capabilities": 10,
+    "proposedCapabilities": 0,
+    "schemas": 16,
+    "entities": 12,
+    "relations": 13,
+    "duplicateGroups": 2,
+    "undecidedDuplicateGroups": 0,
+    "schemasMerged": 2,
+    "schemasRenamed": 1
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "A11",
+      "message": "0 entities and 47 attributes lack descriptions",
+      "fix": "Write business descriptions in decisions.yaml descriptions: {Entity: ..., Entity.attribute: ...}"
+    }
+  ]
+}

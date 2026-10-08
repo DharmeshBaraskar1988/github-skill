@@ -1,0 +1,6 @@
+# decisions.yaml - agent-maintained analysis decisions (see references/decisions-reference.md)
+domainAssignments: {}
+acceptedUnclassified: []
+duplicates: []
+entityNames: {}
+descriptions: {}

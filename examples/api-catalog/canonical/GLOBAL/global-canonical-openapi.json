@@ -1,0 +1,2786 @@
+{
+ "openapi": "3.0.3",
+ "info": {
+  "title": "Enterprise Canonical Insurance API",
+  "version": "1.0.0",
+  "description": "Global canonical API merged from the approved canonical models of regions EU v1.0.0, UK v1.0.0. Do not edit by hand.",
+  "x-region": "GLOBAL",
+  "x-status": "approved",
+  "x-baseline": null,
+  "x-references": [
+   {
+    "name": "EU canonical",
+    "source": "baseline",
+    "version": "1.0.0"
+   },
+   {
+    "name": "SAMPLE (not ACORD)",
+    "source": "acord",
+    "version": "0.1"
+   }
+  ],
+  "x-approved-by": [
+   "Asha (Claims architect)",
+   "Marco (Policy architect)",
+   "Priya (UK architect)"
+  ],
+  "x-regions": [
+   {
+    "region": "EU",
+    "version": "1.0.0",
+    "released": true
+   },
+   {
+    "region": "UK",
+    "version": "1.0.0",
+    "released": true
+   }
+  ]
+ },
+ "servers": [
+  {
+   "url": "https://{host}",
+   "variables": {
+    "host": {
+     "default": "api.global.example.internal"
+    }
+   }
+  }
+ ],
+ "tags": [
+  {
+   "name": "Claims"
+  },
+  {
+   "name": "Document Management"
+  },
+  {
+   "name": "Policy"
+  },
+  {
+   "name": "Quote"
+  }
+ ],
+ "paths": {
+  "/claims": {
+   "get": {
+    "operationId": "SearchClaims",
+    "tags": [
+     "Claims"
+    ],
+    "summary": "Search claims with paging and optional status filter.",
+    "parameters": [
+     {
+      "name": "status",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "$ref": "#/components/schemas/ClaimStatusCode"
+      }
+     },
+     {
+      "name": "page",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     },
+     {
+      "name": "pageSize",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "format": "int32"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ClaimPage"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Search Claims",
+    "x-source-operations": [
+     "EU/claims:listClaims"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "post": {
+    "operationId": "RegisterClaim",
+    "tags": [
+     "Claims"
+    ],
+    "summary": "Register a first notice of loss.",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/Claim"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Claim"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Register Claim",
+    "x-source-operations": [
+     "EU/claims:createClaim"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   }
+  },
+  "/claims/{claimId}": {
+   "delete": {
+    "operationId": "CloseClaim",
+    "tags": [
+     "Claims"
+    ],
+    "summary": "Close Claim",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "No Content"
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Close Claim",
+    "x-source-operations": [
+     "EU/claims:deleteClaim"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "get": {
+    "operationId": "ViewClaim",
+    "tags": [
+     "Claims"
+    ],
+    "summary": "Get a single claim by id.",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Claim"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "View Claim",
+    "x-source-operations": [
+     "EU/claims:getClaim"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "put": {
+    "operationId": "UpdateClaim",
+    "tags": [
+     "Claims"
+    ],
+    "summary": "Update Claim",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/Claim"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Claim"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Update Claim",
+    "x-source-operations": [
+     "EU/claims:updateClaim"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   }
+  },
+  "/claims/{claimId}/approve": {
+   "post": {
+    "operationId": "ApproveClaim",
+    "tags": [
+     "Claims"
+    ],
+    "summary": "Approve Claim",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ClaimApproval"
+       }
+      }
+     }
+    },
+    "responses": {
+     "204": {
+      "description": "No Content"
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Approve Claim",
+    "x-source-operations": [
+     "EU/claims:approveClaim"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   }
+  },
+  "/claims/{claimId}/claim-parties": {
+   "get": {
+    "operationId": "ManageClaimants",
+    "tags": [
+     "Claims"
+    ],
+    "summary": "Manage Claimants",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/ClaimParty"
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Manage Claimants",
+    "x-source-operations": [
+     "EU/claims:getClaimsClaimants"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   }
+  },
+  "/claims/{claimId}/documents": {
+   "get": {
+    "operationId": "ListDocuments",
+    "tags": [
+     "Document Management"
+    ],
+    "summary": "List documents attached to a claim.",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/Document"
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "List Documents",
+    "x-source-operations": [
+     "EU/claims:listDocuments"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "post": {
+    "operationId": "UploadDocument",
+    "tags": [
+     "Document Management"
+    ],
+    "summary": "Upload a document for a claim.",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "multipart/form-data": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "file": {
+          "type": "string",
+          "format": "binary"
+         },
+         "documentType": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Document"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request"
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Upload Document",
+    "x-source-operations": [
+     "EU/claims:uploadDocuments"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   }
+  },
+  "/claims/{claimId}/documents/{documentId}": {
+   "delete": {
+    "operationId": "DeleteDocument",
+    "tags": [
+     "Document Management"
+    ],
+    "summary": "Delete Document",
+    "parameters": [
+     {
+      "name": "claimId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     },
+     {
+      "name": "documentId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "responses": {
+     "204": {
+      "description": "No Content"
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Delete Document",
+    "x-source-operations": [
+     "EU/claims:deleteDocuments"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   }
+  },
+  "/parties/{id}": {
+   "get": {
+    "operationId": "GetPolicyholder",
+    "tags": [
+     "Policy"
+    ],
+    "summary": "Get Policyholder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "format": "uuid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Party"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Get Policyholder",
+    "x-source-operations": [
+     "EU/policy:getPolicyholdersById"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/policy"
+    ]
+   }
+  },
+  "/policies": {
+   "get": {
+    "operationId": "SearchPolicies",
+    "tags": [
+     "Policy"
+    ],
+    "summary": "Search Policies",
+    "parameters": [
+     {
+      "name": "holderName",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/Policy"
+         }
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Search Policies",
+    "x-source-operations": [
+     "EU/policy:getPolicies"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/policy"
+    ]
+   },
+   "post": {
+    "operationId": "IssuePolicy",
+    "tags": [
+     "Policy"
+    ],
+    "summary": "Issue Policy",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/Policy"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Policy"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Issue Policy",
+    "x-source-operations": [
+     "EU/policy:postPolicies"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/policy"
+    ]
+   }
+  },
+  "/policies/{policyNumber}": {
+   "get": {
+    "operationId": "ViewPolicy",
+    "tags": [
+     "Policy"
+    ],
+    "summary": "View Policy",
+    "parameters": [
+     {
+      "name": "policyNumber",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Policy"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "View Policy",
+    "x-source-operations": [
+     "EU/policy:getPoliciesById"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/policy"
+    ]
+   }
+  },
+  "/policies/{policyNumber}/renew": {
+   "post": {
+    "operationId": "RenewPolicy",
+    "tags": [
+     "Policy"
+    ],
+    "summary": "Renew Policy",
+    "parameters": [
+     {
+      "name": "policyNumber",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Policy"
+        }
+       }
+      }
+     },
+     "400": {
+      "description": "Bad Request",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProblemDetails"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Renew Policy",
+    "x-source-operations": [
+     "EU/policy:postPoliciesRenew"
+    ],
+    "x-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/policy"
+    ]
+   }
+  },
+  "/quotes": {
+   "post": {
+    "operationId": "CreateQuote",
+    "tags": [
+     "Quote"
+    ],
+    "summary": "Create Quote",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/Quote"
+       }
+      }
+     }
+    },
+    "responses": {
+     "201": {
+      "description": "Created",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Quote"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Create Quote",
+    "x-source-operations": [
+     "UK/quote:CreateQuote"
+    ],
+    "x-regions": [
+     "UK"
+    ],
+    "x-applications": [
+     "UK/quote"
+    ]
+   }
+  },
+  "/quotes/{quoteRef}": {
+   "get": {
+    "operationId": "GetQuote",
+    "tags": [
+     "Quote"
+    ],
+    "summary": "Get Quote",
+    "parameters": [
+     {
+      "name": "quoteRef",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Quote"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Get Quote",
+    "x-source-operations": [
+     "UK/quote:GetQuote"
+    ],
+    "x-regions": [
+     "UK"
+    ],
+    "x-applications": [
+     "UK/quote"
+    ]
+   }
+  },
+  "/quotes/{quoteRef}/bind": {
+   "post": {
+    "operationId": "BindQuote",
+    "tags": [
+     "Quote"
+    ],
+    "summary": "Bind Quote",
+    "parameters": [
+     {
+      "name": "quoteRef",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Policy"
+        }
+       }
+      }
+     }
+    },
+    "x-capability": "Bind Quote",
+    "x-source-operations": [
+     "UK/quote:BindQuote"
+    ],
+    "x-regions": [
+     "UK"
+    ],
+    "x-applications": [
+     "UK/quote"
+    ]
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "Address": {
+    "type": "object",
+    "properties": {
+     "addressLine1": {
+      "type": "string",
+      "description": "First address line.",
+      "x-reference": "acord:Address.addressLine1",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:Address.line1",
+       "EU/policy:Address.line1",
+       "UK/quote:Address.line1"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "addressLine2": {
+      "type": "string",
+      "description": "Second address line.",
+      "x-reference": "acord:Address.addressLine2",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:Address.line2",
+       "EU/policy:Address.line2",
+       "UK/quote:Address.line2"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "city": {
+      "type": "string",
+      "description": "City or town.",
+      "x-reference": "acord:Address.city",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:Address.city",
+       "EU/policy:Address.city",
+       "UK/quote:Address.city"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "postalCode": {
+      "type": "string",
+      "description": "Postal / ZIP code.",
+      "x-reference": "acord:Address.postalCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:Address.postCode",
+       "EU/policy:Address.postCode",
+       "UK/quote:Address.postCode"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "countryCode": {
+      "type": "string",
+      "description": "ISO 3166 country code.",
+      "x-reference": "acord:Address.countryCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:Address.country",
+       "EU/policy:Address.country",
+       "UK/quote:Address.country"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     }
+    },
+    "required": [
+     "addressLine1",
+     "city",
+     "countryCode"
+    ],
+    "description": "Postal address.",
+    "x-domain": "Claims",
+    "x-approach": "global",
+    "x-reference-entity": "acord:Address",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:Address",
+     "EU/policy:Address",
+     "UK/quote:Address"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU",
+     "UK"
+    ],
+    "x-applications": [
+     "EU/claims",
+     "EU/policy",
+     "UK/quote"
+    ]
+   },
+   "Claim": {
+    "type": "object",
+    "properties": {
+     "creationTimestamp": {
+      "type": "string",
+      "format": "date-time",
+      "x-extension": true,
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDto/ClaimResponse.createdAt"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "claimIdentifier": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique claim id.",
+      "x-reference": "acord:Claim.claimIdentifier",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDto/ClaimResponse.claimId"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "claimNumber": {
+      "type": "string",
+      "description": "Business claim number.",
+      "x-reference": "acord:Claim.claimNumber",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDto/ClaimResponse.claimNumber"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "policyNumber": {
+      "type": "string",
+      "description": "Number of the policy claimed against.",
+      "x-reference": "acord:Claim.policyNumber",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDto/ClaimResponse.policyNumber",
+       "EU/claims:CreateClaimRequest.policyNumber",
+       "EU/claims:FnolSubmission.policyNumber"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "claimStatusCode": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/ClaimStatusCode"
+       }
+      ],
+      "description": "Lifecycle status.",
+      "x-reference": "acord:Claim.claimStatusCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDto/ClaimResponse.status",
+       "EU/claims:UpdateClaimRequest.status"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "reserveAmount": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/MonetaryAmount"
+       }
+      ],
+      "description": "Current reserve.",
+      "x-reference": "acord:Claim.reserveAmount",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDto/ClaimResponse.reserveAmount"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "lossDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of loss.",
+      "x-reference": "acord:Claim.lossDate",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDto/ClaimResponse.lossDate",
+       "EU/claims:CreateClaimRequest.lossDate",
+       "EU/claims:FnolSubmission.lossDateTime"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "lossDescription": {
+      "type": "string",
+      "description": "Narrative of the loss.",
+      "x-reference": "acord:Claim.lossDescription",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:CreateClaimRequest.description",
+       "EU/claims:FnolSubmission.description",
+       "EU/claims:UpdateClaimRequest.description"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "lossLocation": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Address"
+       }
+      ],
+      "description": "Where the loss happened.",
+      "x-reference": "acord:Claim.lossLocation",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:CreateClaimRequest.lossLocation",
+       "EU/claims:FnolSubmission.location",
+       "EU/claims:UpdateClaimRequest.lossLocation"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "claimParties": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/ClaimParty"
+      },
+      "description": "Parties involved.",
+      "x-reference": "acord:Claim.claimParties",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:CreateClaimRequest.claimants"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "brokerCode": {
+      "type": "string",
+      "x-extension": true,
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:FnolSubmission.brokerCode"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "reporter": {
+      "$ref": "#/components/schemas/Party",
+      "x-extension": true,
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:FnolSubmission.reporter"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     }
+    },
+    "required": [
+     "claimIdentifier",
+     "claimNumber",
+     "policyNumber",
+     "lossDate"
+    ],
+    "description": "A demand for payment under a policy following a loss.",
+    "x-domain": "Claims",
+    "x-approach": "global",
+    "x-reference-entity": "acord:Claim",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:ClaimDto",
+     "EU/claims:ClaimResponse",
+     "EU/claims:CreateClaimRequest",
+     "EU/claims:FnolSubmission",
+     "EU/claims:UpdateClaimRequest"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "ClaimApproval": {
+    "type": "object",
+    "properties": {
+     "approvedBy": {
+      "type": "string",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ApprovalRequest.approvedBy"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "settlementAmount": {
+      "$ref": "#/components/schemas/MonetaryAmount",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ApprovalRequest.settlementAmount"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "comment": {
+      "type": "string",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ApprovalRequest.comment"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     }
+    },
+    "required": [
+     "approvedBy",
+     "settlementAmount"
+    ],
+    "description": "Approval of a claim with the agreed settlement amount.",
+    "x-domain": "Claims",
+    "x-approach": "global",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:ApprovalRequest"
+    ],
+    "x-origin": "custom",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "ClaimPage": {
+    "type": "object",
+    "description": "A page of Claim.",
+    "properties": {
+     "items": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/Claim"
+      }
+     },
+     "page": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "pageSize": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "totalCount": {
+      "type": "integer",
+      "format": "int32"
+     }
+    },
+    "x-approach": "envelope"
+   },
+   "ClaimParty": {
+    "type": "object",
+    "properties": {
+     "claimPartyIdentifier": {
+      "type": "string",
+      "description": "Unique id of the claim party.",
+      "x-reference": "acord:ClaimParty.claimPartyIdentifier",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimantDto.claimantId"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "givenName": {
+      "type": "string",
+      "description": "First name.",
+      "x-reference": "acord:ClaimParty.givenName",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimantDto.firstName"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "surname": {
+      "type": "string",
+      "description": "Family name.",
+      "x-reference": "acord:ClaimParty.surname",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimantDto.lastName"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "emailAddress": {
+      "type": "string",
+      "description": "E-mail address.",
+      "x-reference": "acord:ClaimParty.emailAddress",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimantDto.email"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "address": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Address"
+       }
+      ],
+      "description": "Postal address.",
+      "x-reference": "acord:ClaimParty.address",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimantDto.address"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "policyHolderId": {
+      "type": "string",
+      "x-extension": true,
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimantDto.policyHolderId"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     }
+    },
+    "required": [
+     "claimPartyIdentifier"
+    ],
+    "description": "A party involved in a claim (claimant, witness, ...).",
+    "x-domain": "Claims",
+    "x-approach": "global",
+    "x-reference-entity": "acord:ClaimParty",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:ClaimantDto"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "ClaimStatusCode": {
+    "type": "string",
+    "enum": [
+     "Open",
+     "Submitted",
+     "UnderReview",
+     "Approved",
+     "Denied",
+     "Closed",
+     "Reopened",
+     "Draft",
+     "Rejected"
+    ],
+    "description": "Claim lifecycle status.",
+    "x-domain": "Claims",
+    "x-approach": "global",
+    "x-reference-entity": "acord:ClaimStatusCode",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:ClaimStatus"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ],
+    "x-value-regions": {
+     "Open": [
+      "EU",
+      "UK"
+     ],
+     "Submitted": [
+      "EU",
+      "UK"
+     ],
+     "UnderReview": [
+      "EU",
+      "UK"
+     ],
+     "Approved": [
+      "EU",
+      "UK"
+     ],
+     "Denied": [
+      "EU",
+      "UK"
+     ],
+     "Closed": [
+      "EU",
+      "UK"
+     ],
+     "Reopened": [
+      "EU",
+      "UK"
+     ],
+     "Draft": [
+      "EU",
+      "UK"
+     ],
+     "Rejected": [
+      "EU",
+      "UK"
+     ]
+    }
+   },
+   "Coverage": {
+    "type": "object",
+    "properties": {
+     "coverageCode": {
+      "type": "string",
+      "description": "Coverage code.",
+      "x-reference": "acord:Coverage.coverageCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:Coverage.code"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "coverageName": {
+      "type": "string",
+      "description": "Coverage name.",
+      "x-reference": "acord:Coverage.coverageName",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:Coverage.name"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "limitAmount": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/MonetaryAmount"
+       }
+      ],
+      "description": "Limit.",
+      "x-reference": "acord:Coverage.limitAmount",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:Coverage.limit"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "deductibleAmount": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/MonetaryAmount"
+       }
+      ],
+      "description": "Deductible.",
+      "x-reference": "acord:Coverage.deductibleAmount",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:Coverage.deductible"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     }
+    },
+    "required": [
+     "coverageCode"
+    ],
+    "description": "A coverage provided by a policy.",
+    "x-domain": "Policy",
+    "x-approach": "global",
+    "x-reference-entity": "acord:Coverage",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/policy:Coverage"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/policy"
+    ]
+   },
+   "Document": {
+    "type": "object",
+    "properties": {
+     "documentIdentifier": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique document id.",
+      "x-reference": "acord:Document.documentIdentifier",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDocument.documentId"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "claimId": {
+      "type": "string",
+      "format": "uuid",
+      "x-extension": true,
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDocument.claimId"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "fileName": {
+      "type": "string",
+      "description": "Original file name.",
+      "x-reference": "acord:Document.fileName",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDocument.fileName"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "documentTypeCode": {
+      "type": "string",
+      "description": "Kind of document.",
+      "x-reference": "acord:Document.documentTypeCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDocument.documentType"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "fileSize": {
+      "type": "integer",
+      "format": "int64",
+      "description": "Size in bytes.",
+      "x-reference": "acord:Document.fileSize",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:ClaimDocument.sizeBytes"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     }
+    },
+    "required": [
+     "documentIdentifier",
+     "fileName"
+    ],
+    "description": "A document attached to a business object.",
+    "x-domain": "Document Management",
+    "x-approach": "global",
+    "x-reference-entity": "acord:Document",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:ClaimDocument"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/claims"
+    ]
+   },
+   "MonetaryAmount": {
+    "type": "object",
+    "properties": {
+     "amount": {
+      "type": "number",
+      "format": "double",
+      "description": "Numeric value.",
+      "x-reference": "acord:MonetaryAmount.amount",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:Money.amount",
+       "EU/policy:Money.amount",
+       "UK/quote:Money.amount"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "currencyCode": {
+      "type": "string",
+      "description": "ISO 4217 currency code.",
+      "x-reference": "acord:MonetaryAmount.currencyCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:Money.currency",
+       "EU/policy:Money.currency",
+       "UK/quote:Money.currency"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     }
+    },
+    "required": [
+     "amount",
+     "currencyCode"
+    ],
+    "description": "An amount of money in a currency.",
+    "x-domain": "Claims",
+    "x-approach": "global",
+    "x-reference-entity": "acord:MonetaryAmount",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:Money",
+     "EU/policy:Money",
+     "UK/quote:Money"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU",
+     "UK"
+    ],
+    "x-applications": [
+     "EU/claims",
+     "EU/policy",
+     "UK/quote"
+    ]
+   },
+   "Party": {
+    "type": "object",
+    "properties": {
+     "givenName": {
+      "type": "string",
+      "description": "First name.",
+      "x-reference": "acord:Party.givenName",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:PolicyHolderInfo.firstName",
+       "EU/policy:PolicyHolder.firstName",
+       "UK/quote:Customer.firstName"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "surname": {
+      "type": "string",
+      "description": "Family name.",
+      "x-reference": "acord:Party.surname",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:PolicyHolderInfo.lastName",
+       "EU/policy:PolicyHolder.lastName",
+       "UK/quote:Customer.lastName"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "emailAddress": {
+      "type": "string",
+      "description": "E-mail address.",
+      "x-reference": "acord:Party.emailAddress",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:PolicyHolderInfo.email",
+       "EU/policy:PolicyHolder.email",
+       "UK/quote:Customer.email"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "address": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Address"
+       }
+      ],
+      "description": "Main postal address.",
+      "x-reference": "acord:Party.address",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/claims:PolicyHolderInfo.address",
+       "EU/policy:PolicyHolder.address",
+       "UK/quote:Customer.address"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "partyIdentifier": {
+      "type": "string",
+      "description": "Unique party id.",
+      "x-reference": "acord:Party.partyIdentifier",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicyHolder.policyHolderId"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     }
+    },
+    "required": [
+     "partyIdentifier"
+    ],
+    "description": "A person or organisation with a role in insurance.",
+    "x-domain": "Claims",
+    "x-approach": "global",
+    "x-reference-entity": "acord:Party",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/claims:PolicyHolderInfo",
+     "EU/policy:PolicyHolder",
+     "UK/quote:Customer"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU",
+     "UK"
+    ],
+    "x-applications": [
+     "EU/claims",
+     "EU/policy",
+     "UK/quote"
+    ]
+   },
+   "Policy": {
+    "type": "object",
+    "properties": {
+     "quoteReference": {
+      "type": "string",
+      "x-extension": true,
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:IssuePolicyRequest.quoteReference"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Start of cover.",
+      "x-reference": "acord:Policy.effectiveDate",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:IssuePolicyRequest.inceptionDate",
+       "EU/policy:PolicyDetails.inceptionDate"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "policyHolder": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Party"
+       }
+      ],
+      "description": "Policy holder.",
+      "x-reference": "acord:Policy.policyHolder",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:IssuePolicyRequest.holder",
+       "EU/policy:PolicyDetails.holder"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "policyNumber": {
+      "type": "string",
+      "description": "Policy number.",
+      "x-reference": "acord:Policy.policyNumber",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicyDetails.policyNumber",
+       "EU/policy:PolicySummary.policyNumber",
+       "UK/quote:PolicyRef.policyNumber"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU",
+       "UK"
+      ]
+     },
+     "productCode": {
+      "type": "string",
+      "description": "Product code.",
+      "x-reference": "acord:Policy.productCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicyDetails.productCode",
+       "EU/policy:PolicySummary.productCode"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "policyStatusCode": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/PolicyStatusCode"
+       }
+      ],
+      "description": "Status.",
+      "x-reference": "acord:Policy.policyStatusCode",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicyDetails.status",
+       "EU/policy:PolicySummary.status"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "End of cover.",
+      "x-reference": "acord:Policy.expirationDate",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicyDetails.expiryDate"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "premiumAmount": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/MonetaryAmount"
+       }
+      ],
+      "description": "Total premium.",
+      "x-reference": "acord:Policy.premiumAmount",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicyDetails.premium"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "coverages": {
+      "type": "array",
+      "items": {
+       "$ref": "#/components/schemas/Coverage"
+      },
+      "description": "Coverages.",
+      "x-reference": "acord:Policy.coverages",
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicyDetails.coverages"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     },
+     "holderName": {
+      "type": "string",
+      "x-extension": true,
+      "x-introduced-in": "EU",
+      "x-sources": [
+       "EU/policy:PolicySummary.holderName"
+      ],
+      "x-available-in": [
+       "EU",
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "EU"
+      ]
+     }
+    },
+    "required": [
+     "effectiveDate",
+     "policyNumber",
+     "productCode",
+     "expirationDate",
+     "holderName"
+    ],
+    "description": "An insurance contract.",
+    "x-domain": "Policy",
+    "x-approach": "global",
+    "x-reference-entity": "acord:Policy",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/policy:IssuePolicyRequest",
+     "EU/policy:PolicyDetails",
+     "EU/policy:PolicySummary",
+     "UK/quote:PolicyRef"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU",
+     "UK"
+    ],
+    "x-applications": [
+     "EU/policy",
+     "UK/quote"
+    ]
+   },
+   "PolicyStatusCode": {
+    "type": "string",
+    "enum": [
+     "Quoted",
+     "InForce",
+     "Lapsed",
+     "Cancelled",
+     "Expired",
+     "Active"
+    ],
+    "description": "Policy status.",
+    "x-domain": "Policy",
+    "x-approach": "global",
+    "x-reference-entity": "acord:PolicyStatusCode",
+    "x-introduced-in": "EU",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "EU/policy:PolicyStatus"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "EU",
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "EU"
+    ],
+    "x-applications": [
+     "EU/policy"
+    ],
+    "x-value-regions": {
+     "Quoted": [
+      "EU",
+      "UK"
+     ],
+     "InForce": [
+      "EU",
+      "UK"
+     ],
+     "Lapsed": [
+      "EU",
+      "UK"
+     ],
+     "Cancelled": [
+      "EU",
+      "UK"
+     ],
+     "Expired": [
+      "EU",
+      "UK"
+     ],
+     "Active": [
+      "EU",
+      "UK"
+     ]
+    }
+   },
+   "ProblemDetails": {
+    "type": "object",
+    "description": "RFC 7807 problem details.",
+    "properties": {
+     "type": {
+      "type": "string"
+     },
+     "title": {
+      "type": "string"
+     },
+     "status": {
+      "type": "integer",
+      "format": "int32"
+     },
+     "detail": {
+      "type": "string"
+     },
+     "instance": {
+      "type": "string"
+     },
+     "errors": {
+      "type": "object",
+      "additionalProperties": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   },
+   "Quote": {
+    "type": "object",
+    "properties": {
+     "productCode": {
+      "type": "string",
+      "description": "Product code.",
+      "x-reference": "acord:Quote.productCode",
+      "x-introduced-in": "UK",
+      "x-sources": [
+       "UK/quote:Quote.productCode",
+       "UK/quote:QuoteRequest.productCode"
+      ],
+      "x-available-in": [
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "UK"
+      ]
+     },
+     "proposedHolder": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Party"
+       }
+      ],
+      "description": "Prospective policy holder.",
+      "x-reference": "acord:Quote.proposedHolder",
+      "x-introduced-in": "UK",
+      "x-sources": [
+       "UK/quote:Quote.holder",
+       "UK/quote:QuoteRequest.holder"
+      ],
+      "x-available-in": [
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "UK"
+      ]
+     },
+     "effectiveDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Requested start date.",
+      "x-reference": "acord:Quote.effectiveDate",
+      "x-introduced-in": "UK",
+      "x-sources": [
+       "UK/quote:QuoteRequest.startDate"
+      ],
+      "x-available-in": [
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "UK"
+      ]
+     },
+     "quoteIdentifier": {
+      "type": "string",
+      "description": "Quote reference.",
+      "x-reference": "acord:Quote.quoteIdentifier",
+      "x-introduced-in": "UK",
+      "x-sources": [
+       "UK/quote:Quote.quoteRef"
+      ],
+      "x-available-in": [
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "UK"
+      ]
+     },
+     "premiumAmount": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/MonetaryAmount"
+       }
+      ],
+      "description": "Quoted premium.",
+      "x-reference": "acord:Quote.premiumAmount",
+      "x-introduced-in": "UK",
+      "x-sources": [
+       "UK/quote:Quote.premium"
+      ],
+      "x-available-in": [
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "UK"
+      ]
+     },
+     "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Quote valid until.",
+      "x-reference": "acord:Quote.expirationDate",
+      "x-introduced-in": "UK",
+      "x-sources": [
+       "UK/quote:Quote.validUntil"
+      ],
+      "x-available-in": [
+       "UK"
+      ],
+      "x-used-by-regions": [
+       "UK"
+      ]
+     }
+    },
+    "required": [
+     "productCode",
+     "quoteIdentifier"
+    ],
+    "description": "A priced offer for a policy.",
+    "x-domain": "Quote",
+    "x-approach": "global",
+    "x-reference-entity": "acord:Quote",
+    "x-introduced-in": "UK",
+    "x-status": "approved",
+    "x-source-schemas": [
+     "UK/quote:Quote",
+     "UK/quote:QuoteRequest"
+    ],
+    "x-origin": "ACORD",
+    "x-available-in": [
+     "UK"
+    ],
+    "x-used-by-regions": [
+     "UK"
+    ],
+    "x-applications": [
+     "UK/quote"
+    ]
+   }
+  }
+ }
+}

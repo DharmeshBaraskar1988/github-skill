@@ -1,0 +1,10 @@
+# alignment-overrides.yaml - agent decisions on MATCHING (not approvals). Every entry needs a note.
+entityMatches: {}
+#  PolicyHolder: {reference: Party, source: acord, note: "Same identity attributes; Party is the generic person"}
+#  ApprovalRequest: {reference: null, note: "Command payload, no reference equivalent"}
+attributeMatches: {}
+#  Claim.createdBy: {reference: null, note: "Audit field, not the reference 'reportedBy'"}
+clusters: []
+#  - {members: ["EU/claims:PolicyHolderInfo", "EU/policy:PolicyHolder"], decision: separate, note: "..."}
+excludeEntities: []
+#  - {entity: FnolReceipt, reason: "Technical acknowledgement, not a business entity"}

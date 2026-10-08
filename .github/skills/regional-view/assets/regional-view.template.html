@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#ffffff; --ink:#18212b; --muted:#5f6b78; --line:#e2e6eb; --soft:#eef1f5;
+  --accent:#1f5fae; --accent-soft:#e6eef9; --ok:#1d7a4c; --ok-soft:#e3f3ea; --warn:#9a6200; --warn-soft:#fbf0dc;
+  --bad:#b3261e; --bad-soft:#fbe5e3; --get:#1d7a4c; --post:#1f5fae; --put:#9a6200; --patch:#7a4fb3; --delete:#b3261e;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1419; --panel:#161d24; --ink:#e3e8ee; --muted:#93a0ad; --line:#26313c; --soft:#1c252e;
+  --accent:#6aa4ee; --accent-soft:#1a2b40; --ok:#5cc28d; --ok-soft:#15291f; --warn:#e0a84a; --warn-soft:#2c2414;
+  --bad:#ef7d74; --bad-soft:#341b19; --get:#5cc28d; --post:#6aa4ee; --put:#e0a84a; --patch:#b48ce8; --delete:#ef7d74;}}
+:root[data-theme="dark"]{
+  --bg:#0f1419; --panel:#161d24; --ink:#e3e8ee; --muted:#93a0ad; --line:#26313c; --soft:#1c252e;
+  --accent:#6aa4ee; --accent-soft:#1a2b40; --ok:#5cc28d; --ok-soft:#15291f; --warn:#e0a84a; --warn-soft:#2c2414;
+  --bad:#ef7d74; --bad-soft:#341b19; --get:#5cc28d; --post:#6aa4ee; --put:#e0a84a; --patch:#b48ce8; --delete:#ef7d74;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--sans)}
+header{padding:20px 24px 12px;display:flex;gap:16px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+header h1{margin:0;font-size:20px;font-weight:650;letter-spacing:-.01em}
+header .meta{color:var(--muted);font-size:12px}
+button{font:inherit;color:inherit}
+.iconbtn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 10px;cursor:pointer}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 24px;display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+label.ctl{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+select,input[type=search]{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+input[type=search]{min-width:240px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 10px;cursor:pointer;font-size:13px;display:inline-flex;gap:6px;align-items:center;user-select:none}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.chip small{color:var(--muted)}
+.linkbtn{background:none;border:0;color:var(--accent);cursor:pointer;padding:0 4px;font-size:12px}
+nav.tabs{display:flex;gap:2px;overflow-x:auto}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:8px 12px;cursor:pointer;color:var(--muted);white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+main{padding:18px 24px 48px;max-width:1500px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi b{display:block;font-size:24px;font-weight:650;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--muted);font-size:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.panel>h2{font-size:14px;margin:0;padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center}
+.panel>h2 small{color:var(--muted);font-weight:400}
+.pad{padding:12px 14px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;background:var(--soft);position:sticky;top:0;cursor:default}
+th.sort{cursor:pointer}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono);font-size:12px}
+.m{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 6px;border-radius:4px;border:1px solid currentColor}
+.m.GET{color:var(--get)}.m.POST{color:var(--post)}.m.PUT{color:var(--put)}.m.PATCH{color:var(--patch)}.m.DELETE{color:var(--delete)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--soft);color:var(--muted);margin:1px 2px 1px 0;white-space:nowrap}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.bad{background:var(--bad-soft);color:var(--bad)}.tag.acc{background:var(--accent-soft);color:var(--accent)}
+.muted{color:var(--muted)}
+.cell{display:inline-block;min-width:28px;text-align:center;border-radius:6px;padding:2px 6px;font-variant-numeric:tabular-nums}
+.appcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.appcard{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--panel)}
+.appcard h3{margin:0 0 2px;font-size:15px}
+.appcard dl{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin:8px 0 0;font-size:13px}
+.appcard dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.appcard dt{color:var(--muted)}
+details.dom{border-bottom:1px solid var(--line)}
+details.dom:last-child{border-bottom:0}
+details.dom>summary{padding:12px 14px;cursor:pointer;display:flex;gap:10px;align-items:center;flex-wrap:wrap;list-style:none}
+details.dom>summary::-webkit-details-marker{display:none}
+details.dom>summary::before{content:"▸";color:var(--muted);transition:transform .15s}
+details.dom[open]>summary::before{transform:rotate(90deg)}
+details.dom>summary b{font-size:14px}
+.split{display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.elist{max-height:70vh;overflow:auto}
+.eitem{display:flex;justify-content:space-between;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}
+.eitem:hover{background:var(--soft)}
+.eitem[aria-current="true"]{background:var(--accent-soft)}
+.eitem small{color:var(--muted)}
+ul.tree{list-style:none;margin:0;padding-left:16px;border-left:1px dashed var(--line)}
+ul.tree.root{padding-left:0;border-left:0}
+ul.tree li{padding:3px 0}
+ul.tree details>summary{cursor:pointer}
+.attrname{font-family:var(--mono);font-size:12.5px}
+.req{color:var(--bad);font-weight:700;margin-left:2px}
+.empty{padding:24px;color:var(--muted);text-align:center}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.pill-btn{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px}
+@media print{.bar,.iconbtn{display:none}body{background:#fff}}
+@media (max-width:600px){header,main,.bar{padding-left:16px;padding-right:16px}input[type=search]{min-width:0;width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>{{TITLE}}</h1>
+    <div class="meta" id="meta"></div>
+  </div>
+  <div class="row">
+    <button class="iconbtn" id="themeBtn" title="Toggle light / dark">◐ Theme</button>
+    <button class="iconbtn" id="csvBtn" title="Download the current table as CSV">⭳ CSV</button>
+  </div>
+</header>
+<div class="bar">
+  <div class="row">
+    <label class="ctl">Region <select id="region"></select></label>
+    <label class="ctl">Domain <select id="domain"></select></label>
+    <input type="search" id="q" placeholder="Search endpoints, entities, attributes…" aria-label="Search">
+  </div>
+  <div class="row">
+    <span class="ctl" style="text-transform:uppercase">Applications</span>
+    <div class="chips" id="apps"></div>
+    <button class="linkbtn" id="allApps">all</button><button class="linkbtn" id="noApps">none</button>
+  </div>
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+</div>
+<main id="main"></main>
+
+<script>
+const DATA = /*__DATA__*/null;
+const TABS = [["overview","Overview"],["domains","Domains & capabilities"],["entities","Entities & attributes"],
+              ["endpoints","Endpoints"],["duplicates","Duplicates"],["validation","Validation"]];
+const S = {region:"ALL", domain:"ALL", q:"", tab:"overview", apps:new Set(DATA.apps.map(a=>a.id)), entity:null, sort:{}};
+const $ = s => document.querySelector(s);
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const appById = Object.fromEntries(DATA.apps.map(a=>[a.id,a]));
+let currentTable = null;
+
+function store(k,v){try{localStorage.setItem("rv:"+k,JSON.stringify(v))}catch(e){}}
+function load(k){try{const v=localStorage.getItem("rv:"+k);return v?JSON.parse(v):null}catch(e){return null}}
+(function restore(){
+  const t=load("theme"); if(t) document.documentElement.dataset.theme=t;
+  const st=load("state"); if(st){ if(st.region) S.region=st.region; if(st.tab) S.tab=st.tab;
+    if(Array.isArray(st.apps)) S.apps=new Set(st.apps.filter(a=>appById[a])); }
+  const h=location.hash.slice(1); if(TABS.some(t=>t[0]===h)) S.tab=h;
+})();
+function persist(){store("state",{region:S.region,tab:S.tab,apps:[...S.apps]})}
+
+function visibleApps(){return DATA.apps.filter(a=>(S.region==="ALL"||a.region===S.region)&&S.apps.has(a.id))}
+function inScope(appId){const a=appById[appId];return a&&(S.region==="ALL"||a.region===S.region)&&S.apps.has(appId)}
+function qMatch(...vals){if(!S.q)return true;const q=S.q.toLowerCase();return vals.some(v=>String(v??"").toLowerCase().includes(q))}
+function domOk(d){return S.domain==="ALL"||d===S.domain}
+const vTag = s => s==="pass"?`<span class="tag ok">pass</span>`:s==="fail"?`<span class="tag bad">fail</span>`:`<span class="tag warn">${esc(s)}</span>`;
+const appLabel = id => {const a=appById[id];return a?`<span class="tag acc">${esc(a.region)} · ${esc(a.application)}</span>`:esc(id)};
+
+function renderFilters(){
+  $("#meta").textContent=`Generated ${DATA.generatedAt.replace("T"," ").slice(0,16)} UTC · ${DATA.totals.applications} applications · ${DATA.totals.regions} regions`;
+  $("#region").innerHTML=`<option value="ALL">All regions</option>`+DATA.regions.map(r=>`<option ${r===S.region?"selected":""}>${esc(r)}</option>`).join("");
+  const doms=[...new Set(DATA.domains.map(d=>d.name))];
+  $("#domain").innerHTML=`<option value="ALL">All domains</option>`+doms.map(d=>`<option ${d===S.domain?"selected":""}>${esc(d)}</option>`).join("");
+  const apps=DATA.apps.filter(a=>S.region==="ALL"||a.region===S.region);
+  $("#apps").innerHTML=apps.map(a=>`<span class="chip" role="button" tabindex="0" data-app="${esc(a.id)}" aria-pressed="${S.apps.has(a.id)}">${esc(a.application)} <small>${esc(a.region)}</small></span>`).join("")||`<span class="muted">No applications in this region</span>`;
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<button role="tab" data-tab="${k}" aria-selected="${S.tab===k}">${l}</button>`).join("");
+}
+
+function table(id, cols, rows){
+  // cols: [{k,label,num,html(row)}]
+  const sort=S.sort[id];
+  if(sort){const c=cols.find(c=>c.k===sort.k);rows=[...rows].sort((a,b)=>{const x=c.val?c.val(a):a[c.k],y=c.val?c.val(b):b[c.k];return (x>y?1:x<y?-1:0)*sort.dir})}
+  currentTable={cols,rows,id};
+  if(!rows.length) return `<div class="empty">Nothing matches the current filters.</div>`;
+  return `<div class="scroll"><table data-tid="${id}"><thead><tr>${cols.map(c=>`<th class="sort ${c.num?"num":""}" data-k="${c.k}">${esc(c.label)}${sort&&sort.k===c.k?(sort.dir>0?" ▲":" ▼"):""}</th>`).join("")}</tr></thead><tbody>${
+    rows.map(r=>`<tr>${cols.map(c=>`<td class="${c.num?"num":""}">${c.html?c.html(r):esc(r[c.k])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+function overview(){
+  const apps=visibleApps(), ids=new Set(apps.map(a=>a.id));
+  const ops=DATA.operations.filter(o=>ids.has(o.appId)&&domOk(o.domain));
+  const caps=DATA.capabilities.filter(c=>ids.has(c.appId)&&domOk(c.domain));
+  const ents=DATA.entities.filter(e=>ids.has(e.appId)&&domOk(e.domain||""));
+  const dups=DATA.duplicates.filter(d=>ids.has(d.appId));
+  const xd=DATA.crossAppDuplicates.filter(x=>ids.has(x.a.appId)&&ids.has(x.b.appId));
+  const doms=new Set(ops.map(o=>o.domain).filter(d=>d!=="Unclassified"));
+  const k=(v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
+  let h=`<div class="kpis">${k(apps.length,"Applications")}${k(ops.length,"Endpoints")}${k(doms.size,"Domains")}${k(new Set(caps.map(c=>c.domain+"|"+c.name)).size,"Capabilities")}${k(ents.length,"Entities")}${k(dups.length+xd.length,"Duplicate findings")}</div>`;
+  // matrix
+  const domList=DATA.domains.filter(d=>domOk(d.name)&&caps.some(c=>c.domain===d.name));
+  const max=Math.max(1,...domList.flatMap(d=>apps.map(a=>caps.filter(c=>c.domain===d.name&&c.appId===a.id).length)));
+  h+=`<section class="panel"><h2>Domain coverage by application <small>capabilities per domain</small></h2>`;
+  if(!domList.length||!apps.length) h+=`<div class="empty">Select at least one application.</div>`;
+  else h+=`<div class="scroll"><table><thead><tr><th>Domain</th>${apps.map(a=>`<th class="num">${esc(a.application)}<br><small class="muted">${esc(a.region)}</small></th>`).join("")}<th class="num">Total</th></tr></thead><tbody>${
+    domList.map(d=>{const counts=apps.map(a=>caps.filter(c=>c.domain===d.name&&c.appId===a.id).length);
+      return `<tr><td><b>${esc(d.name)}</b>${d.inCatalogue||d.name==="Unclassified"?"":` <span class="tag warn">not in catalogue</span>`}</td>${
+        counts.map(n=>`<td class="num">${n?`<span class="cell" style="background:color-mix(in srgb,var(--accent) ${Math.round(12+60*n/max)}%,transparent);color:${n/max>.6?"#fff":"inherit"}">${n}</span>`:`<span class="muted">·</span>`}</td>`).join("")
+      }<td class="num">${counts.reduce((a,b)=>a+b,0)}</td></tr>`}).join("")}</tbody></table></div>`;
+  h+=`</section>`;
+  h+=`<section class="panel"><h2>Applications</h2><div class="pad appcards">${apps.map(a=>`<div class="appcard"><h3>${esc(a.application)}</h3><div class="muted">${esc(a.region)} · ${esc(a.mode)}</div>
+     <div style="margin-top:6px">discovery ${vTag(a.validation.discovery)} analysis ${vTag(a.validation.analysis)}</div>
+     <dl><dt>Endpoints</dt><dd>${a.counts.operations}</dd><dt>Domains</dt><dd>${a.counts.domains}</dd><dt>Capabilities</dt><dd>${a.counts.capabilities}</dd>
+     <dt>Entities</dt><dd>${a.counts.entities}</dd><dt>Duplicate groups</dt><dd>${a.counts.duplicateGroups}</dd><dt>Unclassified endpoints</dt><dd>${a.counts.unclassified}</dd></dl></div>`).join("")||`<div class="empty">No applications selected.</div>`}</div></section>`;
+  currentTable=null;
+  return h;
+}
+
+function domains(){
+  const ids=new Set(visibleApps().map(a=>a.id));
+  const caps=DATA.capabilities.filter(c=>ids.has(c.appId)&&domOk(c.domain));
+  const opsById={};DATA.operations.forEach(o=>opsById[o.appId+"|"+o.operationId]=o);
+  const rows=[];
+  let h=`<section class="panel"><h2>Domains and capabilities <small>click a domain to expand</small></h2>`;
+  const doms=DATA.domains.filter(d=>domOk(d.name)&&caps.some(c=>c.domain===d.name));
+  if(!doms.length) return h+`<div class="empty">Nothing matches the current filters.</div></section>`;
+  for(const d of doms){
+    const dc=caps.filter(c=>c.domain===d.name);
+    const byCap={};dc.forEach(c=>(byCap[c.name]=byCap[c.name]||[]).push(c));
+    const capNames=Object.keys(byCap).filter(n=>qMatch(n,d.name,...byCap[n].flatMap(c=>c.operations.map(o=>{const op=opsById[c.appId+"|"+o];return op?op.path:o}))));
+    if(!capNames.length) continue;
+    const missing=(d.catalogueCapabilities||[]).filter(n=>!byCap[n]);
+    h+=`<details class="dom" ${S.q||doms.length<4?"open":""}><summary><b>${esc(d.name)}</b>
+      <span class="tag">${capNames.length} capabilities</span><span class="tag">${dc.reduce((a,c)=>a+c.operations.length,0)} endpoints</span>
+      ${[...new Set(dc.map(c=>c.appId))].map(appLabel).join("")}${d.inCatalogue||d.name==="Unclassified"?"":`<span class="tag warn">not in catalogue</span>`}</summary>
+      <div class="pad">${d.description?`<p class="muted" style="margin-top:0">${esc(d.description)}</p>`:""}
+      <div class="scroll"><table><thead><tr><th>Capability</th><th>Status</th><th>Application</th><th>Endpoints</th></tr></thead><tbody>${
+      capNames.map(n=>byCap[n].map((c,i)=>{rows.push({domain:d.name,capability:n,status:c.status,application:c.appId,endpoints:c.operations.length});
+        return `<tr>${i===0?`<td rowspan="${byCap[n].length}"><b>${esc(n)}</b>${c.description?`<div class="muted">${esc(c.description)}</div>`:""}</td>`:""}
+        <td>${c.status==="catalogue"?`<span class="tag ok">catalogue</span>`:`<span class="tag warn">${esc(c.status)}</span>`}</td>
+        <td>${appLabel(c.appId)}</td>
+        <td>${c.operations.map(o=>{const op=opsById[c.appId+"|"+o];return op?`<div><span class="m ${op.method}">${op.method}</span> <span class="mono">${esc(op.path)}</span></div>`:esc(o)}).join("")}</td></tr>`}).join("")).join("")
+      }</tbody></table></div>
+      ${missing.length?`<p class="muted">Catalogue capabilities with no endpoint in the selected applications: ${missing.map(m=>`<span class="tag">${esc(m)}</span>`).join("")}</p>`:""}</div></details>`;
+  }
+  currentTable={cols:["domain","capability","status","application","endpoints"].map(k=>({k,label:k})),rows};
+  return h+`</section>`;
+}
+
+function treeHtml(node, depth){
+  if(!node) return "";
+  if(node.kind==="enum") return `<div class="muted">values: ${(node.values||[]).map(v=>`<span class="tag">${esc(v)}</span>`).join("")}</div>`;
+  return `<ul class="tree ${depth===0?"root":""}">${node.attributes.map(a=>{
+    const label=`<span class="attrname">${esc(a.name)}</span>${a.required?`<span class="req" title="required">*</span>`:""} <span class="muted">${a.refEntity?(a.collection?"list of ":"")+esc(a.refEntity):esc(a.type)+(a.format&&!String(a.type).includes("(")?" ("+esc(a.format)+")":"")}</span>${a.cycle?` <span class="tag">cycle</span>`:""}${a.description?` <span class="muted">— ${esc(a.description)}</span>`:""}`;
+    return a.children?`<li><details ${depth<1?"open":""}><summary>${label}</summary>${treeHtml(a.children,depth+1)}</details></li>`:`<li>${label}</li>`}).join("")}</ul>`;
+}
+
+function entities(){
+  const ids=new Set(visibleApps().map(a=>a.id));
+  const list=DATA.entities.filter(e=>ids.has(e.appId)&&domOk(e.domain||"")&&qMatch(e.name,e.description,...e.schemaNames,...e.attributes.map(a=>a.name+" "+a.description)))
+    .sort((a,b)=>a.name.localeCompare(b.name)||a.appId.localeCompare(b.appId));
+  if(!list.length){currentTable=null;return `<section class="panel"><div class="empty">Nothing matches the current filters.</div></section>`}
+  let sel=list.find(e=>S.entity&&e.appId+"|"+e.name===S.entity)||list[0];
+  S.entity=sel.appId+"|"+sel.name;
+  const rel=DATA.relations.filter(r=>r.appId===sel.appId&&(r.from===sel.name||r.to===sel.name));
+  const twins=DATA.entities.filter(e=>e!==sel&&e.name===sel.name);
+  const xd=DATA.crossAppDuplicates.filter(x=>(x.a.appId===sel.appId&&x.a.entity===sel.name)||(x.b.appId===sel.appId&&x.b.entity===sel.name));
+  const rows=list.flatMap(e=>e.kind==="enum"?(e.enumValues||[]).map(v=>({application:e.appId,entity:e.name,attribute:v,type:"enum value",required:"",description:""}))
+     :e.attributes.map(a=>({application:e.appId,entity:e.name,attribute:a.name,type:a.refEntity?(a.isCollection?"list of ":"")+a.refEntity:a.type,required:a.required?"yes":"",description:a.description})));
+  currentTable={cols:["application","entity","attribute","type","required","description"].map(k=>({k,label:k})),rows};
+  return `<div class="split"><section class="panel"><h2>Entities <small>${list.length}</small></h2><div class="elist">${list.map(e=>
+    `<div class="eitem" data-entity="${esc(e.appId+"|"+e.name)}" aria-current="${e===sel}"><span><b>${esc(e.name)}</b><br><small>${esc(e.domain||"no domain")} · ${e.kind==="enum"?"enum":e.attributes.length+" attributes"}</small></span><small>${esc(appById[e.appId].application)}</small></div>`).join("")}</div></section>
+  <div><section class="panel"><h2><span>${esc(sel.name)} ${appLabel(sel.appId)}</span><small>${esc(sel.domain||"")}</small></h2><div class="pad">
+    ${sel.description?`<p style="margin-top:0">${esc(sel.description)}</p>`:`<p class="muted" style="margin-top:0">No description.</p>`}
+    <div class="legend"><span>Roles: ${sel.roles.map(r=>`<span class="tag">${esc(r)}</span>`).join("")}</span><span>Schemas: ${sel.schemaNames.map(s=>`<span class="tag ${sel.schemaNames.length>1?"warn":""}">${esc(s)}</span>`).join("")}</span><span>Projects: ${sel.sourceProjects.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}</span></div>
+  </div></section>
+  ${sel.kind==="enum"?`<section class="panel"><h2>Values</h2><div class="pad">${(sel.enumValues||[]).map(v=>`<span class="tag">${esc(v)}</span>`).join("")}</div></section>`:
+  `<section class="panel"><h2>Attributes <small>${sel.attributes.length}</small></h2><div class="scroll"><table><thead><tr><th>Attribute</th><th>Type</th><th>Required</th><th>Description</th>${sel.schemaNames.length>1?"<th>Present in</th>":""}</tr></thead><tbody>${
+    sel.attributes.map(a=>`<tr><td class="mono">${esc(a.name)}</td><td>${a.refEntity?`<a href="#" class="linkbtn" data-goto="${esc(sel.appId+"|"+a.refEntity)}">${a.isCollection?"list of ":""}${esc(a.refEntity)}</a>`:esc(a.type)+(a.format&&!String(a.type).includes("(")?` <span class="muted">${esc(a.format)}</span>`:"")}${a.enum?`<div class="muted">${a.enum.map(esc).join(" | ")}</div>`:""}</td><td>${a.required?"yes":""}${a.nullable?` <span class="muted">nullable</span>`:""}</td><td>${esc(a.description)}</td>${sel.schemaNames.length>1?`<td>${(a.presentIn||[]).map(p=>`<span class="tag">${esc(p)}</span>`).join("")}</td>`:""}</tr>`).join("")}</tbody></table></div></section>
+  <section class="panel"><h2>Attribute tree</h2><div class="pad">${treeHtml(sel.tree,0)}</div></section>`}
+  <section class="panel"><h2>Relations <small>${rel.length}</small></h2>${rel.length?`<div class="scroll"><table><thead><tr><th>From</th><th>Relation</th><th>To</th><th>Via</th><th>Cardinality</th></tr></thead><tbody>${rel.map(r=>`<tr><td>${esc(r.from)}</td><td><span class="tag">${esc(r.type)}</span></td><td>${esc(r.to)}</td><td class="mono">${esc(r.via)}</td><td>${esc(r.cardinality)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No relations.</div>`}</section>
+  <section class="panel"><h2>Used by <small>${sel.usedBy.length} endpoints</small></h2><div class="pad">${sel.usedBy.map(u=>{const [m,...p]=u.split(" ");return `<div><span class="m ${m}">${m}</span> <span class="mono">${esc(p.join(" "))}</span></div>`}).join("")||`<span class="muted">Not used directly by an endpoint.</span>`}</div></section>
+  ${twins.length||xd.length?`<section class="panel"><h2>Same or similar entity in other applications</h2><div class="pad">${twins.map(t=>`<div>${appLabel(t.appId)} <b>${esc(t.name)}</b> <span class="muted">same name</span></div>`).join("")}${xd.map(x=>{const o=x.a.appId===sel.appId&&x.a.entity===sel.name?x.b:x.a;return `<div>${appLabel(o.appId)} <b>${esc(o.entity)}</b> <span class="tag warn">${esc(x.match)}</span> <span class="muted">${x.shared.length} shared attributes</span></div>`}).join("")}</div></section>`:""}
+  </div></div>`;
+}
+
+function endpoints(){
+  const ids=new Set(visibleApps().map(a=>a.id));
+  const rows=DATA.operations.filter(o=>ids.has(o.appId)&&domOk(o.domain)&&qMatch(o.path,o.operationId,o.summary,o.capability,o.domain)).map(o=>({...o,application:appById[o.appId].application,region:appById[o.appId].region}));
+  const cols=[{k:"region",label:"Region"},{k:"application",label:"Application"},{k:"method",label:"Method",html:r=>`<span class="m ${r.method}">${r.method}</span>`},
+    {k:"path",label:"Path",html:r=>`<span class="mono">${esc(r.path)}</span>`},{k:"operationId",label:"operationId",html:r=>`<span class="mono">${esc(r.operationId)}</span>`},
+    {k:"domain",label:"Domain"},{k:"capability",label:"Capability"},
+    {k:"confidence",label:"Mapping",html:r=>r.confidence==="high"||r.confidence==="confirmed"?`<span class="tag ok">${esc(r.confidence)}</span>`:`<span class="tag warn">${esc(r.confidence)}</span>`},
+    {k:"summary",label:"Summary"},{k:"sourceProject",label:"Project"}];
+  return `<section class="panel"><h2>Endpoints <small>${rows.length}</small></h2>${table("ep",cols,rows)}</section>`;
+}
+
+function duplicates(){
+  const ids=new Set(visibleApps().map(a=>a.id));
+  const dups=DATA.duplicates.filter(d=>ids.has(d.appId)&&qMatch(...d.members,d.canonical));
+  const xd=DATA.crossAppDuplicates.filter(x=>ids.has(x.a.appId)&&ids.has(x.b.appId)&&qMatch(x.a.entity,x.b.entity));
+  const decTag=d=>d==="merge"?`<span class="tag ok">merge</span>`:d==="keep-separate"?`<span class="tag">keep separate</span>`:`<span class="tag bad">${esc(d)}</span>`;
+  let h=`<section class="panel"><h2>Within an application <small>${dups.length} groups</small></h2>`;
+  h+=dups.length?`<div class="scroll"><table><thead><tr><th>Application</th><th>Schemas</th><th>Match</th><th>Decision</th><th>Canonical entity</th><th>Where used</th></tr></thead><tbody>${
+    dups.map(d=>`<tr><td>${appLabel(d.appId)}</td><td>${d.members.map(m=>`<span class="tag warn">${esc(m)}</span>`).join("")}</td><td>${esc(d.match)} <span class="muted">${d.similarity}</span></td><td>${decTag(d.decision)}${d.note?`<div class="muted">${esc(d.note)}</div>`:""}</td><td><b>${esc(d.canonical||"—")}</b></td>
+    <td>${(d.memberDetails||[]).map(m=>`<div><b class="mono">${esc(m.schema)}</b> <span class="muted">${esc(m.sourceProject)} · ${esc(m.sourceFile)}</span>${m.usedBy.map(u=>{const [mm,...p]=u.split(" ");return `<div style="margin-left:10px"><span class="m ${mm}">${mm}</span> <span class="mono">${esc(p.join(" "))}</span></div>`}).join("")}</div>`).join("")}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No duplicate groups in the selected applications.</div>`;
+  h+=`</section><section class="panel"><h2>Across applications <small>${xd.length} findings · candidates for a shared canonical model</small></h2>`;
+  h+=xd.length?`<div class="scroll"><table><thead><tr><th>Scope</th><th>Entity A</th><th>Entity B</th><th>Match</th><th>Shared attributes</th><th>Differences</th></tr></thead><tbody>${
+    xd.map(x=>`<tr><td>${x.region==="cross-region"?`<span class="tag acc">cross-region</span>`:`<span class="tag">${esc(x.region)}</span>`}</td><td>${appLabel(x.a.appId)}<b>${esc(x.a.entity)}</b></td><td>${appLabel(x.b.appId)}<b>${esc(x.b.entity)}</b></td><td><span class="tag ${x.match==="exact"?"bad":"warn"}">${esc(x.match)}</span> <span class="muted">J ${x.jaccard}</span></td><td class="mono">${x.shared.map(esc).join(", ")}</td><td>${x.onlyA.length?`<div><span class="muted">only A:</span> <span class="mono">${x.onlyA.map(esc).join(", ")}</span></div>`:""}${x.onlyB.length?`<div><span class="muted">only B:</span> <span class="mono">${x.onlyB.map(esc).join(", ")}</span></div>`:""}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No cross-application duplicates in the selection.</div>`;
+  currentTable={cols:["appId","members","match","decision","canonical"].map(k=>({k,label:k})),rows:dups};
+  return h+`</section>`;
+}
+
+function validation(){
+  const apps=visibleApps();
+  const rows=apps.flatMap(a=>[...a.validation.errors.map(e=>({app:a.id,sev:"error",...e})),...a.validation.warnings.map(w=>({app:a.id,sev:"warning",...w}))]).filter(r=>qMatch(r.message,r.code));
+  const cols=[{k:"app",label:"Application",html:r=>appLabel(r.app)},{k:"sev",label:"Severity",html:r=>r.sev==="error"?`<span class="tag bad">error</span>`:`<span class="tag warn">warning</span>`},{k:"code",label:"Code"},{k:"message",label:"Message"}];
+  return `<section class="panel"><h2>Validation status</h2><div class="scroll"><table><thead><tr><th>Application</th><th>Mode</th><th>Discovery</th><th>Analysis</th><th>Source</th></tr></thead><tbody>${apps.map(a=>`<tr><td>${appLabel(a.id)}</td><td>${esc(a.mode)}</td><td>${vTag(a.validation.discovery)}</td><td>${vTag(a.validation.analysis)}</td><td class="mono">${esc(a.source)}</td></tr>`).join("")}</tbody></table></div></section>
+  <section class="panel"><h2>Open findings <small>${rows.length}</small></h2>${table("val",cols,rows)}</section>`;
+}
+
+const VIEWS={overview,domains,entities,endpoints,duplicates,validation};
+function render(){renderFilters();$("#main").innerHTML=VIEWS[S.tab]();persist()}
+
+document.addEventListener("click",e=>{
+  const chip=e.target.closest(".chip");if(chip){const id=chip.dataset.app;S.apps.has(id)?S.apps.delete(id):S.apps.add(id);render();return}
+  const tab=e.target.closest("[data-tab]");if(tab){S.tab=tab.dataset.tab;history.replaceState(null,"","#"+S.tab);render();return}
+  const ent=e.target.closest("[data-entity]");if(ent){S.entity=ent.dataset.entity;render();return}
+  const go=e.target.closest("[data-goto]");if(go){e.preventDefault();S.entity=go.dataset.goto;S.q="";$("#q").value="";render();window.scrollTo(0,0);return}
+  const th=e.target.closest("th.sort");if(th&&currentTable){const id=th.closest("table").dataset.tid;const k=th.dataset.k;const cur=S.sort[id];S.sort[id]={k,dir:cur&&cur.k===k?-cur.dir:1};render();return}
+});
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("chip")){e.preventDefault();e.target.click()}});
+$("#region").addEventListener("change",e=>{S.region=e.target.value;render()});
+$("#domain").addEventListener("change",e=>{S.domain=e.target.value;render()});
+let qt;$("#q").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{S.q=e.target.value.trim();$("#main").innerHTML=VIEWS[S.tab]()},150)});
+$("#allApps").addEventListener("click",()=>{DATA.apps.filter(a=>S.region==="ALL"||a.region===S.region).forEach(a=>S.apps.add(a.id));render()});
+$("#noApps").addEventListener("click",()=>{DATA.apps.filter(a=>S.region==="ALL"||a.region===S.region).forEach(a=>S.apps.delete(a.id));render()});
+$("#themeBtn").addEventListener("click",()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store("theme",r.dataset.theme)});
+$("#csvBtn").addEventListener("click",()=>{
+  if(!currentTable){alert("This view has no table to export. Open Endpoints, Entities, Domains, Duplicates or Validation.");return}
+  const cols=currentTable.cols.map(c=>c.k);const cell=v=>`"${String(Array.isArray(v)?v.join("; "):v??"").replace(/"/g,'""')}"`;
+  const csv=[cols.join(","),...currentTable.rows.map(r=>cols.map(c=>cell(r[c])).join(","))].join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download=`regional-view-${S.tab}.csv`;a.click();
+});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+:root{
+  --bg:#f6f7f9; --panel:#fff; --ink:#18212b; --muted:#5f6b78; --line:#e2e6eb; --soft:#eef1f5;
+  --accent:#1f5fae; --accent-soft:#e6eef9; --ok:#1d7a4c; --ok-soft:#e3f3ea; --warn:#9a6200; --warn-soft:#fbf0dc;
+  --bad:#b3261e; --bad-soft:#fbe5e3; --dec:#fff8e1; --get:#1d7a4c; --post:#1f5fae; --put:#9a6200; --patch:#7a4fb3; --delete:#b3261e;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; --sans:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1419; --panel:#161d24; --ink:#e3e8ee; --muted:#93a0ad; --line:#26313c; --soft:#1c252e; --accent:#6aa4ee; --accent-soft:#1a2b40;
+  --ok:#5cc28d; --ok-soft:#15291f; --warn:#e0a84a; --warn-soft:#2c2414; --bad:#ef7d74; --bad-soft:#341b19; --dec:#2a2412;
+  --get:#5cc28d; --post:#6aa4ee; --put:#e0a84a; --patch:#b48ce8; --delete:#ef7d74;}}
+:root[data-theme="dark"]{
+  --bg:#0f1419; --panel:#161d24; --ink:#e3e8ee; --muted:#93a0ad; --line:#26313c; --soft:#1c252e; --accent:#6aa4ee; --accent-soft:#1a2b40;
+  --ok:#5cc28d; --ok-soft:#15291f; --warn:#e0a84a; --warn-soft:#2c2414; --bad:#ef7d74; --bad-soft:#341b19; --dec:#2a2412;
+  --get:#5cc28d; --post:#6aa4ee; --put:#e0a84a; --patch:#b48ce8; --delete:#ef7d74;}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--sans)}
+header{padding:18px 24px 10px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end}
+h1{margin:0;font-size:20px;font-weight:650} .meta{color:var(--muted);font-size:12px}
+button,select,input{font:inherit;color:var(--ink)}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 12px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 24px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+label.ctl{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+select,input[type=search],input[type=text]{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+input[type=search]{min-width:220px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 10px;cursor:pointer;font-size:13px;user-select:none}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+nav.tabs{display:flex;gap:2px;overflow-x:auto}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:7px 12px;cursor:pointer;color:var(--muted);white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+main{padding:16px 24px 48px;max-width:1500px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.kpi b{display:block;font-size:22px;font-variant-numeric:tabular-nums} .kpi span{color:var(--muted);font-size:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:hidden}
+.panel>h2{font-size:14px;margin:0;padding:11px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.panel>h2 small{color:var(--muted);font-weight:400} .pad{padding:12px 14px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;background:var(--soft)} tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono);font-size:12px} .muted{color:var(--muted)}
+.tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--soft);color:var(--muted);margin:1px 2px 1px 0;white-space:nowrap}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.bad{background:var(--bad-soft);color:var(--bad)}.tag.acc{background:var(--accent-soft);color:var(--accent)}
+.pct{display:flex;align-items:center;gap:8px;min-width:120px}
+.pct .track{flex:1;height:8px;background:var(--soft);border-radius:4px;overflow:hidden;min-width:60px}
+.pct .fill{height:100%;border-radius:4px}
+.pct b{font-variant-numeric:tabular-nums;font-size:12px;min-width:34px;text-align:right}
+.m{font-family:var(--mono);font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;border:1px solid currentColor}
+.m.GET{color:var(--get)}.m.POST{color:var(--post)}.m.PUT{color:var(--put)}.m.PATCH{color:var(--patch)}.m.DELETE{color:var(--delete)}
+.split{display:grid;grid-template-columns:320px 1fr;gap:14px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.elist{max-height:75vh;overflow:auto}
+.eitem{padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 8px}
+.eitem:hover{background:var(--soft)} .eitem[aria-current="true"]{background:var(--accent-soft)}
+.eitem small{color:var(--muted)}
+.decision{background:var(--dec);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;align-items:end}
+.decision label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.decision select,.decision input{width:100%}
+.dec-cell select,.dec-cell input{max-width:150px}
+.arrow{color:var(--muted);text-align:center}
+.empty{padding:22px;color:var(--muted);text-align:center}
+.note{font-size:12px;color:var(--muted)}
+.bulk{background:var(--dec);border:1px solid var(--warn);border-radius:10px;padding:12px 14px;margin:12px 24px 0;display:flex;flex-direction:column;gap:8px}
+.bulk[hidden]{display:none}
+.bulk label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.bulk .acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.toast{position:fixed;bottom:16px;right:16px;background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:.92}
+@media (max-width:600px){header,main,.bar{padding-left:16px;padding-right:16px}input[type=search]{min-width:0;width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>{{TITLE}}</h1><div class="meta" id="meta"></div></div>
+  <div class="row">
+    <input type="text" id="reviewer" placeholder="Your name (reviewer)" aria-label="Reviewer name">
+    <button class="btn ok" id="approveAllBtn" title="Approve every pending entity in the current filters">✓ Approve all…</button>
+    <button class="btn primary" id="exportBtn">⭳ Export decisions</button>
+    <button class="btn" id="themeBtn" title="Light / dark">◐</button>
+  </div>
+</header>
+<div class="bar">
+  <div class="row">
+    <label class="ctl">Domain <select id="fDomain"></select></label>
+    <label class="ctl">Match <select id="fStatus"><option value="">All</option><option value="full">Full</option><option value="partial">Partial</option><option value="none">No match</option><option value="ambiguous">Ambiguous</option></select></label>
+    <label class="ctl">Review <select id="fReview"><option value="">All</option><option value="pending">Pending</option><option value="decided">Decided</option><option value="changed">Changed since approval</option></select></label>
+    <input type="search" id="q" placeholder="Search entity, attribute, endpoint…" aria-label="Search">
+  </div>
+  <div class="row"><span class="ctl">Applications</span><span id="apps" class="row"></span></div>
+  <nav class="tabs" id="tabs"></nav>
+</div>
+<div class="bulk" id="bulk" hidden role="dialog" aria-label="Approve all">
+  <b>Approve all - <span id="bulkCount"></span></b>
+  <div class="note">Applies to the entities matching the current filters (applications, domain, match, review, search). Nothing is recorded until you export the decisions with your name.</div>
+  <label><input type="radio" name="bulkMode" value="rec" checked> Approve the recommendation of each entity (full → use as-is, partial → extend, none → custom)</label>
+  <label><input type="radio" name="bulkMode" value="full"> Approve full matches only (use reference as-is)</label>
+  <label><input type="checkbox" id="bulkOverwrite"> Also replace decisions already made (otherwise only pending / changed entities)</label>
+  <label><input type="checkbox" id="bulkOps" checked> Include all their endpoints (decision "include")</label>
+  <div class="acts"><button class="btn ok" id="bulkGo">Approve</button><button class="btn" id="bulkCancel">Cancel</button><button class="btn" id="bulkUndo" hidden>Undo last approve-all</button></div>
+</div>
+<main id="main"></main>
+<div class="toast" id="toast"></div>
+<script>
+const DATA=/*__DATA__*/null;
+const TABS=[["overview","Overview"],["entities","Entities & attributes"],["endpoints","Endpoints"],["review","Review & export"]];
+const ENT_DEC=[["","— choose —"],["approve","Approve recommendation"],["use-as-is","Use reference as-is"],["extend","Extend reference"],["custom","Custom canonical entity"],["reject","Reject"],["pending","Pending"]];
+const ATT_DEC=[["","accept (default)"],["accept","accept"],["rename","rename"],["exclude","exclude"]];
+const OP_DEC=[["","include (default)"],["include","include"],["exclude","exclude"]];
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KEY="acord-review:"+DATA.meta.region+":"+DATA.meta.scope.slice;
+const S={tab:"overview",domain:"",status:"",review:"",q:"",apps:new Set(DATA.meta.scope.appIds),entity:null};
+const entById=Object.fromEntries(DATA.entities.map(e=>[e.id,e]));
+// decisions: start from approvals already recorded (approvals.yaml), overlay this browser's drafts
+const D={entities:{},attributes:{},endpoints:{}};
+for(const k of ["entities","attributes","endpoints"]) for(const [id,v] of Object.entries(DATA.review.state[k]||{})) if(v.decision) D[k][id]={...v,_recorded:true};
+function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function load(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}}
+(function(){const d=load(KEY);if(d) for(const k of ["entities","attributes","endpoints"]) Object.assign(D[k],d[k]||{});
+  const r=load("acord-reviewer");if(r) $("#reviewer").value=r; const t=load("acord-theme");if(t) document.documentElement.dataset.theme=t;})();
+function save(){const drafts={entities:{},attributes:{},endpoints:{}};
+  for(const k in drafts) for(const [id,v] of Object.entries(D[k])) if(!v._recorded||v._dirty) drafts[k][id]=v; store(KEY,drafts)}
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1600)}
+
+const pctColor=p=>p==null?"var(--line)":p>=90?"var(--ok)":p>=45?"var(--warn)":"var(--bad)";
+const pct=p=>`<div class="pct"><div class="track"><div class="fill" style="width:${p??0}%;background:${pctColor(p)}"></div></div><b>${p==null?"—":p+"%"}</b></div>`;
+const statusTag=s=>s==="full"?`<span class="tag ok">full match</span>`:s==="partial"?`<span class="tag warn">partial</span>`:s==="none"?`<span class="tag bad">no match</span>`:`<span class="tag">${esc(s)}</span>`;
+function reviewState(e){const d=D.entities[e.id];const rs=DATA.review.state.entities[e.id]||{};
+  if(d&&d.decision&&d.decision!=="pending"){ if(d._recorded&&!d._dirty&&rs.state==="changed") return "changed"; return d.decision==="reject"?"rejected":"decided";} return "pending"}
+const revTag=s=>s==="decided"?`<span class="tag ok">decided</span>`:s==="rejected"?`<span class="tag">rejected</span>`:s==="changed"?`<span class="tag bad">changed – re-review</span>`:`<span class="tag warn">pending</span>`;
+function inScope(e){ if(!e.apps.some(a=>S.apps.has(a))) return false; if(S.domain&&e.domain!==S.domain) return false;
+  if(S.status==="ambiguous"?!e.ambiguous:(S.status&&e.status!==S.status)) return false;
+  const rs=reviewState(e); if(S.review==="pending"&&rs!=="pending") return false; if(S.review==="decided"&&!(rs==="decided"||rs==="rejected")) return false; if(S.review==="changed"&&rs!=="changed") return false;
+  if(S.q){const q=S.q.toLowerCase();const hay=[e.name,e.proposedCanonicalName,e.match&&e.match.reference,...e.attributes.map(a=>a.name+" "+(a.match.reference||""))].join(" ").toLowerCase();if(!hay.includes(q))return false}
+  return true}
+
+function renderBar(){
+  const refs=DATA.references.map(r=>`${r.source}: ${r.name} ${r.version}`).join(" · ");
+  $("#meta").textContent=`Generated ${DATA.meta.generatedAt.replace("T"," ").slice(0,16)} UTC · ${refs}`;
+  const doms=[...new Set(DATA.entities.map(e=>e.domain||""))].sort();
+  $("#fDomain").innerHTML=`<option value="">All</option>`+doms.map(d=>`<option ${d===S.domain?"selected":""} value="${esc(d)}">${esc(d||"(none)")}</option>`).join("");
+  $("#apps").innerHTML=DATA.meta.scope.appIds.map(a=>`<span class="chip" role="button" tabindex="0" data-app="${esc(a)}" aria-pressed="${S.apps.has(a)}">${esc(a)}</span>`).join("");
+  $("#tabs").innerHTML=TABS.map(([k,l])=>`<button data-tab="${k}" aria-selected="${S.tab===k}">${l}</button>`).join("");
+}
+
+function overview(){
+  const es=DATA.entities.filter(inScope); const s=DATA.summary;
+  const k=(v,l)=>`<div class="kpi"><b>${v}</b><span>${l}</span></div>`;
+  const avg=es.length?Math.round(es.reduce((a,e)=>a+e.alignmentPercent,0)/es.length):0;
+  const decided=es.filter(e=>reviewState(e)!=="pending").length;
+  let h=`<div class="kpis">${k(avg+"%","Average alignment")}${k(es.length,"Entities")}${k(es.filter(e=>e.status==="full").length,"Full matches")}${k(es.filter(e=>e.status==="partial").length,"Partial")}${k(es.filter(e=>e.status==="none").length,"No match")}${k(es.filter(e=>e.ambiguous).length,"Ambiguous")}${k(decided+" / "+es.length,"Reviewed")}</div>`;
+  const roll=(key)=>{const g={};es.forEach(e=>(key(e)).forEach(x=>(g[x]=g[x]||[]).push(e)));return Object.entries(g).sort()};
+  const tbl=(title,groups)=>`<section class="panel"><h2>${title}</h2><div class="scroll"><table><thead><tr><th>Name</th><th class="num">Entities</th><th class="num">Full</th><th class="num">Partial</th><th class="num">None</th><th style="width:30%">Alignment</th><th class="num">Reviewed</th></tr></thead><tbody>${groups.map(([n,rs])=>{const p=Math.round(rs.reduce((a,e)=>a+e.alignmentPercent,0)/rs.length);
+    return `<tr><td><b>${esc(n||"(none)")}</b></td><td class="num">${rs.length}</td><td class="num">${rs.filter(e=>e.status==="full").length}</td><td class="num">${rs.filter(e=>e.status==="partial").length}</td><td class="num">${rs.filter(e=>e.status==="none").length}</td><td>${pct(p)}</td><td class="num">${rs.filter(e=>reviewState(e)!=="pending").length}/${rs.length}</td></tr>`}).join("")}</tbody></table></div></section>`;
+  h+=tbl("By domain",roll(e=>[e.domain||""]))+tbl("By application",roll(e=>e.apps.filter(a=>S.apps.has(a))));
+  const eps=DATA.endpoints.filter(o=>S.apps.has(o.appId)&&(!S.domain||o.domain===S.domain));
+  h+=`<section class="panel"><h2>Endpoints by alignment <small>${eps.length}</small></h2><div class="pad">${["full","partial","none","n/a"].map(st=>`<span class="tag ${st==="full"?"ok":st==="partial"?"warn":st==="none"?"bad":""}">${st}: ${eps.filter(o=>o.status===st).length}</span>`).join(" ")}</div></section>`;
+  return h;
+}
+
+function entities(){
+  const es=DATA.entities.filter(inScope).sort((a,b)=>(a.domain||"").localeCompare(b.domain||"")||a.name.localeCompare(b.name));
+  if(!es.length) return `<section class="panel"><div class="empty">Nothing matches the filters.</div></section>`;
+  const sel=es.find(e=>e.id===S.entity)||es[0]; S.entity=sel.id;
+  const d=D.entities[sel.id]||{};
+  const list=es.map(e=>`<div class="eitem" data-entity="${esc(e.id)}" aria-current="${e===sel}"><span><b>${esc(e.name)}</b> ${e.ambiguous?'<span class="tag bad">ambiguous</span>':""}<br><small>${esc(e.domain||"")} · ${e.match?"→ "+esc(e.match.reference):"no reference match"}</small></span><span style="text-align:right">${statusTag(e.status)}<br>${revTag(reviewState(e))}</span><span style="grid-column:1/-1">${pct(e.alignmentPercent)}</span></div>`).join("");
+  const cands=sel.candidates.map(c=>`<option value="${esc(c.source+"|"+c.reference)}" ${(d.reference||(sel.match&&sel.match.reference))===c.reference?"selected":""}>${esc(c.reference)} (${c.source}, ${Math.round(c.score*100)}%)</option>`).join("");
+  const effDecision=d.decision||"";
+  const attrRows=sel.kind==="enum"?"":sel.attributes.map(a=>{const m=a.match;const ad=D.attributes[a.id]||{};
+    return `<tr><td class="mono">${esc(a.name)}${a.required?'<span style="color:var(--bad)">*</span>':""}<div class="muted">${esc(a.refEntity?(a.isCollection?"list of ":"")+a.refEntity:a.type)}</div>${a.typeConflict?`<div class="tag bad" title="${esc(a.typeConflict)}">type differs between apps</div>`:""}</td>
+      <td class="arrow">${m.reference?"→":"·"}</td>
+      <td>${m.reference?`<span class="mono">${esc(m.reference)}</span><div class="muted">${esc(m.referenceType||"")}${m.referenceInherited?" · inherited":""}</div>`:`<span class="muted">no reference attribute</span>`}</td>
+      <td>${m.reference?`<span class="tag ${m.status==="match"?"ok":m.status==="type-conflict"?"bad":"warn"}">${esc(m.status)}</span><div class="muted">name ${m.nameSimilarity} · type ${m.typeCompatibility}</div>`:`<span class="tag">${esc(a.recommendation)}</span>`}</td>
+      <td class="mono">${esc(ad.canonicalName||a.proposedCanonicalName)}</td>
+      <td class="dec-cell"><select data-attr="${esc(a.id)}">${ATT_DEC.map(([v,l])=>`<option value="${v}" ${(ad.decision||"")===v?"selected":""}>${l}</option>`).join("")}</select>
+        ${(ad.decision==="rename")?`<input type="text" data-attr-name="${esc(a.id)}" value="${esc(ad.canonicalName||"")}" placeholder="new name">`:""}</td>
+      <td class="muted" style="font-size:12px">${a.sources.map(s=>esc(s.appId+": "+s.schemas.join("/")+"."+s.attribute)).join("<br>")}</td></tr>`}).join("");
+  const enumBlock=sel.kind==="enum"&&sel.match?`<div class="pad"><div>Matching values: ${(sel.match.valueMatches||[]).map(v=>`<span class="tag ok">${esc(v)}</span>`).join("")}</div><div>Only ours: ${(sel.match.valuesOnlyOurs||[]).map(v=>`<span class="tag warn">${esc(v)}</span>`).join("")||"—"}</div><div>Only reference: ${(sel.match.valuesOnlyReference||[]).map(v=>`<span class="tag">${esc(v)}</span>`).join("")||"—"}</div></div>`:sel.kind==="enum"?`<div class="pad">Values: ${sel.enumValues.map(v=>`<span class="tag">${esc(v)}</span>`).join("")}</div>`:"";
+  return `<div class="split"><section class="panel"><h2>Entities <small>${es.length}</small></h2><div class="elist">${list}</div></section><div>
+   <section class="panel"><h2><span>${esc(sel.name)} ${statusTag(sel.status)} ${sel.ambiguous?'<span class="tag bad">ambiguous</span>':""}</span><small>${esc(sel.domain||"")} · ${sel.apps.map(esc).join(", ")}</small></h2>
+    <div class="pad">${sel.description?`<p style="margin-top:0">${esc(sel.description)}</p>`:""}
+     <div class="row" style="margin-bottom:8px">${pct(sel.alignmentPercent)} <span>Best match: <b>${sel.match?esc(sel.match.reference):"—"}</b> ${sel.referenceSource?`<span class="tag acc">${esc(sel.referenceSource)}</span>`:""}</span>
+      ${sel.match&&sel.kind!=="enum"?`<span class="muted">name ${sel.match.nameSimilarity} · covers ${Math.round(sel.match.coverage*100)}% of our attributes · ${Math.round((sel.match.referenceCoverage||0)*100)}% of reference</span>`:""}</div>
+     <div class="row"><span>Recommendation: <b>${esc(sel.recommendationLabel)}</b> → canonical <b class="mono">${esc(sel.proposedCanonicalName)}</b></span>
+      ${sel.mergesWith.length?`<span class="tag acc" title="These entities share the same reference and become one canonical entity">merges with ${sel.mergesWith.map(esc).join(", ")}</span>`:""}</div>
+     <div class="note" style="margin-top:6px">Sources: ${sel.members.map(m=>esc(m.appId+": "+m.schemas.join(", "))).join(" · ")}</div>
+    </div></section>
+   <div class="decision" style="margin-bottom:14px">
+     <label>Decision<select id="eDec">${ENT_DEC.map(([v,l])=>`<option value="${v}" ${effDecision===v?"selected":""}>${l}</option>`).join("")}</select></label>
+     <label>Reference entity<select id="eRef"><option value="">(none)</option>${cands}</select></label>
+     <label>Canonical name<input type="text" id="eName" value="${esc(d.canonicalName||"")}" placeholder="${esc(sel.proposedCanonicalName)}"></label>
+     <label>Comment<input type="text" id="eCom" value="${esc(d.comment||"")}" placeholder="why (required for reject)"></label>
+   </div>
+   ${sel.kind==="enum"?`<section class="panel"><h2>Code values</h2>${enumBlock}</section>`:
+   `<section class="panel"><h2>Attribute alignment <small>${sel.attributes.filter(a=>a.match.reference).length}/${sel.attributes.length} matched</small></h2><div class="scroll"><table><thead><tr><th>Our attribute</th><th></th><th>Reference attribute</th><th>Match</th><th>Canonical</th><th>Decision</th><th>Sources</th></tr></thead><tbody>${attrRows}</tbody></table></div></section>`}
+   <section class="panel"><h2>Candidates</h2><div class="scroll"><table><thead><tr><th>Reference</th><th>Source</th><th>Score</th><th class="num">Name</th><th class="num">Coverage</th><th class="num">Type conflicts</th></tr></thead><tbody>${sel.candidates.map(c=>`<tr><td><b>${esc(c.reference)}</b></td><td>${esc(c.source)}</td><td>${pct(Math.round(c.score*100))}</td><td class="num">${c.nameSimilarity}</td><td class="num">${Math.round(c.coverage*100)}%</td><td class="num">${c.typeConflicts||0}</td></tr>`).join("")||`<tr><td colspan="6" class="muted">No candidate above threshold.</td></tr>`}</tbody></table></div></section>
+  </div></div>`;
+}
+
+function endpoints(){
+  const eps=DATA.endpoints.filter(o=>S.apps.has(o.appId)&&(!S.domain||o.domain===S.domain)&&(!S.q||(o.path+" "+o.operationId+" "+o.entities.join(" ")).toLowerCase().includes(S.q.toLowerCase())));
+  if(!eps.length) return `<section class="panel"><div class="empty">Nothing matches the filters.</div></section>`;
+  return `<section class="panel"><h2>Endpoints <small>${eps.length} · alignment = average of the entities in request/response</small></h2><div class="scroll"><table><thead><tr><th>Application</th><th>Endpoint</th><th>Entities</th><th style="min-width:140px">Alignment</th><th>Proposed canonical path</th><th>Decision</th></tr></thead><tbody>${
+   eps.map(o=>{const d=D.endpoints[o.id]||{};return `<tr><td><span class="tag acc">${esc(o.appId)}</span><div class="muted">${esc(o.domain)} · ${esc(o.capability)}</div></td>
+   <td><span class="m ${o.method}">${o.method}</span> <span class="mono">${esc(o.path)}</span><div class="muted">${esc(o.operationId)}</div></td>
+   <td>${o.entities.map(e=>`<a href="#" class="tag" data-goto="${esc(e)}">${esc(e)}</a>`).join("")||'<span class="muted">—</span>'}</td><td>${pct(o.alignmentPercent)}</td>
+   <td><input type="text" data-op-path="${esc(o.id)}" value="${esc(d.canonicalPath||"")}" placeholder="${esc(o.proposedPath)}" class="mono" style="width:100%;min-width:200px"></td>
+   <td class="dec-cell"><select data-op="${esc(o.id)}">${OP_DEC.map(([v,l])=>`<option value="${v}" ${(d.decision||"")===v?"selected":""}>${l}</option>`).join("")}</select></td></tr>`}).join("")}</tbody></table></div></section>`;
+}
+
+function review(){
+  const es=DATA.entities.filter(e=>e.apps.some(a=>S.apps.has(a)));
+  const pend=es.filter(e=>reviewState(e)==="pending"), chg=es.filter(e=>reviewState(e)==="changed");
+  const mine=Object.values(D.entities).filter(v=>v._dirty||!v._recorded).length+Object.values(D.attributes).filter(v=>v._dirty||!v._recorded).length+Object.values(D.endpoints).filter(v=>v._dirty||!v._recorded).length;
+  return `<section class="panel"><h2>Review status</h2><div class="pad">
+   <p>${es.length-pend.length-chg.length} of ${es.length} entities decided · <b>${pend.length}</b> pending · <b>${chg.length}</b> changed since approval · ${mine} new decisions in this browser (saved locally until exported).</p>
+   <div class="row"><button class="btn ok" id="approveAllBtn2">✓ Approve all…</button><button class="btn" id="clearDrafts">Discard my unsaved decisions</button><button class="btn primary" id="exportBtn2">⭳ Export decisions</button></div>
+   <p class="note">Export downloads <span class="mono">review-decisions.json</span>. Give it to the alignment owner or run<br><span class="mono">python .github/skills/acord-alignment/scripts/import_review.py --json review-decisions.json --dir ${esc(DATA.meta.scope.slice)}</span>. The Excel workbook in the same folder can be used instead.</p></div></section>
+   <section class="panel"><h2>Pending entities <small>${pend.length+chg.length}</small></h2>${pend.length+chg.length?`<div class="scroll"><table><thead><tr><th>Entity</th><th>Domain</th><th>Alignment</th><th>Recommendation</th><th>State</th></tr></thead><tbody>${[...chg,...pend].map(e=>`<tr><td><a href="#" data-goto="${esc(e.id)}"><b>${esc(e.name)}</b></a></td><td>${esc(e.domain)}</td><td>${pct(e.alignmentPercent)}</td><td>${esc(e.recommendationLabel)} → ${esc(e.proposedCanonicalName)}</td><td>${revTag(reviewState(e))}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">Everything in scope is decided.</div>`}</section>`;
+}
+
+const VIEWS={overview,entities,endpoints,review};
+function render(){renderBar();$("#main").innerHTML=VIEWS[S.tab]();if(!$("#bulk").hidden)updateBulkCount()}
+function setEnt(id,patch){const e=entById[id];const cur=D.entities[id]||{};D.entities[id]={...cur,...patch,basis:e.basis,_dirty:true};save()}
+
+document.addEventListener("click",ev=>{
+  const t=ev.target;
+  const tab=t.closest("[data-tab]");if(tab){S.tab=tab.dataset.tab;render();return}
+  const chip=t.closest("[data-app]");if(chip){const a=chip.dataset.app;S.apps.has(a)?S.apps.delete(a):S.apps.add(a);render();return}
+  const it=t.closest("[data-entity]");if(it){S.entity=it.dataset.entity;render();return}
+  const go=t.closest("[data-goto]");if(go){ev.preventDefault();S.entity=go.dataset.goto;S.tab="entities";render();window.scrollTo(0,0);return}
+  if(t.id==="exportBtn"||t.id==="exportBtn2") return exportDecisions();
+  if(t.id==="approveAllBtn"||t.id==="approveAllBtn2"){openBulk();return}
+  if(t.id==="bulkCancel"){$("#bulk").hidden=true;return}
+  if(t.id==="bulkGo"){applyBulk();return}
+  if(t.id==="bulkUndo"){undoBulk();return}
+  if(t.id==="clearDrafts"){try{localStorage.removeItem(KEY)}catch(e){};location.reload();return}
+  if(t.id==="themeBtn"){const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";store("acord-theme",r.dataset.theme)}
+});
+document.addEventListener("change",ev=>{
+  const t=ev.target;
+  if(t.id==="eDec"){setEnt(S.entity,{decision:t.value});render();return}
+  if(t.id==="eRef"){const [src,ref]=t.value.split("|");setEnt(S.entity,{reference:ref||"",source:src||""});return}
+  if(t.id==="eName"){setEnt(S.entity,{canonicalName:t.value.trim()});return}
+  if(t.id==="eCom"){setEnt(S.entity,{comment:t.value.trim()});return}
+  if(t.dataset.attr){const id=t.dataset.attr;const a=Object.values(entById).flatMap(e=>e.attributes).find(x=>x.id===id);D.attributes[id]={...(D.attributes[id]||{}),decision:t.value,basis:a.basis,_dirty:true};save();render();return}
+  if(t.dataset.attrName){const id=t.dataset.attrName;D.attributes[id]={...(D.attributes[id]||{}),canonicalName:t.value.trim(),_dirty:true};save();return}
+  if(t.dataset.op){const o=DATA.endpoints.find(x=>x.id===t.dataset.op);D.endpoints[o.id]={...(D.endpoints[o.id]||{}),decision:t.value,basis:o.basis,_dirty:true};save();return}
+  if(t.dataset.opPath){const o=DATA.endpoints.find(x=>x.id===t.dataset.opPath);D.endpoints[o.id]={...(D.endpoints[o.id]||{}),canonicalPath:t.value.trim(),basis:o.basis,_dirty:true};save();return}
+  if(t.id==="fDomain"){S.domain=t.value;render()} if(t.id==="fStatus"){S.status=t.value;render()} if(t.id==="fReview"){S.review=t.value;render()}
+  if(t.id==="reviewer") store("acord-reviewer",t.value.trim());
+});
+document.addEventListener("keydown",ev=>{if((ev.key==="Enter"||ev.key===" ")&&ev.target.classList.contains("chip")){ev.preventDefault();ev.target.click()}});
+let qt;$("#q").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{S.q=e.target.value.trim();$("#main").innerHTML=VIEWS[S.tab]()},150)});
+
+// ---------- approve all ----------
+let UNDO=null;
+function bulkTargets(){
+  const mode=(document.querySelector('input[name=bulkMode]:checked')||{}).value||"rec";
+  const over=$("#bulkOverwrite").checked;
+  return DATA.entities.filter(e=>inScope(e)&&(mode!=="full"||e.status==="full")&&(over||["pending","changed"].includes(reviewState(e))));
+}
+function updateBulkCount(){const n=bulkTargets().length;$("#bulkCount").textContent=n+" entit"+(n===1?"y":"ies")+" will be approved";$("#bulkGo").disabled=!n}
+function openBulk(){
+  if(!$("#reviewer").value.trim()){toast("Enter your name first - approvals are recorded per reviewer");$("#reviewer").focus();return}
+  $("#bulk").hidden=false;$("#bulkUndo").hidden=!UNDO;updateBulkCount();$("#bulk").scrollIntoView({block:"nearest"});
+}
+function applyBulk(){
+  const mode=(document.querySelector('input[name=bulkMode]:checked')||{}).value||"rec";
+  const ts=bulkTargets();if(!ts.length)return;
+  UNDO=JSON.parse(JSON.stringify(D));
+  ts.forEach(e=>{ if(mode==="full") setEnt(e.id,{decision:"use-as-is",reference:e.match.reference,source:e.referenceSource});
+                  else setEnt(e.id,{decision:"approve"}); });
+  let nOps=0;
+  if($("#bulkOps").checked){const names=new Set(ts.map(e=>e.name));
+    DATA.endpoints.forEach(o=>{if(S.apps.has(o.appId)&&o.entities.length&&o.entities.every(x=>names.has(x)||reviewState(entById[x]||{id:""})!=="pending")&&!(D.endpoints[o.id]||{}).decision){D.endpoints[o.id]={decision:"include",basis:o.basis,_dirty:true};nOps++}});save()}
+  $("#bulkUndo").hidden=false;
+  toast(`${ts.length} entities${nOps?` and ${nOps} endpoints`:""} approved - export to record them`);
+  render();updateBulkCount();
+}
+function undoBulk(){if(!UNDO)return;for(const k of ["entities","attributes","endpoints"])D[k]=UNDO[k];UNDO=null;save();$("#bulkUndo").hidden=true;toast("Approve-all undone");render();updateBulkCount()}
+document.addEventListener("change",ev=>{if(ev.target.name==="bulkMode"||ev.target.id==="bulkOverwrite")updateBulkCount()});
+
+function exportDecisions(){
+  const reviewer=$("#reviewer").value.trim();
+  if(!reviewer){toast("Enter your name first");$("#reviewer").focus();return}
+  const pick=o=>{const out={};for(const [id,v] of Object.entries(o)){if(v._recorded&&!v._dirty)continue;const {_recorded,_dirty,state,at,file,...rest}=v;out[id]={...rest,reviewer}}return out};
+  const doc={format:"acord-alignment-review",version:1,region:DATA.meta.region,slice:DATA.meta.scope.slice,alignmentGeneratedAt:DATA.meta.generatedAt,
+    reviewer,exportedAt:new Date().toISOString(),entities:pick(D.entities),attributes:pick(D.attributes),endpoints:pick(D.endpoints)};
+  const n=Object.keys(doc.entities).length+Object.keys(doc.attributes).length+Object.keys(doc.endpoints).length;
+  if(!n){toast("No new decisions to export");return}
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(doc,null,1)],{type:"application/json"}));
+  a.download="review-decisions.json";a.click();toast(n+" decisions exported");
+}
+render();
+</script>
+</body>
+</html>

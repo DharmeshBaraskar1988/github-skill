@@ -1,0 +1,286 @@
+{
+  "source": "api-catalog/domains.xlsx",
+  "sheet": "Domains",
+  "domains": [
+    {
+      "name": "Claims",
+      "description": "Claims handling from first notice of loss to settlement",
+      "keywords": [
+        "claim",
+        "claims",
+        "fnol",
+        "loss",
+        "claimant",
+        "settlement",
+        "reserve"
+      ],
+      "subdomains": [],
+      "regions": [],
+      "applications": [],
+      "capabilities": [
+        {
+          "name": "Register Claim",
+          "description": "Create a claim / first notice of loss",
+          "keywords": [
+            "create claim",
+            "register",
+            "fnol",
+            "submit"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 3
+        },
+        {
+          "name": "View Claim",
+          "description": "Retrieve claim details",
+          "keywords": [
+            "get claim",
+            "view",
+            "details"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 4
+        },
+        {
+          "name": "Search Claims",
+          "description": "List and search claims",
+          "keywords": [
+            "list claims",
+            "search",
+            "find"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 5
+        },
+        {
+          "name": "Update Claim",
+          "description": "Change claim data",
+          "keywords": [
+            "update claim",
+            "modify"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 6
+        },
+        {
+          "name": "Approve Claim",
+          "description": "Approve and settle a claim",
+          "keywords": [
+            "approve",
+            "settlement",
+            "settle"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 7
+        },
+        {
+          "name": "Close Claim",
+          "description": "Close or withdraw a claim",
+          "keywords": [
+            "delete claim",
+            "close",
+            "withdraw"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 8
+        },
+        {
+          "name": "Manage Claimants",
+          "description": "Parties claiming under a policy",
+          "keywords": [
+            "claimant",
+            "claimants"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 9
+        }
+      ]
+    },
+    {
+      "name": "Document Management",
+      "description": "Documents attached to business objects",
+      "keywords": [
+        "document",
+        "documents",
+        "upload",
+        "attachment",
+        "file"
+      ],
+      "subdomains": [],
+      "regions": [],
+      "applications": [],
+      "capabilities": [
+        {
+          "name": "Upload Document",
+          "description": "",
+          "keywords": [
+            "upload document",
+            "attach"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 11
+        },
+        {
+          "name": "List Documents",
+          "description": "",
+          "keywords": [
+            "list documents"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 12
+        },
+        {
+          "name": "Delete Document",
+          "description": "",
+          "keywords": [
+            "delete document",
+            "remove"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 13
+        }
+      ]
+    },
+    {
+      "name": "Policy",
+      "description": "Policy administration",
+      "keywords": [
+        "policy",
+        "policies",
+        "coverage",
+        "premium",
+        "endorsement",
+        "renewal",
+        "policyholder"
+      ],
+      "subdomains": [],
+      "regions": [],
+      "applications": [],
+      "capabilities": [
+        {
+          "name": "Issue Policy",
+          "description": "",
+          "keywords": [
+            "create policy",
+            "issue",
+            "bind"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 15
+        },
+        {
+          "name": "View Policy",
+          "description": "",
+          "keywords": [
+            "get policy",
+            "view policy"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 16
+        },
+        {
+          "name": "Search Policies",
+          "description": "",
+          "keywords": [
+            "list policies",
+            "search"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 17
+        },
+        {
+          "name": "Renew Policy",
+          "description": "",
+          "keywords": [
+            "renew",
+            "renewal"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 18
+        },
+        {
+          "name": "Manage Policyholder",
+          "description": "",
+          "keywords": [
+            "policyholder",
+            "holder",
+            "insured"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 19
+        }
+      ]
+    },
+    {
+      "name": "Quote",
+      "description": "Quotation and pricing",
+      "keywords": [
+        "quote",
+        "quotes",
+        "quotation",
+        "price",
+        "pricing",
+        "rating"
+      ],
+      "subdomains": [],
+      "regions": [],
+      "applications": [],
+      "capabilities": [
+        {
+          "name": "Create Quote",
+          "description": "",
+          "keywords": [
+            "create quote",
+            "quotation"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 21
+        },
+        {
+          "name": "Get Quote",
+          "description": "",
+          "keywords": [
+            "get quote"
+          ],
+          "subdomain": "",
+          "regions": [],
+          "applications": [],
+          "row": 22
+        }
+      ]
+    }
+  ],
+  "issues": []
+}

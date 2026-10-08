@@ -1,0 +1,29 @@
+{
+  "skill": "canonical-model",
+  "status": "pass",
+  "iteration": 0,
+  "modelStatus": "approved",
+  "version": "1.0.0",
+  "summary": {
+    "entities": 12,
+    "attributes": 58,
+    "baselineEntities": 11,
+    "newEntities": 1,
+    "extensions": 7,
+    "endpoints": 3,
+    "relations": 16,
+    "pending": 0,
+    "rejected": 0,
+    "excludedEndpoints": 0,
+    "lineageRows": 20,
+    "problems": 0
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "code": "C10",
+      "message": "0 entities and 10 attributes without description",
+      "fix": "Add descriptions at source (analysis decisions.yaml descriptions) or in the reference model"
+    }
+  ]
+}

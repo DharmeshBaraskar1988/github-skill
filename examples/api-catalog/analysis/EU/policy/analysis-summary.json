@@ -1,0 +1,25 @@
+{
+  "region": "EU",
+  "application": "policy",
+  "operations": 5,
+  "domainsUsed": [
+    "Policy"
+  ],
+  "unclassifiedOperations": 0,
+  "lowConfidenceOperations": 0,
+  "capabilities": 5,
+  "proposedCapabilities": 1,
+  "schemas": 9,
+  "entities": 8,
+  "relations": 9,
+  "duplicateGroups": 0,
+  "undecidedDuplicateGroups": 0,
+  "schemasMerged": 0,
+  "schemasRenamed": 0,
+  "staleDecisions": [],
+  "inputs": {
+    "spec": "../../../discovery/EU/policy/openapi.yaml",
+    "domains": "../../../domains.json",
+    "decisions": null
+  }
+}

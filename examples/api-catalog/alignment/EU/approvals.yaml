@@ -1,0 +1,136 @@
+# Human review decisions - written by import_review.py. Do not edit by hand; re-import a reviewed file.
+entities:
+  Address:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    basis: 6dfe3054d7
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  ApprovalRequest:
+    decision: custom
+    canonicalName: ClaimApproval
+    reviewer: Asha (Claims architect)
+    comment: No reference equivalent
+    basis: bbc0be0fb1
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  Claim:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    basis: 31f6462830
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  ClaimStatus:
+    decision: extend
+    reviewer: Asha (Claims architect)
+    comment: Keep Draft/Rejected
+    basis: e8e56d4d45
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  Claimant:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    basis: e0e6791421
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  CreateClaimRequest:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    comment: Command payload of Claim
+    basis: f8013c7259
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  FnolReceipt:
+    decision: reject
+    reviewer: Asha (Claims architect)
+    comment: Technical acknowledgement, not canonical
+    basis: 7bf541abff
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  FnolSubmission:
+    decision: extend
+    reviewer: Asha (Claims architect)
+    comment: FNOL is the first version of a Claim
+    basis: 44b616e7cd
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  Money:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    basis: 5a6a5fcd4e
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  PolicyHolder:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    basis: 3944a139da
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  UpdateClaimRequest:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    basis: 82687e53b3
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  ClaimDocument:
+    decision: approve
+    reviewer: Asha (Claims architect)
+    basis: 6ec204f761
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  Coverage:
+    decision: approve
+    basis: bbdc1504bf
+    reviewer: Marco (Policy architect)
+    at: '2026-10-08T17:35:41+00:00'
+    file: review-decisions.json
+  IssuePolicyRequest:
+    decision: approve
+    basis: 7d3da9da5f
+    reviewer: Marco (Policy architect)
+    at: '2026-10-08T17:35:41+00:00'
+    file: review-decisions.json
+  PolicyDetails:
+    decision: approve
+    basis: 0d770b375c
+    reviewer: Marco (Policy architect)
+    at: '2026-10-08T17:35:41+00:00'
+    file: review-decisions.json
+  PolicyStatus:
+    decision: approve
+    basis: 8b286df317
+    reviewer: Marco (Policy architect)
+    at: '2026-10-08T17:35:41+00:00'
+    file: review-decisions.json
+  PolicySummary:
+    decision: approve
+    basis: cd85d82f53
+    reviewer: Marco (Policy architect)
+    at: '2026-10-08T17:35:41+00:00'
+    file: review-decisions.json
+attributes:
+  Claim.createdAt:
+    decision: rename
+    canonicalName: creationTimestamp
+    reviewer: Asha (Claims architect)
+    basis: a0ae544fdc
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+  Claim.createdBy:
+    decision: exclude
+    reviewer: Asha (Claims architect)
+    comment: Audit field, not business data
+    basis: 9b1307f7b4
+    at: '2026-10-08T17:35:41+00:00'
+    file: reviewed-claims.xlsx
+endpoints: {}
+history:
+- at: '2026-10-08T17:35:41+00:00'
+  files:
+  - tests/output/api-catalog/alignment/EU/reviewed-claims.xlsx
+  - tests/output/api-catalog/alignment/EU/review-decisions.json
+  applied: 19
+  cleared: 0
+  problems: 0
+region: EU
+slice: all

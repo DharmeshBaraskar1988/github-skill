@@ -1,0 +1,7 @@
+# overrides.yaml - corrections for openapi.yaml (see references/overrides-reference.md)
+# Every entry: note (what you checked, file:line) or reason (for excludes).
+endpoints: []
+addEndpoints: []
+types: {}
+externalTypes: {}
+extraTypeFiles: []

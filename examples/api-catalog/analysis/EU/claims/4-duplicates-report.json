@@ -1,0 +1,91 @@
+{
+  "region": "EU",
+  "application": "claims",
+  "groups": [
+    {
+      "members": [
+        "ClaimDto",
+        "ClaimResponse"
+      ],
+      "match": "exact",
+      "similarity": 1.0,
+      "decision": "merge",
+      "decisionSource": "auto-exact",
+      "canonical": "Claim",
+      "memberDetails": [
+        {
+          "schema": "ClaimDto",
+          "role": "response",
+          "sourceProject": "Claims.Domain",
+          "sourceFile": "src/Claims.Domain/Models/Claim.cs:31",
+          "usedBy": [
+            "GET /api/v1/claims",
+            "PUT /api/v1/claims/{claimId}"
+          ]
+        },
+        {
+          "schema": "ClaimResponse",
+          "role": "response",
+          "sourceProject": "Claims.Domain",
+          "sourceFile": "src/Claims.Domain/Models/Claim.cs:44",
+          "usedBy": [
+            "GET /api/v1/claims/{claimId}",
+            "POST /api/v1/claims"
+          ]
+        }
+      ]
+    },
+    {
+      "members": [
+        "ClaimantDto",
+        "PolicyHolderInfo"
+      ],
+      "match": "near",
+      "similarity": 1.0,
+      "jaccard": 0.67,
+      "containment": 1.0,
+      "sharedAttributes": [
+        "address",
+        "email",
+        "firstname",
+        "lastname"
+      ],
+      "onlyIn": {
+        "ClaimantDto": [
+          "claimantid",
+          "policyholderid"
+        ],
+        "PolicyHolderInfo": []
+      },
+      "decision": "keep-separate",
+      "decisionSource": "decision",
+      "note": "PolicyHolderInfo is the FNOL reporter (may not be a claimant); ClaimantDto has ClaimantId/PolicyHolderId identity",
+      "canonical": null,
+      "memberDetails": [
+        {
+          "schema": "ClaimantDto",
+          "role": "shared",
+          "sourceProject": "Claims.Domain",
+          "sourceFile": "src/Claims.Domain/Models/Claim.cs:79",
+          "usedBy": [
+            "GET /api/v1/claims/{claimId}/claimants",
+            "POST /api/v1/claims"
+          ]
+        },
+        {
+          "schema": "PolicyHolderInfo",
+          "role": "request",
+          "sourceProject": "Claims.Functions",
+          "sourceFile": "src/Claims.Functions/FnolFunctions.cs:56",
+          "usedBy": [
+            "POST /fn/fnol"
+          ]
+        }
+      ]
+    }
+  ],
+  "mapping": {
+    "ClaimDto": "Claim",
+    "ClaimResponse": "Claim"
+  }
+}

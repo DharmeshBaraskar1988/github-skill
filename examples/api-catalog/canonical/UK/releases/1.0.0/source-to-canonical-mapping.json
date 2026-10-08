@@ -1,0 +1,326 @@
+{
+ "region": "UK",
+ "version": "1.0.0",
+ "rows": [
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Quote.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "proposedHolder",
+   "referenceAttribute": "acord:Quote.proposedHolder",
+   "transformation": "rename holder -> proposedHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "startDate",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "startDate",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "effectiveDate",
+   "referenceAttribute": "acord:Quote.effectiveDate",
+   "transformation": "rename startDate -> effectiveDate",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "quoteRef",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "quoteRef",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "quoteIdentifier",
+   "referenceAttribute": "acord:Quote.quoteIdentifier",
+   "transformation": "rename quoteRef -> quoteIdentifier",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Quote.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "premium",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "premium",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "premiumAmount",
+   "referenceAttribute": "acord:Quote.premiumAmount",
+   "transformation": "rename premium -> premiumAmount",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "validUntil",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "validUntil",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "expirationDate",
+   "referenceAttribute": "acord:Quote.expirationDate",
+   "transformation": "rename validUntil -> expirationDate",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "proposedHolder",
+   "referenceAttribute": "acord:Quote.proposedHolder",
+   "transformation": "rename holder -> proposedHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "firstName",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "firstName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "givenName",
+   "referenceAttribute": "baseline:Party.givenName",
+   "transformation": "rename firstName -> givenName",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "lastName",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "lastName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "surname",
+   "referenceAttribute": "baseline:Party.surname",
+   "transformation": "rename lastName -> surname",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "email",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "email",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "emailAddress",
+   "referenceAttribute": "baseline:Party.emailAddress",
+   "transformation": "rename email -> emailAddress",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "address",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "address",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "address",
+   "referenceAttribute": "baseline:Party.address",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line1",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line1",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine1",
+   "referenceAttribute": "baseline:Address.addressLine1",
+   "transformation": "rename line1 -> addressLine1",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line2",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line2",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine2",
+   "referenceAttribute": "baseline:Address.addressLine2",
+   "transformation": "rename line2 -> addressLine2",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "city",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "city",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "city",
+   "referenceAttribute": "baseline:Address.city",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "postCode",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "postCode",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "postalCode",
+   "referenceAttribute": "baseline:Address.postalCode",
+   "transformation": "rename postCode -> postalCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "country",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "country",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "countryCode",
+   "referenceAttribute": "baseline:Address.countryCode",
+   "transformation": "rename country -> countryCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "amount",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "amount",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "amount",
+   "referenceAttribute": "baseline:MonetaryAmount.amount",
+   "transformation": "type number -> number(double)",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "currency",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "currency",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "currencyCode",
+   "referenceAttribute": "baseline:MonetaryAmount.currencyCode",
+   "transformation": "rename currency -> currencyCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "PolicyRef"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "PolicyRef",
+   "regionalEntity": "PolicyRef",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "baseline:Policy.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  }
+ ]
+}

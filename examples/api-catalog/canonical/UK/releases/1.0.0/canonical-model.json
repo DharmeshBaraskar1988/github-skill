@@ -1,0 +1,2405 @@
+{
+ "modelType": "canonical",
+ "region": "UK",
+ "version": "1.0.0",
+ "title": "UK Canonical Insurance API",
+ "status": "approved",
+ "baseline": {
+  "region": "EU",
+  "version": "1.0.0"
+ },
+ "references": [
+  {
+   "source": "baseline",
+   "name": "EU canonical",
+   "version": "1.0.0"
+  },
+  {
+   "source": "acord",
+   "name": "SAMPLE (not ACORD)",
+   "version": "0.1"
+  }
+ ],
+ "reviewers": [
+  "Priya (UK architect)"
+ ],
+ "entities": [
+  {
+   "name": "Address",
+   "kind": "object",
+   "domain": "Claims",
+   "domains": [
+    "Claims",
+    "Quote"
+   ],
+   "description": "Postal address.",
+   "approach": "reference-as-is",
+   "reference": {
+    "source": "acord",
+    "entity": "Address",
+    "subjectArea": "Common"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "addressLine1",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "First address line.",
+     "reference": {
+      "source": "acord",
+      "entity": "Address",
+      "attribute": "addressLine1"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:Address.line1",
+      "EU/policy:Address.line1",
+      "UK/quote:Address.line1"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "addressLine2",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Second address line.",
+     "reference": {
+      "source": "acord",
+      "entity": "Address",
+      "attribute": "addressLine2"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:Address.line2",
+      "EU/policy:Address.line2",
+      "UK/quote:Address.line2"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "city",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "City or town.",
+     "reference": {
+      "source": "acord",
+      "entity": "Address",
+      "attribute": "city"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:Address.city",
+      "EU/policy:Address.city",
+      "UK/quote:Address.city"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "postalCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Postal / ZIP code.",
+     "reference": {
+      "source": "acord",
+      "entity": "Address",
+      "attribute": "postalCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:Address.postCode",
+      "EU/policy:Address.postCode",
+      "UK/quote:Address.postCode"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "countryCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "ISO 3166 country code.",
+     "reference": {
+      "source": "acord",
+      "entity": "Address",
+      "attribute": "countryCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:Address.country",
+      "EU/policy:Address.country",
+      "UK/quote:Address.country"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "Address",
+     "decision": "use-as-is",
+     "alignmentPercent": 100,
+     "apps": [
+      "EU/claims",
+      "EU/policy"
+     ]
+    },
+    {
+     "entity": "Address",
+     "decision": "use-as-is",
+     "alignmentPercent": 100,
+     "apps": [
+      "UK/quote"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:Address",
+    "EU/policy:Address",
+    "UK/quote:Address"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)",
+    "Priya (UK architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "Claim",
+   "kind": "object",
+   "domain": "Claims",
+   "domains": [
+    "Claims"
+   ],
+   "description": "A demand for payment under a policy following a loss.",
+   "approach": "reference-extended",
+   "reference": {
+    "source": "acord",
+    "entity": "Claim",
+    "subjectArea": "Claim"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "creationTimestamp",
+     "type": "string",
+     "format": "date-time",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "",
+     "reference": null,
+     "extension": true,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDto/ClaimResponse.createdAt"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "claimIdentifier",
+     "type": "string",
+     "format": "uuid",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Unique claim id.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "claimIdentifier"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDto/ClaimResponse.claimId"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "claimNumber",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Business claim number.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "claimNumber"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDto/ClaimResponse.claimNumber"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "policyNumber",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Number of the policy claimed against.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "policyNumber"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDto/ClaimResponse.policyNumber",
+      "EU/claims:CreateClaimRequest.policyNumber",
+      "EU/claims:FnolSubmission.policyNumber"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "claimStatusCode",
+     "type": "object",
+     "format": "",
+     "refEntity": "ClaimStatusCode",
+     "isCollection": false,
+     "required": false,
+     "description": "Lifecycle status.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "claimStatusCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDto/ClaimResponse.status",
+      "EU/claims:UpdateClaimRequest.status"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "reserveAmount",
+     "type": "object",
+     "format": "",
+     "refEntity": "MonetaryAmount",
+     "isCollection": false,
+     "required": false,
+     "description": "Current reserve.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "reserveAmount"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDto/ClaimResponse.reserveAmount"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "lossDate",
+     "type": "string",
+     "format": "date",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Date of loss.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "lossDate"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDto/ClaimResponse.lossDate",
+      "EU/claims:CreateClaimRequest.lossDate",
+      "EU/claims:FnolSubmission.lossDateTime"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "lossDescription",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Narrative of the loss.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "lossDescription"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:CreateClaimRequest.description",
+      "EU/claims:FnolSubmission.description",
+      "EU/claims:UpdateClaimRequest.description"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "lossLocation",
+     "type": "object",
+     "format": "",
+     "refEntity": "Address",
+     "isCollection": false,
+     "required": false,
+     "description": "Where the loss happened.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "lossLocation"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:CreateClaimRequest.lossLocation",
+      "EU/claims:FnolSubmission.location",
+      "EU/claims:UpdateClaimRequest.lossLocation"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "claimParties",
+     "type": "object",
+     "format": "",
+     "refEntity": "ClaimParty",
+     "isCollection": true,
+     "required": false,
+     "description": "Parties involved.",
+     "reference": {
+      "source": "acord",
+      "entity": "Claim",
+      "attribute": "claimParties"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:CreateClaimRequest.claimants"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "brokerCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "",
+     "reference": null,
+     "extension": true,
+     "enum": null,
+     "sources": [
+      "EU/claims:FnolSubmission.brokerCode"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "reporter",
+     "type": "object",
+     "format": "",
+     "refEntity": "Party",
+     "isCollection": false,
+     "required": false,
+     "description": "",
+     "reference": null,
+     "extension": true,
+     "enum": null,
+     "sources": [
+      "EU/claims:FnolSubmission.reporter"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "Claim",
+     "decision": "extend",
+     "alignmentPercent": 82,
+     "apps": [
+      "EU/claims"
+     ]
+    },
+    {
+     "entity": "CreateClaimRequest",
+     "decision": "use-as-is",
+     "alignmentPercent": 90,
+     "apps": [
+      "EU/claims"
+     ]
+    },
+    {
+     "entity": "FnolSubmission",
+     "decision": "extend",
+     "alignmentPercent": 46,
+     "apps": [
+      "EU/claims"
+     ]
+    },
+    {
+     "entity": "UpdateClaimRequest",
+     "decision": "use-as-is",
+     "alignmentPercent": 94,
+     "apps": [
+      "EU/claims"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:ClaimDto",
+    "EU/claims:ClaimResponse",
+    "EU/claims:CreateClaimRequest",
+    "EU/claims:FnolSubmission",
+    "EU/claims:UpdateClaimRequest"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "ClaimApproval",
+   "kind": "object",
+   "domain": "Claims",
+   "domains": [
+    "Claims"
+   ],
+   "description": "Approval of a claim with the agreed settlement amount.",
+   "approach": "custom",
+   "reference": null,
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "approvedBy",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "",
+     "reference": null,
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ApprovalRequest.approvedBy"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "settlementAmount",
+     "type": "object",
+     "format": "",
+     "refEntity": "MonetaryAmount",
+     "isCollection": false,
+     "required": true,
+     "description": "",
+     "reference": null,
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ApprovalRequest.settlementAmount"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "comment",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "",
+     "reference": null,
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ApprovalRequest.comment"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "ApprovalRequest",
+     "decision": "custom",
+     "alignmentPercent": 16,
+     "apps": [
+      "EU/claims"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:ApprovalRequest"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)"
+   ],
+   "comments": [
+    "No reference equivalent"
+   ]
+  },
+  {
+   "name": "ClaimParty",
+   "kind": "object",
+   "domain": "Claims",
+   "domains": [
+    "Claims"
+   ],
+   "description": "A party involved in a claim (claimant, witness, ...).",
+   "approach": "reference-extended",
+   "reference": {
+    "source": "acord",
+    "entity": "ClaimParty",
+    "subjectArea": "Claim"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "claimPartyIdentifier",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Unique id of the claim party.",
+     "reference": {
+      "source": "acord",
+      "entity": "ClaimParty",
+      "attribute": "claimPartyIdentifier"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimantDto.claimantId"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "givenName",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "First name.",
+     "reference": {
+      "source": "acord",
+      "entity": "ClaimParty",
+      "attribute": "givenName"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimantDto.firstName"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "surname",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Family name.",
+     "reference": {
+      "source": "acord",
+      "entity": "ClaimParty",
+      "attribute": "surname"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimantDto.lastName"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "emailAddress",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "E-mail address.",
+     "reference": {
+      "source": "acord",
+      "entity": "ClaimParty",
+      "attribute": "emailAddress"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimantDto.email"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "address",
+     "type": "object",
+     "format": "",
+     "refEntity": "Address",
+     "isCollection": false,
+     "required": false,
+     "description": "Postal address.",
+     "reference": {
+      "source": "acord",
+      "entity": "ClaimParty",
+      "attribute": "address"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimantDto.address"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "policyHolderId",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "",
+     "reference": null,
+     "extension": true,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimantDto.policyHolderId"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "Claimant",
+     "decision": "extend",
+     "alignmentPercent": 88,
+     "apps": [
+      "EU/claims"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:ClaimantDto"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "ClaimStatusCode",
+   "kind": "enum",
+   "domain": "Claims",
+   "domains": [
+    "Claims"
+   ],
+   "description": "Claim lifecycle status.",
+   "approach": "reference-extended",
+   "reference": {
+    "source": "acord",
+    "entity": "ClaimStatusCode",
+    "subjectArea": "Claim"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [],
+   "enumValues": [
+    "Open",
+    "Submitted",
+    "UnderReview",
+    "Approved",
+    "Denied",
+    "Closed",
+    "Reopened",
+    "Draft",
+    "Rejected"
+   ],
+   "regionalEntities": [
+    {
+     "entity": "ClaimStatus",
+     "decision": "extend",
+     "alignmentPercent": 68,
+     "apps": [
+      "EU/claims"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:ClaimStatus"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)"
+   ],
+   "comments": [
+    "Keep Draft/Rejected"
+   ],
+   "extensionValues": [
+    "Draft",
+    "Rejected"
+   ],
+   "valueMapping": [
+    {
+     "source": "Draft",
+     "canonical": "Draft"
+    },
+    {
+     "source": "Submitted",
+     "canonical": "Submitted"
+    },
+    {
+     "source": "UnderReview",
+     "canonical": "UnderReview"
+    },
+    {
+     "source": "Approved",
+     "canonical": "Approved"
+    },
+    {
+     "source": "Rejected",
+     "canonical": "Rejected"
+    },
+    {
+     "source": "Closed",
+     "canonical": "Closed"
+    }
+   ]
+  },
+  {
+   "name": "Coverage",
+   "kind": "object",
+   "domain": "Policy",
+   "domains": [
+    "Policy"
+   ],
+   "description": "A coverage provided by a policy.",
+   "approach": "reference-as-is",
+   "reference": {
+    "source": "acord",
+    "entity": "Coverage",
+    "subjectArea": "Policy"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "coverageCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Coverage code.",
+     "reference": {
+      "source": "acord",
+      "entity": "Coverage",
+      "attribute": "coverageCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:Coverage.code"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "coverageName",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Coverage name.",
+     "reference": {
+      "source": "acord",
+      "entity": "Coverage",
+      "attribute": "coverageName"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:Coverage.name"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "limitAmount",
+     "type": "object",
+     "format": "",
+     "refEntity": "MonetaryAmount",
+     "isCollection": false,
+     "required": false,
+     "description": "Limit.",
+     "reference": {
+      "source": "acord",
+      "entity": "Coverage",
+      "attribute": "limitAmount"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:Coverage.limit"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "deductibleAmount",
+     "type": "object",
+     "format": "",
+     "refEntity": "MonetaryAmount",
+     "isCollection": false,
+     "required": false,
+     "description": "Deductible.",
+     "reference": {
+      "source": "acord",
+      "entity": "Coverage",
+      "attribute": "deductibleAmount"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:Coverage.deductible"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "Coverage",
+     "decision": "use-as-is",
+     "alignmentPercent": 90,
+     "apps": [
+      "EU/policy"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/policy:Coverage"
+   ],
+   "approvedBy": [
+    "Marco (Policy architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "Document",
+   "kind": "object",
+   "domain": "Document Management",
+   "domains": [
+    "Document Management"
+   ],
+   "description": "A document attached to a business object.",
+   "approach": "reference-extended",
+   "reference": {
+    "source": "acord",
+    "entity": "Document",
+    "subjectArea": "Common"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "documentIdentifier",
+     "type": "string",
+     "format": "uuid",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Unique document id.",
+     "reference": {
+      "source": "acord",
+      "entity": "Document",
+      "attribute": "documentIdentifier"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDocument.documentId"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "claimId",
+     "type": "string",
+     "format": "uuid",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "",
+     "reference": null,
+     "extension": true,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDocument.claimId"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "fileName",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Original file name.",
+     "reference": {
+      "source": "acord",
+      "entity": "Document",
+      "attribute": "fileName"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDocument.fileName"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "documentTypeCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Kind of document.",
+     "reference": {
+      "source": "acord",
+      "entity": "Document",
+      "attribute": "documentTypeCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDocument.documentType"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "fileSize",
+     "type": "integer",
+     "format": "int64",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Size in bytes.",
+     "reference": {
+      "source": "acord",
+      "entity": "Document",
+      "attribute": "fileSize"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:ClaimDocument.sizeBytes"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "ClaimDocument",
+     "decision": "extend",
+     "alignmentPercent": 80,
+     "apps": [
+      "EU/claims"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:ClaimDocument"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "MonetaryAmount",
+   "kind": "object",
+   "domain": "Claims",
+   "domains": [
+    "Claims",
+    "Quote"
+   ],
+   "description": "An amount of money in a currency.",
+   "approach": "reference-as-is",
+   "reference": {
+    "source": "acord",
+    "entity": "MonetaryAmount",
+    "subjectArea": "Common"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "amount",
+     "type": "number",
+     "format": "double",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Numeric value.",
+     "reference": {
+      "source": "acord",
+      "entity": "MonetaryAmount",
+      "attribute": "amount"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:Money.amount",
+      "EU/policy:Money.amount",
+      "UK/quote:Money.amount"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "currencyCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "ISO 4217 currency code.",
+     "reference": {
+      "source": "acord",
+      "entity": "MonetaryAmount",
+      "attribute": "currencyCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:Money.currency",
+      "EU/policy:Money.currency",
+      "UK/quote:Money.currency"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "Money",
+     "decision": "use-as-is",
+     "alignmentPercent": 100,
+     "apps": [
+      "EU/claims",
+      "EU/policy"
+     ]
+    },
+    {
+     "entity": "Money",
+     "decision": "use-as-is",
+     "alignmentPercent": 100,
+     "apps": [
+      "UK/quote"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:Money",
+    "EU/policy:Money",
+    "UK/quote:Money"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)",
+    "Priya (UK architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "Party",
+   "kind": "object",
+   "domain": "Claims",
+   "domains": [
+    "Claims",
+    "Quote"
+   ],
+   "description": "A person or organisation with a role in insurance.",
+   "approach": "reference-as-is",
+   "reference": {
+    "source": "acord",
+    "entity": "Party",
+    "subjectArea": "Party"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "givenName",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "First name.",
+     "reference": {
+      "source": "acord",
+      "entity": "Party",
+      "attribute": "givenName"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:PolicyHolderInfo.firstName",
+      "EU/policy:PolicyHolder.firstName",
+      "UK/quote:Customer.firstName"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "surname",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Family name.",
+     "reference": {
+      "source": "acord",
+      "entity": "Party",
+      "attribute": "surname"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:PolicyHolderInfo.lastName",
+      "EU/policy:PolicyHolder.lastName",
+      "UK/quote:Customer.lastName"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "emailAddress",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "E-mail address.",
+     "reference": {
+      "source": "acord",
+      "entity": "Party",
+      "attribute": "emailAddress"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:PolicyHolderInfo.email",
+      "EU/policy:PolicyHolder.email",
+      "UK/quote:Customer.email"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "address",
+     "type": "object",
+     "format": "",
+     "refEntity": "Address",
+     "isCollection": false,
+     "required": false,
+     "description": "Main postal address.",
+     "reference": {
+      "source": "acord",
+      "entity": "Party",
+      "attribute": "address"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/claims:PolicyHolderInfo.address",
+      "EU/policy:PolicyHolder.address",
+      "UK/quote:Customer.address"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "partyIdentifier",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Unique party id.",
+     "reference": {
+      "source": "acord",
+      "entity": "Party",
+      "attribute": "partyIdentifier"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicyHolder.policyHolderId"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "PolicyHolder",
+     "decision": "use-as-is",
+     "alignmentPercent": 100,
+     "apps": [
+      "EU/claims",
+      "EU/policy"
+     ]
+    },
+    {
+     "entity": "Customer",
+     "decision": "use-as-is",
+     "alignmentPercent": 100,
+     "apps": [
+      "UK/quote"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/claims:PolicyHolderInfo",
+    "EU/policy:PolicyHolder",
+    "UK/quote:Customer"
+   ],
+   "approvedBy": [
+    "Asha (Claims architect)",
+    "Priya (UK architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "Policy",
+   "kind": "object",
+   "domain": "Policy",
+   "domains": [
+    "Policy",
+    "Quote"
+   ],
+   "description": "An insurance contract.",
+   "approach": "reference-extended",
+   "reference": {
+    "source": "acord",
+    "entity": "Policy",
+    "subjectArea": "Policy"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [
+    {
+     "name": "quoteReference",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "",
+     "reference": null,
+     "extension": true,
+     "enum": null,
+     "sources": [
+      "EU/policy:IssuePolicyRequest.quoteReference"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "effectiveDate",
+     "type": "string",
+     "format": "date",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Start of cover.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "effectiveDate"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:IssuePolicyRequest.inceptionDate",
+      "EU/policy:PolicyDetails.inceptionDate"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "policyHolder",
+     "type": "object",
+     "format": "",
+     "refEntity": "Party",
+     "isCollection": false,
+     "required": false,
+     "description": "Policy holder.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "policyHolder"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:IssuePolicyRequest.holder",
+      "EU/policy:PolicyDetails.holder"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "policyNumber",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Policy number.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "policyNumber"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicyDetails.policyNumber",
+      "EU/policy:PolicySummary.policyNumber",
+      "UK/quote:PolicyRef.policyNumber"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "productCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Product code.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "productCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicyDetails.productCode",
+      "EU/policy:PolicySummary.productCode"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "policyStatusCode",
+     "type": "object",
+     "format": "",
+     "refEntity": "PolicyStatusCode",
+     "isCollection": false,
+     "required": false,
+     "description": "Status.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "policyStatusCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicyDetails.status",
+      "EU/policy:PolicySummary.status"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "expirationDate",
+     "type": "string",
+     "format": "date",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "End of cover.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "expirationDate"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicyDetails.expiryDate"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "premiumAmount",
+     "type": "object",
+     "format": "",
+     "refEntity": "MonetaryAmount",
+     "isCollection": false,
+     "required": false,
+     "description": "Total premium.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "premiumAmount"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicyDetails.premium"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "coverages",
+     "type": "object",
+     "format": "",
+     "refEntity": "Coverage",
+     "isCollection": true,
+     "required": false,
+     "description": "Coverages.",
+     "reference": {
+      "source": "acord",
+      "entity": "Policy",
+      "attribute": "coverages"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicyDetails.coverages"
+     ],
+     "introducedIn": "EU"
+    },
+    {
+     "name": "holderName",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "",
+     "reference": null,
+     "extension": true,
+     "enum": null,
+     "sources": [
+      "EU/policy:PolicySummary.holderName"
+     ],
+     "introducedIn": "EU"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "IssuePolicyRequest",
+     "decision": "extend",
+     "alignmentPercent": 71,
+     "apps": [
+      "EU/policy"
+     ]
+    },
+    {
+     "entity": "PolicyDetails",
+     "decision": "use-as-is",
+     "alignmentPercent": 91,
+     "apps": [
+      "EU/policy"
+     ]
+    },
+    {
+     "entity": "PolicySummary",
+     "decision": "extend",
+     "alignmentPercent": 76,
+     "apps": [
+      "EU/policy"
+     ]
+    },
+    {
+     "entity": "PolicyRef",
+     "decision": "use-as-is",
+     "alignmentPercent": 99,
+     "apps": [
+      "UK/quote"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/policy:IssuePolicyRequest",
+    "EU/policy:PolicyDetails",
+    "EU/policy:PolicySummary",
+    "UK/quote:PolicyRef"
+   ],
+   "approvedBy": [
+    "Marco (Policy architect)",
+    "Priya (UK architect)"
+   ],
+   "comments": []
+  },
+  {
+   "name": "PolicyStatusCode",
+   "kind": "enum",
+   "domain": "Policy",
+   "domains": [
+    "Policy"
+   ],
+   "description": "Policy status.",
+   "approach": "reference-extended",
+   "reference": {
+    "source": "acord",
+    "entity": "PolicyStatusCode",
+    "subjectArea": "Policy"
+   },
+   "introducedIn": "EU",
+   "status": "baseline",
+   "attributes": [],
+   "enumValues": [
+    "Quoted",
+    "InForce",
+    "Lapsed",
+    "Cancelled",
+    "Expired",
+    "Active"
+   ],
+   "regionalEntities": [
+    {
+     "entity": "PolicyStatus",
+     "decision": "extend",
+     "alignmentPercent": 76,
+     "apps": [
+      "EU/policy"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "EU/policy:PolicyStatus"
+   ],
+   "approvedBy": [
+    "Marco (Policy architect)"
+   ],
+   "comments": [],
+   "extensionValues": [
+    "Active"
+   ],
+   "valueMapping": [
+    {
+     "source": "Quoted",
+     "canonical": "Quoted"
+    },
+    {
+     "source": "Active",
+     "canonical": "Active"
+    },
+    {
+     "source": "Lapsed",
+     "canonical": "Lapsed"
+    },
+    {
+     "source": "Cancelled",
+     "canonical": "Cancelled"
+    },
+    {
+     "source": "Expired",
+     "canonical": "Expired"
+    }
+   ]
+  },
+  {
+   "name": "Quote",
+   "kind": "object",
+   "domain": "Quote",
+   "domains": [
+    "Quote"
+   ],
+   "description": "A priced offer for a policy.",
+   "approach": "reference-as-is",
+   "reference": {
+    "source": "acord",
+    "entity": "Quote",
+    "subjectArea": "Quote"
+   },
+   "introducedIn": "UK",
+   "status": "approved",
+   "attributes": [
+    {
+     "name": "productCode",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Product code.",
+     "reference": {
+      "source": "acord",
+      "entity": "Quote",
+      "attribute": "productCode"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "UK/quote:QuoteRequest.productCode",
+      "UK/quote:Quote.productCode"
+     ],
+     "introducedIn": "UK"
+    },
+    {
+     "name": "proposedHolder",
+     "type": "object",
+     "format": "",
+     "refEntity": "Party",
+     "isCollection": false,
+     "required": false,
+     "description": "Prospective policy holder.",
+     "reference": {
+      "source": "acord",
+      "entity": "Quote",
+      "attribute": "proposedHolder"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "UK/quote:QuoteRequest.holder",
+      "UK/quote:Quote.holder"
+     ],
+     "introducedIn": "UK"
+    },
+    {
+     "name": "effectiveDate",
+     "type": "string",
+     "format": "date",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Requested start date.",
+     "reference": {
+      "source": "acord",
+      "entity": "Quote",
+      "attribute": "effectiveDate"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "UK/quote:QuoteRequest.startDate"
+     ],
+     "introducedIn": "UK"
+    },
+    {
+     "name": "quoteIdentifier",
+     "type": "string",
+     "format": "",
+     "refEntity": null,
+     "isCollection": false,
+     "required": true,
+     "description": "Quote reference.",
+     "reference": {
+      "source": "acord",
+      "entity": "Quote",
+      "attribute": "quoteIdentifier"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "UK/quote:Quote.quoteRef"
+     ],
+     "introducedIn": "UK"
+    },
+    {
+     "name": "premiumAmount",
+     "type": "object",
+     "format": "",
+     "refEntity": "MonetaryAmount",
+     "isCollection": false,
+     "required": false,
+     "description": "Quoted premium.",
+     "reference": {
+      "source": "acord",
+      "entity": "Quote",
+      "attribute": "premiumAmount"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "UK/quote:Quote.premium"
+     ],
+     "introducedIn": "UK"
+    },
+    {
+     "name": "expirationDate",
+     "type": "string",
+     "format": "date",
+     "refEntity": null,
+     "isCollection": false,
+     "required": false,
+     "description": "Quote valid until.",
+     "reference": {
+      "source": "acord",
+      "entity": "Quote",
+      "attribute": "expirationDate"
+     },
+     "extension": false,
+     "enum": null,
+     "sources": [
+      "UK/quote:Quote.validUntil"
+     ],
+     "introducedIn": "UK"
+    }
+   ],
+   "enumValues": [],
+   "regionalEntities": [
+    {
+     "entity": "QuoteRequest",
+     "decision": "use-as-is",
+     "alignmentPercent": 93,
+     "apps": [
+      "UK/quote"
+     ]
+    },
+    {
+     "entity": "Quote",
+     "decision": "use-as-is",
+     "alignmentPercent": 87,
+     "apps": [
+      "UK/quote"
+     ]
+    }
+   ],
+   "sourceSchemas": [
+    "UK/quote:Quote",
+    "UK/quote:QuoteRequest"
+   ],
+   "approvedBy": [
+    "Priya (UK architect)"
+   ],
+   "comments": []
+  }
+ ],
+ "relations": [
+  {
+   "from": "Claim",
+   "to": "ClaimStatusCode",
+   "via": "claimStatusCode",
+   "type": "uses-code-list",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Claim",
+   "to": "MonetaryAmount",
+   "via": "reserveAmount",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Claim",
+   "to": "Address",
+   "via": "lossLocation",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Claim",
+   "to": "ClaimParty",
+   "via": "claimParties",
+   "type": "has-many",
+   "cardinality": "0..*"
+  },
+  {
+   "from": "Claim",
+   "to": "Party",
+   "via": "reporter",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "ClaimApproval",
+   "to": "MonetaryAmount",
+   "via": "settlementAmount",
+   "type": "has-one",
+   "cardinality": "1"
+  },
+  {
+   "from": "ClaimParty",
+   "to": "Address",
+   "via": "address",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Coverage",
+   "to": "MonetaryAmount",
+   "via": "limitAmount",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Coverage",
+   "to": "MonetaryAmount",
+   "via": "deductibleAmount",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Party",
+   "to": "Address",
+   "via": "address",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Policy",
+   "to": "Party",
+   "via": "policyHolder",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Policy",
+   "to": "PolicyStatusCode",
+   "via": "policyStatusCode",
+   "type": "uses-code-list",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Policy",
+   "to": "MonetaryAmount",
+   "via": "premiumAmount",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Policy",
+   "to": "Coverage",
+   "via": "coverages",
+   "type": "has-many",
+   "cardinality": "0..*"
+  },
+  {
+   "from": "Quote",
+   "to": "Party",
+   "via": "proposedHolder",
+   "type": "has-one",
+   "cardinality": "0..1"
+  },
+  {
+   "from": "Quote",
+   "to": "MonetaryAmount",
+   "via": "premiumAmount",
+   "type": "has-one",
+   "cardinality": "0..1"
+  }
+ ],
+ "endpoints": [
+  {
+   "method": "POST",
+   "path": "/quotes",
+   "sources": [
+    {
+     "id": "UK/quote:CreateQuote",
+     "path": "/quotes",
+     "operationId": "CreateQuote"
+    }
+   ],
+   "domain": "Quote",
+   "capability": "Create Quote",
+   "summary": "Create Quote",
+   "operationId": "CreateQuote",
+   "contract": {
+    "request": {
+     "entity": "Quote",
+     "isArray": false,
+     "contentType": "application/json"
+    },
+    "responses": {
+     "201": {
+      "entity": "Quote",
+      "isArray": false
+     }
+    },
+    "parameters": [],
+    "security": []
+   },
+   "variants": [],
+   "approvedBy": []
+  },
+  {
+   "method": "GET",
+   "path": "/quotes/{quoteRef}",
+   "sources": [
+    {
+     "id": "UK/quote:GetQuote",
+     "path": "/quotes/{quoteRef}",
+     "operationId": "GetQuote"
+    }
+   ],
+   "domain": "Quote",
+   "capability": "Get Quote",
+   "summary": "Get Quote",
+   "operationId": "GetQuote",
+   "contract": {
+    "request": null,
+    "responses": {
+     "200": {
+      "entity": "Quote",
+      "isArray": false
+     }
+    },
+    "parameters": [
+     {
+      "name": "quoteRef",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "format": "",
+      "isArray": false
+     }
+    ],
+    "security": []
+   },
+   "variants": [],
+   "approvedBy": []
+  },
+  {
+   "method": "POST",
+   "path": "/quotes/{quoteRef}/bind",
+   "sources": [
+    {
+     "id": "UK/quote:BindQuote",
+     "path": "/quotes/{quoteRef}/bind",
+     "operationId": "BindQuote"
+    }
+   ],
+   "domain": "Quote",
+   "capability": "Bind Quote",
+   "summary": "Bind Quote",
+   "operationId": "BindQuote",
+   "contract": {
+    "request": null,
+    "responses": {
+     "200": {
+      "entity": "Policy",
+      "isArray": false
+     }
+    },
+    "parameters": [
+     {
+      "name": "quoteRef",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "format": "",
+      "isArray": false
+     }
+    ],
+    "security": []
+   },
+   "variants": [],
+   "approvedBy": []
+  }
+ ],
+ "lineage": [
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Quote.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "proposedHolder",
+   "referenceAttribute": "acord:Quote.proposedHolder",
+   "transformation": "rename holder -> proposedHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "startDate",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "startDate",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "effectiveDate",
+   "referenceAttribute": "acord:Quote.effectiveDate",
+   "transformation": "rename startDate -> effectiveDate",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "quoteRef",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "quoteRef",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "quoteIdentifier",
+   "referenceAttribute": "acord:Quote.quoteIdentifier",
+   "transformation": "rename quoteRef -> quoteIdentifier",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Quote.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "premium",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "premium",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "premiumAmount",
+   "referenceAttribute": "acord:Quote.premiumAmount",
+   "transformation": "rename premium -> premiumAmount",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "validUntil",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "validUntil",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "expirationDate",
+   "referenceAttribute": "acord:Quote.expirationDate",
+   "transformation": "rename validUntil -> expirationDate",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "proposedHolder",
+   "referenceAttribute": "acord:Quote.proposedHolder",
+   "transformation": "rename holder -> proposedHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "firstName",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "firstName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "givenName",
+   "referenceAttribute": "baseline:Party.givenName",
+   "transformation": "rename firstName -> givenName",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "lastName",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "lastName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "surname",
+   "referenceAttribute": "baseline:Party.surname",
+   "transformation": "rename lastName -> surname",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "email",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "email",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "emailAddress",
+   "referenceAttribute": "baseline:Party.emailAddress",
+   "transformation": "rename email -> emailAddress",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "address",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "address",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "address",
+   "referenceAttribute": "baseline:Party.address",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line1",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line1",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine1",
+   "referenceAttribute": "baseline:Address.addressLine1",
+   "transformation": "rename line1 -> addressLine1",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line2",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line2",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine2",
+   "referenceAttribute": "baseline:Address.addressLine2",
+   "transformation": "rename line2 -> addressLine2",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "city",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "city",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "city",
+   "referenceAttribute": "baseline:Address.city",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "postCode",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "postCode",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "postalCode",
+   "referenceAttribute": "baseline:Address.postalCode",
+   "transformation": "rename postCode -> postalCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "country",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "country",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "countryCode",
+   "referenceAttribute": "baseline:Address.countryCode",
+   "transformation": "rename country -> countryCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "amount",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "amount",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "amount",
+   "referenceAttribute": "baseline:MonetaryAmount.amount",
+   "transformation": "type number -> number(double)",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "currency",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "currency",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "currencyCode",
+   "referenceAttribute": "baseline:MonetaryAmount.currencyCode",
+   "transformation": "rename currency -> currencyCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "PolicyRef"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "PolicyRef",
+   "regionalEntity": "PolicyRef",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "baseline:Policy.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  }
+ ],
+ "pending": [],
+ "rejected": [],
+ "excludedEndpoints": [],
+ "problems": [],
+ "summary": {
+  "entities": 12,
+  "attributes": 58,
+  "baselineEntities": 11,
+  "newEntities": 1,
+  "extensions": 7,
+  "endpoints": 3,
+  "relations": 16,
+  "pending": 0,
+  "rejected": 0,
+  "excludedEndpoints": 0,
+  "lineageRows": 20,
+  "problems": 0
+ },
+ "generatedAt": "2026-10-08T17:35:44+00:00",
+ "inputs": {
+  "alignment": "../../alignment/UK/alignment.json",
+  "alignmentGeneratedAt": "2026-10-08T17:35:44+00:00",
+  "approvals": "../../alignment/UK/approvals.yaml",
+  "baseline": "../EU/releases/1.0.0/canonical-model.json",
+  "reference": [
+   {
+    "name": "EU canonical",
+    "source": "baseline",
+    "version": "1.0.0",
+    "entities": 11,
+    "sourceFile": ""
+   },
+   {
+    "name": "SAMPLE (not ACORD)",
+    "source": "acord",
+    "version": "0.1",
+    "entities": 11,
+    "sourceFile": "reference-sample.xlsx"
+   }
+  ]
+ },
+ "changes": {
+  "note": "first build"
+ },
+ "changesVsBaseline": {
+  "against": "baseline",
+  "addedEntities": [
+   "Quote"
+  ],
+  "removedEntities": [],
+  "addedAttributes": [],
+  "removedAttributes": [],
+  "changedAttributes": [],
+  "breaking": false
+ }
+}

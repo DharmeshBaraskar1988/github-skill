@@ -1,0 +1,955 @@
+{
+  "region": "EU",
+  "application": "claims",
+  "domains": [
+    {
+      "domain": "Claims",
+      "description": "Claims handling from first notice of loss to settlement",
+      "inCatalogue": true,
+      "capabilities": [
+        {
+          "name": "Search Claims",
+          "status": "catalogue",
+          "description": "List and search claims",
+          "operations": [
+            {
+              "operationId": "listClaims",
+              "method": "GET",
+              "path": "/api/v1/claims",
+              "summary": "Search claims with paging and optional status filter.",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        },
+        {
+          "name": "Register Claim",
+          "status": "catalogue",
+          "description": "Create a claim / first notice of loss",
+          "operations": [
+            {
+              "operationId": "createClaim",
+              "method": "POST",
+              "path": "/api/v1/claims",
+              "summary": "Register a first notice of loss.",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            },
+            {
+              "operationId": "submitFnol",
+              "method": "POST",
+              "path": "/fn/fnol",
+              "summary": "Receive a first notice of loss from a broker portal.",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Functions"
+            },
+            {
+              "operationId": "getFnolStatus",
+              "method": "GET",
+              "path": "/fn/fnol/{reference}",
+              "summary": "Get the processing status of a FNOL submission",
+              "assignment": "decision",
+              "confidence": "confirmed",
+              "sourceProject": "Claims.Functions"
+            }
+          ]
+        },
+        {
+          "name": "View Claim",
+          "status": "catalogue",
+          "description": "Retrieve claim details",
+          "operations": [
+            {
+              "operationId": "getClaim",
+              "method": "GET",
+              "path": "/api/v1/claims/{claimId}",
+              "summary": "Get a single claim by id.",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        },
+        {
+          "name": "Update Claim",
+          "status": "catalogue",
+          "description": "Change claim data",
+          "operations": [
+            {
+              "operationId": "updateClaim",
+              "method": "PUT",
+              "path": "/api/v1/claims/{claimId}",
+              "summary": "",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        },
+        {
+          "name": "Close Claim",
+          "status": "catalogue",
+          "description": "Close or withdraw a claim",
+          "operations": [
+            {
+              "operationId": "deleteClaim",
+              "method": "DELETE",
+              "path": "/api/v1/claims/{claimId}",
+              "summary": "",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        },
+        {
+          "name": "Approve Claim",
+          "status": "catalogue",
+          "description": "Approve and settle a claim",
+          "operations": [
+            {
+              "operationId": "approveClaim",
+              "method": "POST",
+              "path": "/api/v1/claims/{claimId}/approve",
+              "summary": "",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        },
+        {
+          "name": "Manage Claimants",
+          "status": "catalogue",
+          "description": "Parties claiming under a policy",
+          "operations": [
+            {
+              "operationId": "getClaimsClaimants",
+              "method": "GET",
+              "path": "/api/v1/claims/{claimId}/claimants",
+              "summary": "",
+              "assignment": "decision",
+              "confidence": "confirmed",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        }
+      ],
+      "catalogueCapabilitiesNotImplemented": [],
+      "entities": [
+        "Address",
+        "ApprovalRequest",
+        "Claim",
+        "ClaimStatus",
+        "Claimant",
+        "CreateClaimRequest",
+        "FnolReceipt",
+        "FnolSubmission",
+        "Money",
+        "PolicyHolderInfo",
+        "UpdateClaimRequest"
+      ]
+    },
+    {
+      "domain": "Document Management",
+      "description": "Documents attached to business objects",
+      "inCatalogue": true,
+      "capabilities": [
+        {
+          "name": "List Documents",
+          "status": "catalogue",
+          "description": "",
+          "operations": [
+            {
+              "operationId": "listDocuments",
+              "method": "GET",
+              "path": "/api/v1/claims/{claimId}/documents",
+              "summary": "List documents attached to a claim.",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        },
+        {
+          "name": "Upload Document",
+          "status": "catalogue",
+          "description": "",
+          "operations": [
+            {
+              "operationId": "uploadDocuments",
+              "method": "POST",
+              "path": "/api/v1/claims/{claimId}/documents",
+              "summary": "Upload a document for a claim.",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        },
+        {
+          "name": "Delete Document",
+          "status": "catalogue",
+          "description": "",
+          "operations": [
+            {
+              "operationId": "deleteDocuments",
+              "method": "DELETE",
+              "path": "/api/v1/claims/{claimId}/documents/{documentId}",
+              "summary": "",
+              "assignment": "keyword",
+              "confidence": "high",
+              "sourceProject": "Claims.Api"
+            }
+          ]
+        }
+      ],
+      "catalogueCapabilitiesNotImplemented": [],
+      "entities": [
+        "ClaimDocument"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "operationId": "listClaims",
+      "method": "GET",
+      "path": "/api/v1/claims",
+      "summary": "Search claims with paging and optional status filter.",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Endpoints/ClaimEndpoints.cs",
+      "derivedCapability": "List Claims",
+      "scores": {
+        "Claims": 6.5
+      },
+      "request": null,
+      "responses": {
+        "200": {
+          "contentType": "application/json",
+          "schema": "PagedResultOfClaimDto",
+          "type": "PagedResultOfClaimDto",
+          "isArray": false
+        },
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "type": "ClaimStatus",
+          "format": "",
+          "schema": "ClaimStatus",
+          "isArray": false
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "required": true,
+          "type": "integer(int32)",
+          "format": "int32",
+          "schema": null,
+          "isArray": false
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "required": true,
+          "type": "integer(int32)",
+          "format": "int32",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Claims",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Search Claims",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "createClaim",
+      "method": "POST",
+      "path": "/api/v1/claims",
+      "summary": "Register a first notice of loss.",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Endpoints/ClaimEndpoints.cs",
+      "derivedCapability": "Create Claim",
+      "scores": {
+        "Claims": 7.5
+      },
+      "request": {
+        "contentType": "application/json",
+        "schema": "CreateClaimRequest",
+        "type": "CreateClaimRequest",
+        "isArray": false
+      },
+      "responses": {
+        "201": {
+          "contentType": "application/json",
+          "schema": "ClaimResponse",
+          "type": "ClaimResponse",
+          "isArray": false
+        },
+        "400": {
+          "contentType": "application/json",
+          "schema": "HttpValidationProblemDetails",
+          "type": "HttpValidationProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Claims",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Register Claim",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "getClaim",
+      "method": "GET",
+      "path": "/api/v1/claims/{claimId}",
+      "summary": "Get a single claim by id.",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Endpoints/ClaimEndpoints.cs",
+      "derivedCapability": "Get Claim",
+      "scores": {
+        "Claims": 6.5
+      },
+      "request": null,
+      "responses": {
+        "200": {
+          "contentType": "application/json",
+          "schema": "ClaimResponse",
+          "type": "ClaimResponse",
+          "isArray": false
+        },
+        "404": null,
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Claims",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "View Claim",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "updateClaim",
+      "method": "PUT",
+      "path": "/api/v1/claims/{claimId}",
+      "summary": "",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Endpoints/ClaimEndpoints.cs",
+      "derivedCapability": "Update Claim",
+      "scores": {
+        "Claims": 7.0
+      },
+      "request": {
+        "contentType": "application/json",
+        "schema": "UpdateClaimRequest",
+        "type": "UpdateClaimRequest",
+        "isArray": false
+      },
+      "responses": {
+        "200": {
+          "contentType": "application/json",
+          "schema": "ClaimDto",
+          "type": "ClaimDto",
+          "isArray": false
+        },
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Claims",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Update Claim",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "deleteClaim",
+      "method": "DELETE",
+      "path": "/api/v1/claims/{claimId}",
+      "summary": "",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Endpoints/ClaimEndpoints.cs",
+      "derivedCapability": "Delete Claim",
+      "scores": {
+        "Claims": 5.0
+      },
+      "request": null,
+      "responses": {
+        "204": null,
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Claims",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Close Claim",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "approveClaim",
+      "method": "POST",
+      "path": "/api/v1/claims/{claimId}/approve",
+      "summary": "",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Endpoints/ClaimEndpoints.cs",
+      "derivedCapability": "Approve Claim",
+      "scores": {
+        "Claims": 6.5
+      },
+      "request": {
+        "contentType": "application/json",
+        "schema": "ApprovalRequest",
+        "type": "ApprovalRequest",
+        "isArray": false
+      },
+      "responses": {
+        "204": null,
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Claims",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Approve Claim",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "getClaimsClaimants",
+      "method": "GET",
+      "path": "/api/v1/claims/{claimId}/claimants",
+      "summary": "",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Endpoints/ClaimEndpoints.cs",
+      "derivedCapability": "List Claimants",
+      "scores": {
+        "Claims": 9.0
+      },
+      "request": null,
+      "responses": {
+        "200": {
+          "contentType": "application/json",
+          "schema": "ClaimantDto",
+          "type": "ClaimantDto[]",
+          "isArray": true
+        },
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Claims",
+      "assignment": "decision",
+      "confidence": "confirmed",
+      "decisionNote": "Lists claimants of a claim - catalogue capability Manage Claimants",
+      "capability": "Manage Claimants",
+      "capabilityStatus": "catalogue"
+    },
+    {
+      "operationId": "listDocuments",
+      "method": "GET",
+      "path": "/api/v1/claims/{claimId}/documents",
+      "summary": "List documents attached to a claim.",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Controllers/DocumentsController.cs",
+      "derivedCapability": "List Documents",
+      "scores": {
+        "Document Management": 6.5,
+        "Claims": 3.5
+      },
+      "request": null,
+      "responses": {
+        "200": {
+          "contentType": "application/json",
+          "schema": "ClaimDocument",
+          "type": "ClaimDocument[]",
+          "isArray": true
+        },
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Document Management",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "List Documents",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "uploadDocuments",
+      "method": "POST",
+      "path": "/api/v1/claims/{claimId}/documents",
+      "summary": "Upload a document for a claim.",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Controllers/DocumentsController.cs",
+      "derivedCapability": "Upload Document",
+      "scores": {
+        "Document Management": 8.0,
+        "Claims": 3.5
+      },
+      "request": {
+        "contentType": "multipart/form-data",
+        "schema": null,
+        "type": "object",
+        "isArray": false,
+        "inline": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string",
+              "format": "binary"
+            },
+            "documentType": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "contentType": "application/json",
+          "schema": "ClaimDocument",
+          "type": "ClaimDocument",
+          "isArray": false
+        },
+        "400": null,
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Document Management",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Upload Document",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "deleteDocuments",
+      "method": "DELETE",
+      "path": "/api/v1/claims/{claimId}/documents/{documentId}",
+      "summary": "",
+      "sourceProject": "Claims.Api",
+      "sourceFile": "src/Claims.Api/Controllers/DocumentsController.cs",
+      "derivedCapability": "Delete Document",
+      "scores": {
+        "Document Management": 5.0,
+        "Claims": 2.0
+      },
+      "request": null,
+      "responses": {
+        "204": null,
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "claimId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        },
+        {
+          "name": "documentId",
+          "in": "path",
+          "required": true,
+          "type": "string(uuid)",
+          "format": "uuid",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "bearerAuth"
+      ],
+      "domain": "Document Management",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Delete Document",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.5
+    },
+    {
+      "operationId": "submitFnol",
+      "method": "POST",
+      "path": "/fn/fnol",
+      "summary": "Receive a first notice of loss from a broker portal.",
+      "sourceProject": "Claims.Functions",
+      "sourceFile": "src/Claims.Functions/FnolFunctions.cs",
+      "derivedCapability": "Create Fnol",
+      "scores": {
+        "Claims": 7.5
+      },
+      "request": {
+        "contentType": "application/json",
+        "schema": "FnolSubmission",
+        "type": "FnolSubmission",
+        "isArray": false
+      },
+      "responses": {
+        "202": {
+          "contentType": "application/json",
+          "schema": "FnolReceipt",
+          "type": "FnolReceipt",
+          "isArray": false
+        },
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [],
+      "security": [
+        "functionKey"
+      ],
+      "domain": "Claims",
+      "assignment": "keyword",
+      "confidence": "high",
+      "capability": "Register Claim",
+      "capabilityStatus": "catalogue",
+      "capabilityScore": 1.17
+    },
+    {
+      "operationId": "getFnolStatus",
+      "method": "GET",
+      "path": "/fn/fnol/{reference}",
+      "summary": "Get the processing status of a FNOL submission",
+      "sourceProject": "Claims.Functions",
+      "sourceFile": "src/Claims.Functions/FnolFunctions.cs",
+      "derivedCapability": "Get Fnol",
+      "scores": {
+        "Claims": 6.5
+      },
+      "request": null,
+      "responses": {
+        "200": {
+          "contentType": "application/json",
+          "schema": "FnolReceipt",
+          "type": "FnolReceipt",
+          "isArray": false
+        },
+        "404": null,
+        "400": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "401": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        },
+        "500": {
+          "contentType": "application/problem+json",
+          "schema": "ProblemDetails",
+          "type": "ProblemDetails",
+          "isArray": false
+        }
+      },
+      "parameters": [
+        {
+          "name": "reference",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "format": "",
+          "schema": null,
+          "isArray": false
+        }
+      ],
+      "security": [
+        "functionKey"
+      ],
+      "domain": "Claims",
+      "assignment": "decision",
+      "confidence": "confirmed",
+      "decisionNote": "Status lookup of a FNOL submission is part of the register-claim journey (FnolFunctions.GetStatus)",
+      "capability": "Register Claim",
+      "capabilityStatus": "catalogue"
+    }
+  ]
+}

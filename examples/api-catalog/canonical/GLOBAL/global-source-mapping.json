@@ -1,0 +1,1612 @@
+{
+ "rows": [
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolReceipt"
+   ],
+   "sourceAttribute": "reference",
+   "appEntity": "FnolReceipt",
+   "regionalEntity": "FnolReceipt",
+   "regionalAttribute": "reference",
+   "canonicalEntity": null,
+   "canonicalAttribute": null,
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "entity rejected"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolReceipt"
+   ],
+   "sourceAttribute": "receivedAt",
+   "appEntity": "FnolReceipt",
+   "regionalEntity": "FnolReceipt",
+   "regionalAttribute": "receivedAt",
+   "canonicalEntity": null,
+   "canonicalAttribute": null,
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "entity rejected"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line1",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line1",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine1",
+   "referenceAttribute": "acord:Address.addressLine1",
+   "transformation": "rename line1 -> addressLine1",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line1",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line1",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine1",
+   "referenceAttribute": "acord:Address.addressLine1",
+   "transformation": "rename line1 -> addressLine1",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line2",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line2",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine2",
+   "referenceAttribute": "acord:Address.addressLine2",
+   "transformation": "rename line2 -> addressLine2",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line2",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line2",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine2",
+   "referenceAttribute": "acord:Address.addressLine2",
+   "transformation": "rename line2 -> addressLine2",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "city",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "city",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "city",
+   "referenceAttribute": "acord:Address.city",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "city",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "city",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "city",
+   "referenceAttribute": "acord:Address.city",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "postCode",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "postCode",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "postalCode",
+   "referenceAttribute": "acord:Address.postalCode",
+   "transformation": "rename postCode -> postalCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "postCode",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "postCode",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "postalCode",
+   "referenceAttribute": "acord:Address.postalCode",
+   "transformation": "rename postCode -> postalCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "country",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "country",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "countryCode",
+   "referenceAttribute": "acord:Address.countryCode",
+   "transformation": "rename country -> countryCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "country",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "country",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "countryCode",
+   "referenceAttribute": "acord:Address.countryCode",
+   "transformation": "rename country -> countryCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ApprovalRequest"
+   ],
+   "sourceAttribute": "approvedBy",
+   "appEntity": "ApprovalRequest",
+   "regionalEntity": "ApprovalRequest",
+   "regionalAttribute": "approvedBy",
+   "canonicalEntity": "ClaimApproval",
+   "canonicalAttribute": "approvedBy",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "custom"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ApprovalRequest"
+   ],
+   "sourceAttribute": "settlementAmount",
+   "appEntity": "ApprovalRequest",
+   "regionalEntity": "ApprovalRequest",
+   "regionalAttribute": "settlementAmount",
+   "canonicalEntity": "ClaimApproval",
+   "canonicalAttribute": "settlementAmount",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "custom"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ApprovalRequest"
+   ],
+   "sourceAttribute": "comment",
+   "appEntity": "ApprovalRequest",
+   "regionalEntity": "ApprovalRequest",
+   "regionalAttribute": "comment",
+   "canonicalEntity": "ClaimApproval",
+   "canonicalAttribute": "comment",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "custom"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDocument"
+   ],
+   "sourceAttribute": "documentId",
+   "appEntity": "ClaimDocument",
+   "regionalEntity": "ClaimDocument",
+   "regionalAttribute": "documentId",
+   "canonicalEntity": "Document",
+   "canonicalAttribute": "documentIdentifier",
+   "referenceAttribute": "acord:Document.documentIdentifier",
+   "transformation": "rename documentId -> documentIdentifier",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDocument"
+   ],
+   "sourceAttribute": "claimId",
+   "appEntity": "ClaimDocument",
+   "regionalEntity": "ClaimDocument",
+   "regionalAttribute": "claimId",
+   "canonicalEntity": "Document",
+   "canonicalAttribute": "claimId",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "extension"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDocument"
+   ],
+   "sourceAttribute": "fileName",
+   "appEntity": "ClaimDocument",
+   "regionalEntity": "ClaimDocument",
+   "regionalAttribute": "fileName",
+   "canonicalEntity": "Document",
+   "canonicalAttribute": "fileName",
+   "referenceAttribute": "acord:Document.fileName",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDocument"
+   ],
+   "sourceAttribute": "documentType",
+   "appEntity": "ClaimDocument",
+   "regionalEntity": "ClaimDocument",
+   "regionalAttribute": "documentType",
+   "canonicalEntity": "Document",
+   "canonicalAttribute": "documentTypeCode",
+   "referenceAttribute": "acord:Document.documentTypeCode",
+   "transformation": "rename documentType -> documentTypeCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDocument"
+   ],
+   "sourceAttribute": "sizeBytes",
+   "appEntity": "ClaimDocument",
+   "regionalEntity": "ClaimDocument",
+   "regionalAttribute": "sizeBytes",
+   "canonicalEntity": "Document",
+   "canonicalAttribute": "fileSize",
+   "referenceAttribute": "acord:Document.fileSize",
+   "transformation": "rename sizeBytes -> fileSize",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "createdAt",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "createdAt",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "creationTimestamp",
+   "referenceAttribute": null,
+   "transformation": "rename createdAt -> creationTimestamp",
+   "note": "extension"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "createdBy",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "createdBy",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": null,
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "excluded by Asha (Claims architect): Audit field, not business data"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "claimId",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "claimId",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "claimIdentifier",
+   "referenceAttribute": "acord:Claim.claimIdentifier",
+   "transformation": "rename claimId -> claimIdentifier",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "claimNumber",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "claimNumber",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "claimNumber",
+   "referenceAttribute": "acord:Claim.claimNumber",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "acord:Claim.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "status",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "status",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "claimStatusCode",
+   "referenceAttribute": "acord:Claim.claimStatusCode",
+   "transformation": "rename status -> claimStatusCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "reserveAmount",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "reserveAmount",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "reserveAmount",
+   "referenceAttribute": "acord:Claim.reserveAmount",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimDto",
+    "ClaimResponse"
+   ],
+   "sourceAttribute": "lossDate",
+   "appEntity": "Claim",
+   "regionalEntity": "Claim",
+   "regionalAttribute": "lossDate",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossDate",
+   "referenceAttribute": "acord:Claim.lossDate",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimantDto"
+   ],
+   "sourceAttribute": "claimantId",
+   "appEntity": "Claimant",
+   "regionalEntity": "Claimant",
+   "regionalAttribute": "claimantId",
+   "canonicalEntity": "ClaimParty",
+   "canonicalAttribute": "claimPartyIdentifier",
+   "referenceAttribute": "acord:ClaimParty.claimPartyIdentifier",
+   "transformation": "rename claimantId -> claimPartyIdentifier",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimantDto"
+   ],
+   "sourceAttribute": "firstName",
+   "appEntity": "Claimant",
+   "regionalEntity": "Claimant",
+   "regionalAttribute": "firstName",
+   "canonicalEntity": "ClaimParty",
+   "canonicalAttribute": "givenName",
+   "referenceAttribute": "acord:ClaimParty.givenName",
+   "transformation": "rename firstName -> givenName",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimantDto"
+   ],
+   "sourceAttribute": "lastName",
+   "appEntity": "Claimant",
+   "regionalEntity": "Claimant",
+   "regionalAttribute": "lastName",
+   "canonicalEntity": "ClaimParty",
+   "canonicalAttribute": "surname",
+   "referenceAttribute": "acord:ClaimParty.surname",
+   "transformation": "rename lastName -> surname",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimantDto"
+   ],
+   "sourceAttribute": "email",
+   "appEntity": "Claimant",
+   "regionalEntity": "Claimant",
+   "regionalAttribute": "email",
+   "canonicalEntity": "ClaimParty",
+   "canonicalAttribute": "emailAddress",
+   "referenceAttribute": "acord:ClaimParty.emailAddress",
+   "transformation": "rename email -> emailAddress",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimantDto"
+   ],
+   "sourceAttribute": "address",
+   "appEntity": "Claimant",
+   "regionalEntity": "Claimant",
+   "regionalAttribute": "address",
+   "canonicalEntity": "ClaimParty",
+   "canonicalAttribute": "address",
+   "referenceAttribute": "acord:ClaimParty.address",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "ClaimantDto"
+   ],
+   "sourceAttribute": "policyHolderId",
+   "appEntity": "Claimant",
+   "regionalEntity": "Claimant",
+   "regionalAttribute": "policyHolderId",
+   "canonicalEntity": "ClaimParty",
+   "canonicalAttribute": "policyHolderId",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "extension"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "CreateClaimRequest"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "CreateClaimRequest",
+   "regionalEntity": "CreateClaimRequest",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "acord:Claim.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "CreateClaimRequest"
+   ],
+   "sourceAttribute": "lossDate",
+   "appEntity": "CreateClaimRequest",
+   "regionalEntity": "CreateClaimRequest",
+   "regionalAttribute": "lossDate",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossDate",
+   "referenceAttribute": "acord:Claim.lossDate",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "CreateClaimRequest"
+   ],
+   "sourceAttribute": "description",
+   "appEntity": "CreateClaimRequest",
+   "regionalEntity": "CreateClaimRequest",
+   "regionalAttribute": "description",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossDescription",
+   "referenceAttribute": "acord:Claim.lossDescription",
+   "transformation": "rename description -> lossDescription",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "CreateClaimRequest"
+   ],
+   "sourceAttribute": "lossLocation",
+   "appEntity": "CreateClaimRequest",
+   "regionalEntity": "CreateClaimRequest",
+   "regionalAttribute": "lossLocation",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossLocation",
+   "referenceAttribute": "acord:Claim.lossLocation",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "CreateClaimRequest"
+   ],
+   "sourceAttribute": "claimants",
+   "appEntity": "CreateClaimRequest",
+   "regionalEntity": "CreateClaimRequest",
+   "regionalAttribute": "claimants",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "claimParties",
+   "referenceAttribute": "acord:Claim.claimParties",
+   "transformation": "rename claimants -> claimParties",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolSubmission"
+   ],
+   "sourceAttribute": "brokerCode",
+   "appEntity": "FnolSubmission",
+   "regionalEntity": "FnolSubmission",
+   "regionalAttribute": "brokerCode",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "brokerCode",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "extension"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolSubmission"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "FnolSubmission",
+   "regionalEntity": "FnolSubmission",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "acord:Claim.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolSubmission"
+   ],
+   "sourceAttribute": "lossDateTime",
+   "appEntity": "FnolSubmission",
+   "regionalEntity": "FnolSubmission",
+   "regionalAttribute": "lossDateTime",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossDate",
+   "referenceAttribute": "acord:Claim.lossDate",
+   "transformation": "rename lossDateTime -> lossDate; type string(date-time) -> string(date)",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolSubmission"
+   ],
+   "sourceAttribute": "description",
+   "appEntity": "FnolSubmission",
+   "regionalEntity": "FnolSubmission",
+   "regionalAttribute": "description",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossDescription",
+   "referenceAttribute": "acord:Claim.lossDescription",
+   "transformation": "rename description -> lossDescription",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolSubmission"
+   ],
+   "sourceAttribute": "location",
+   "appEntity": "FnolSubmission",
+   "regionalEntity": "FnolSubmission",
+   "regionalAttribute": "location",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossLocation",
+   "referenceAttribute": "acord:Claim.lossLocation",
+   "transformation": "rename location -> lossLocation",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "FnolSubmission"
+   ],
+   "sourceAttribute": "reporter",
+   "appEntity": "FnolSubmission",
+   "regionalEntity": "FnolSubmission",
+   "regionalAttribute": "reporter",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "reporter",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "extension"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "amount",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "amount",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "amount",
+   "referenceAttribute": "acord:MonetaryAmount.amount",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "amount",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "amount",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "amount",
+   "referenceAttribute": "acord:MonetaryAmount.amount",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "currency",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "currency",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "currencyCode",
+   "referenceAttribute": "acord:MonetaryAmount.currencyCode",
+   "transformation": "rename currency -> currencyCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "currency",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "currency",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "currencyCode",
+   "referenceAttribute": "acord:MonetaryAmount.currencyCode",
+   "transformation": "rename currency -> currencyCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "PolicyHolderInfo"
+   ],
+   "sourceAttribute": "firstName",
+   "appEntity": "PolicyHolderInfo",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "firstName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "givenName",
+   "referenceAttribute": "acord:Party.givenName",
+   "transformation": "rename firstName -> givenName",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyHolder"
+   ],
+   "sourceAttribute": "firstName",
+   "appEntity": "PolicyHolder",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "firstName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "givenName",
+   "referenceAttribute": "acord:Party.givenName",
+   "transformation": "rename firstName -> givenName",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "PolicyHolderInfo"
+   ],
+   "sourceAttribute": "lastName",
+   "appEntity": "PolicyHolderInfo",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "lastName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "surname",
+   "referenceAttribute": "acord:Party.surname",
+   "transformation": "rename lastName -> surname",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyHolder"
+   ],
+   "sourceAttribute": "lastName",
+   "appEntity": "PolicyHolder",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "lastName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "surname",
+   "referenceAttribute": "acord:Party.surname",
+   "transformation": "rename lastName -> surname",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "PolicyHolderInfo"
+   ],
+   "sourceAttribute": "email",
+   "appEntity": "PolicyHolderInfo",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "email",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "emailAddress",
+   "referenceAttribute": "acord:Party.emailAddress",
+   "transformation": "rename email -> emailAddress",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyHolder"
+   ],
+   "sourceAttribute": "email",
+   "appEntity": "PolicyHolder",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "email",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "emailAddress",
+   "referenceAttribute": "acord:Party.emailAddress",
+   "transformation": "rename email -> emailAddress",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "PolicyHolderInfo"
+   ],
+   "sourceAttribute": "address",
+   "appEntity": "PolicyHolderInfo",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "address",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "address",
+   "referenceAttribute": "acord:Party.address",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyHolder"
+   ],
+   "sourceAttribute": "address",
+   "appEntity": "PolicyHolder",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "address",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "address",
+   "referenceAttribute": "acord:Party.address",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyHolder"
+   ],
+   "sourceAttribute": "policyHolderId",
+   "appEntity": "PolicyHolder",
+   "regionalEntity": "PolicyHolder",
+   "regionalAttribute": "policyHolderId",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "partyIdentifier",
+   "referenceAttribute": "acord:Party.partyIdentifier",
+   "transformation": "rename policyHolderId -> partyIdentifier",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "UpdateClaimRequest"
+   ],
+   "sourceAttribute": "description",
+   "appEntity": "UpdateClaimRequest",
+   "regionalEntity": "UpdateClaimRequest",
+   "regionalAttribute": "description",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossDescription",
+   "referenceAttribute": "acord:Claim.lossDescription",
+   "transformation": "rename description -> lossDescription",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "UpdateClaimRequest"
+   ],
+   "sourceAttribute": "lossLocation",
+   "appEntity": "UpdateClaimRequest",
+   "regionalEntity": "UpdateClaimRequest",
+   "regionalAttribute": "lossLocation",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "lossLocation",
+   "referenceAttribute": "acord:Claim.lossLocation",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/claims",
+   "sourceSchemas": [
+    "UpdateClaimRequest"
+   ],
+   "sourceAttribute": "status",
+   "appEntity": "UpdateClaimRequest",
+   "regionalEntity": "UpdateClaimRequest",
+   "regionalAttribute": "status",
+   "canonicalEntity": "Claim",
+   "canonicalAttribute": "claimStatusCode",
+   "referenceAttribute": "acord:Claim.claimStatusCode",
+   "transformation": "rename status -> claimStatusCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Coverage"
+   ],
+   "sourceAttribute": "code",
+   "appEntity": "Coverage",
+   "regionalEntity": "Coverage",
+   "regionalAttribute": "code",
+   "canonicalEntity": "Coverage",
+   "canonicalAttribute": "coverageCode",
+   "referenceAttribute": "acord:Coverage.coverageCode",
+   "transformation": "rename code -> coverageCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Coverage"
+   ],
+   "sourceAttribute": "name",
+   "appEntity": "Coverage",
+   "regionalEntity": "Coverage",
+   "regionalAttribute": "name",
+   "canonicalEntity": "Coverage",
+   "canonicalAttribute": "coverageName",
+   "referenceAttribute": "acord:Coverage.coverageName",
+   "transformation": "rename name -> coverageName",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Coverage"
+   ],
+   "sourceAttribute": "limit",
+   "appEntity": "Coverage",
+   "regionalEntity": "Coverage",
+   "regionalAttribute": "limit",
+   "canonicalEntity": "Coverage",
+   "canonicalAttribute": "limitAmount",
+   "referenceAttribute": "acord:Coverage.limitAmount",
+   "transformation": "rename limit -> limitAmount",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "Coverage"
+   ],
+   "sourceAttribute": "deductible",
+   "appEntity": "Coverage",
+   "regionalEntity": "Coverage",
+   "regionalAttribute": "deductible",
+   "canonicalEntity": "Coverage",
+   "canonicalAttribute": "deductibleAmount",
+   "referenceAttribute": "acord:Coverage.deductibleAmount",
+   "transformation": "rename deductible -> deductibleAmount",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "IssuePolicyRequest"
+   ],
+   "sourceAttribute": "quoteReference",
+   "appEntity": "IssuePolicyRequest",
+   "regionalEntity": "IssuePolicyRequest",
+   "regionalAttribute": "quoteReference",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "quoteReference",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "extension"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "IssuePolicyRequest"
+   ],
+   "sourceAttribute": "inceptionDate",
+   "appEntity": "IssuePolicyRequest",
+   "regionalEntity": "IssuePolicyRequest",
+   "regionalAttribute": "inceptionDate",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "effectiveDate",
+   "referenceAttribute": "acord:Policy.effectiveDate",
+   "transformation": "rename inceptionDate -> effectiveDate",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "IssuePolicyRequest"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "IssuePolicyRequest",
+   "regionalEntity": "IssuePolicyRequest",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyHolder",
+   "referenceAttribute": "acord:Policy.policyHolder",
+   "transformation": "rename holder -> policyHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "acord:Policy.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Policy.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "status",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "status",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyStatusCode",
+   "referenceAttribute": "acord:Policy.policyStatusCode",
+   "transformation": "rename status -> policyStatusCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "inceptionDate",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "inceptionDate",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "effectiveDate",
+   "referenceAttribute": "acord:Policy.effectiveDate",
+   "transformation": "rename inceptionDate -> effectiveDate",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "expiryDate",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "expiryDate",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "expirationDate",
+   "referenceAttribute": "acord:Policy.expirationDate",
+   "transformation": "rename expiryDate -> expirationDate",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "premium",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "premium",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "premiumAmount",
+   "referenceAttribute": "acord:Policy.premiumAmount",
+   "transformation": "rename premium -> premiumAmount",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyHolder",
+   "referenceAttribute": "acord:Policy.policyHolder",
+   "transformation": "rename holder -> policyHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicyDetails"
+   ],
+   "sourceAttribute": "coverages",
+   "appEntity": "PolicyDetails",
+   "regionalEntity": "PolicyDetails",
+   "regionalAttribute": "coverages",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "coverages",
+   "referenceAttribute": "acord:Policy.coverages",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicySummary"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "PolicySummary",
+   "regionalEntity": "PolicySummary",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "acord:Policy.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicySummary"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "PolicySummary",
+   "regionalEntity": "PolicySummary",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Policy.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicySummary"
+   ],
+   "sourceAttribute": "status",
+   "appEntity": "PolicySummary",
+   "regionalEntity": "PolicySummary",
+   "regionalAttribute": "status",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyStatusCode",
+   "referenceAttribute": "acord:Policy.policyStatusCode",
+   "transformation": "rename status -> policyStatusCode",
+   "note": "mapped"
+  },
+  {
+   "region": "EU",
+   "appId": "EU/policy",
+   "sourceSchemas": [
+    "PolicySummary"
+   ],
+   "sourceAttribute": "holderName",
+   "appEntity": "PolicySummary",
+   "regionalEntity": "PolicySummary",
+   "regionalAttribute": "holderName",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "holderName",
+   "referenceAttribute": null,
+   "transformation": "",
+   "note": "extension"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Quote.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "proposedHolder",
+   "referenceAttribute": "acord:Quote.proposedHolder",
+   "transformation": "rename holder -> proposedHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "QuoteRequest"
+   ],
+   "sourceAttribute": "startDate",
+   "appEntity": "QuoteRequest",
+   "regionalEntity": "QuoteRequest",
+   "regionalAttribute": "startDate",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "effectiveDate",
+   "referenceAttribute": "acord:Quote.effectiveDate",
+   "transformation": "rename startDate -> effectiveDate",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "quoteRef",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "quoteRef",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "quoteIdentifier",
+   "referenceAttribute": "acord:Quote.quoteIdentifier",
+   "transformation": "rename quoteRef -> quoteIdentifier",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "productCode",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "productCode",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "productCode",
+   "referenceAttribute": "acord:Quote.productCode",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "premium",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "premium",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "premiumAmount",
+   "referenceAttribute": "acord:Quote.premiumAmount",
+   "transformation": "rename premium -> premiumAmount",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "validUntil",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "validUntil",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "expirationDate",
+   "referenceAttribute": "acord:Quote.expirationDate",
+   "transformation": "rename validUntil -> expirationDate",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Quote"
+   ],
+   "sourceAttribute": "holder",
+   "appEntity": "Quote",
+   "regionalEntity": "Quote",
+   "regionalAttribute": "holder",
+   "canonicalEntity": "Quote",
+   "canonicalAttribute": "proposedHolder",
+   "referenceAttribute": "acord:Quote.proposedHolder",
+   "transformation": "rename holder -> proposedHolder",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "firstName",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "firstName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "givenName",
+   "referenceAttribute": "baseline:Party.givenName",
+   "transformation": "rename firstName -> givenName",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "lastName",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "lastName",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "surname",
+   "referenceAttribute": "baseline:Party.surname",
+   "transformation": "rename lastName -> surname",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "email",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "email",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "emailAddress",
+   "referenceAttribute": "baseline:Party.emailAddress",
+   "transformation": "rename email -> emailAddress",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Customer"
+   ],
+   "sourceAttribute": "address",
+   "appEntity": "Customer",
+   "regionalEntity": "Customer",
+   "regionalAttribute": "address",
+   "canonicalEntity": "Party",
+   "canonicalAttribute": "address",
+   "referenceAttribute": "baseline:Party.address",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line1",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line1",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine1",
+   "referenceAttribute": "baseline:Address.addressLine1",
+   "transformation": "rename line1 -> addressLine1",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "line2",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "line2",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "addressLine2",
+   "referenceAttribute": "baseline:Address.addressLine2",
+   "transformation": "rename line2 -> addressLine2",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "city",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "city",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "city",
+   "referenceAttribute": "baseline:Address.city",
+   "transformation": "",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "postCode",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "postCode",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "postalCode",
+   "referenceAttribute": "baseline:Address.postalCode",
+   "transformation": "rename postCode -> postalCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Address"
+   ],
+   "sourceAttribute": "country",
+   "appEntity": "Address",
+   "regionalEntity": "Address",
+   "regionalAttribute": "country",
+   "canonicalEntity": "Address",
+   "canonicalAttribute": "countryCode",
+   "referenceAttribute": "baseline:Address.countryCode",
+   "transformation": "rename country -> countryCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "amount",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "amount",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "amount",
+   "referenceAttribute": "baseline:MonetaryAmount.amount",
+   "transformation": "type number -> number(double)",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "Money"
+   ],
+   "sourceAttribute": "currency",
+   "appEntity": "Money",
+   "regionalEntity": "Money",
+   "regionalAttribute": "currency",
+   "canonicalEntity": "MonetaryAmount",
+   "canonicalAttribute": "currencyCode",
+   "referenceAttribute": "baseline:MonetaryAmount.currencyCode",
+   "transformation": "rename currency -> currencyCode",
+   "note": "mapped"
+  },
+  {
+   "region": "UK",
+   "appId": "UK/quote",
+   "sourceSchemas": [
+    "PolicyRef"
+   ],
+   "sourceAttribute": "policyNumber",
+   "appEntity": "PolicyRef",
+   "regionalEntity": "PolicyRef",
+   "regionalAttribute": "policyNumber",
+   "canonicalEntity": "Policy",
+   "canonicalAttribute": "policyNumber",
+   "referenceAttribute": "baseline:Policy.policyNumber",
+   "transformation": "",
+   "note": "mapped"
+  }
+ ]
+}
