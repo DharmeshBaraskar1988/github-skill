@@ -8,17 +8,20 @@
   --bg:#f4f6f8; --panel:#ffffff; --ink:#16202b; --muted:#5b6876; --line:#d5dce3; --soft:#eaeef2;
   --agent:#1d4f91; --agent-fill:#e7eef8; --wait:#a35c00; --wait-fill:#fdf1df; --gate:#1f7a52; --gate-fill:#e2f3ea;
   --input:#55606c; --input-fill:#f0f2f4; --lane:#f9fafb; --edge:#8a97a5; --hi:#1d4f91;
+  --c-yaml:#1d4f91; --c-json:#1f7a52; --c-md:#6a5a8c; --c-html:#b0441c; --c-xlsx:#a35c00;
   --display:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f141a; --panel:#161d25; --ink:#e4e9ef; --muted:#97a3b0; --line:#2a3542; --soft:#1d2630;
   --agent:#82b0ee; --agent-fill:#18283c; --wait:#e8ac52; --wait-fill:#2c2312; --gate:#62c795; --gate-fill:#14281f;
-  --input:#a4afbb; --input-fill:#1c242d; --lane:#131a21; --edge:#5d6b7a; --hi:#82b0ee; color-scheme:dark}}
+  --input:#a4afbb; --input-fill:#1c242d; --lane:#131a21; --edge:#5d6b7a; --hi:#82b0ee;
+  --c-yaml:#82b0ee; --c-json:#62c795; --c-md:#b9a6e3; --c-html:#f08c63; --c-xlsx:#e8ac52; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f141a; --panel:#161d25; --ink:#e4e9ef; --muted:#97a3b0; --line:#2a3542; --soft:#1d2630;
   --agent:#82b0ee; --agent-fill:#18283c; --wait:#e8ac52; --wait-fill:#2c2312; --gate:#62c795; --gate-fill:#14281f;
-  --input:#a4afbb; --input-fill:#1c242d; --lane:#131a21; --edge:#5d6b7a; --hi:#82b0ee; color-scheme:dark}
+  --input:#a4afbb; --input-fill:#1c242d; --lane:#131a21; --edge:#5d6b7a; --hi:#82b0ee;
+  --c-yaml:#82b0ee; --c-json:#62c795; --c-md:#b9a6e3; --c-html:#f08c63; --c-xlsx:#e8ac52; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--display);margin:0}
 .wrap{max-width:1320px;margin:0 auto;padding-inline:20px;padding-block:24px 48px;display:flex;flex-direction:column;gap:22px}
@@ -53,6 +56,18 @@ svg text{font-family:var(--display);fill:var(--ink)}
 .node:hover rect,.node:focus-visible rect{stroke-width:2.6}
 .node.sel rect{stroke-width:3}
 .node.dim{opacity:.35}
+.file.dim{opacity:.3}
+.fname{font-family:var(--mono);font-size:12.5px;fill:var(--ink)}
+.fext{font-weight:500}
+.fby{fill:var(--muted);font-family:var(--display);font-size:11.5px}
+.x-yaml{fill:var(--c-yaml);color:var(--c-yaml)} .x-json{fill:var(--c-json);color:var(--c-json)} .x-md{fill:var(--c-md);color:var(--c-md)}
+.x-html{fill:var(--c-html);color:var(--c-html)} .x-xlsx{fill:var(--c-xlsx);color:var(--c-xlsx)} .x-note{fill:var(--muted)} .x-other{fill:var(--muted);color:var(--muted)}
+.diagbar{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line)}
+.extleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted)}
+.extleg b{font-family:var(--mono);font-weight:500}
+.toggle{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink);cursor:pointer}
+.ext{font-family:var(--mono);font-weight:500;white-space:nowrap}
+td .ext.x-yaml,td .ext.x-json,td .ext.x-md,td .ext.x-html,td .ext.x-xlsx{background:none}
 .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
 @media (max-width:900px){.grid{grid-template-columns:1fr}}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;min-width:0}
@@ -96,8 +111,19 @@ tr:last-child td{border-bottom:0}
     <span><svg width="34" height="10" style="display:inline;min-width:0;vertical-align:middle" aria-hidden="true"><line x1="0" y1="5" x2="34" y2="5" stroke="currentColor" stroke-dasharray="5 4" stroke-width="1.6"/></svg> baseline / re-review</span>
   </div>
 
-  <div class="diagram" role="img" aria-label="Flow diagram of the API catalogue pipeline">
-    <svg id="svg" viewBox="0 0 1240 720" xmlns="http://www.w3.org/2000/svg">
+  <div class="diagram">
+    <div class="diagbar">
+      <div class="extleg" aria-label="File types">
+        <span><b class="x-yaml">.yaml</b> specs, settings, decisions</span>
+        <span><b class="x-json">.json</b> machine data for the next step</span>
+        <span><b class="x-md">.md</b> readable reports</span>
+        <span><b class="x-html">.html</b> offline pages to open</span>
+        <span><b class="x-xlsx">.xlsx</b> Excel to review or share</span>
+      </div>
+      <label class="toggle"><input type="checkbox" id="filesToggle" checked> Show file names</label>
+    </div>
+    <div role="img" aria-label="Flow diagram of the API catalogue pipeline with the files each step produces">
+    <svg id="svg" viewBox="0 0 1240 1080" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" fill="var(--edge)"/></marker>
@@ -106,6 +132,7 @@ tr:last-child td{border-bottom:0}
       </defs>
       <g id="lanes"></g><g id="edges"></g><g id="nodes"></g>
     </svg>
+    </div>
   </div>
 
   <div class="grid">
@@ -129,6 +156,13 @@ tr:last-child td{border-bottom:0}
     <div class="eyebrow">Artifact order</div>
     <h2>What comes after what</h2>
     <div class="scroll"><table id="order"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="eyebrow">Artifact reference</div>
+    <h2>Every file, its extension and who writes it</h2>
+    <p class="hint" style="margin:.2em 0 10px">Made by: <b>script</b> = generated, never edit by hand · <b>agent</b> = the Copilot agent maintains it with notes · <b>people</b> = reviewers' decisions · <b>you</b> = inputs you provide. Every step also writes <span class="ext x-json">validation.json</span>.</p>
+    <div class="scroll"><table id="catalog"></table></div>
   </section>
 
   <section class="card">
@@ -165,43 +199,57 @@ const N = {
   d2:    {kind:"agent", x:490, y:110, w:180,h:86, num:"STEP 2", title:"Analysis", sub:"/analyze-apis",
           agent:"api-analysis", ins:["openapi.yaml (step 1)","domains.xlsx"], outs:["1-openapi.enriched.yaml","2-domains-capabilities","3-entities-attributes","4-duplicates-report","decisions.yaml (agent)"],
           folder:"api-catalog/analysis/<REGION>/<app>/", what:"Maps every endpoint to a domain and capability, extracts entities with attribute trees and relations, finds duplicate entities and maps them to one. The agent records judgements in decisions.yaml."},
-  ext:   {kind:"input", x:30,  y:296, w:170,h:64, num:"YOU PROVIDE", title:"External specs", sub:"external/<REGION>/",
+  ext:   {kind:"input", x:30,  y:430, w:170,h:64, num:"YOU PROVIDE", title:"External specs", sub:"external/<REGION>/",
           outs:["openapi.yaml / .json"], folder:"api-catalog/external/<REGION>/<app>/", what:"OpenAPI specs of applications you cannot scan. The regional view analyses them with the domain Excel and marks them as external."},
-  d3:    {kind:"agent", x:250, y:330, w:180,h:86, num:"STEP 3", title:"Regional view", sub:"/build-regional-view",
+  d3:    {kind:"agent", x:250, y:460, w:180,h:86, num:"STEP 3", title:"Regional view", sub:"/build-regional-view",
           agent:"regional-view", ins:["all analysis folders","external specs"], outs:["regional-view.html","regional-view.xlsx","spec-viewer.html","regional-view-data.json"],
           folder:"api-catalog/regional-view/", what:"One page and one workbook for all applications: filter by region and application; domains, capabilities, entities, endpoints, duplicates within and across apps. spec-viewer.html shows every spec as YAML or JSON."},
-  acord: {kind:"input", x:490, y:258, w:180,h:60, num:"YOU PROVIDE", title:"ACORD model", sub:"reference/acord/",
+  acord: {kind:"input", x:490, y:380, w:180,h:60, num:"YOU PROVIDE", title:"ACORD model", sub:"reference/acord/",
           outs:["xlsx / xsd / yaml / json"], folder:"api-catalog/reference/acord/", what:"Your licensed ACORD model, one file or a folder of files. Loaded once for all regions."},
-  d4:    {kind:"agent", x:490, y:330, w:180,h:86, num:"STEP 4", title:"ACORD alignment", sub:"/align-acord",
+  d4:    {kind:"agent", x:490, y:460, w:180,h:86, num:"STEP 4", title:"ACORD alignment", sub:"/align-acord",
           agent:"acord-alignment", ins:["regional-view-data.json","ACORD model","baseline (next regions)"], outs:["acord-alignment.html","acord-alignment.xlsx","alignment.json","alignment-overrides.yaml (agent)"],
           folder:"api-catalog/alignment/<REGION>/", what:"Scores every entity, attribute, endpoint and domain against ACORD: full match (use as-is), partial (extend), none (custom), with percentages. Works for the whole region or one application (--apps claims). The agent resolves ambiguous matches; it never approves."},
-  d5:    {kind:"wait",  x:730, y:330, w:180,h:86, num:"STEP 5 · WAIT", title:"Human review", sub:"/import-review",
+  d5:    {kind:"wait",  x:730, y:460, w:180,h:86, num:"STEP 5 · WAIT", title:"Human review", sub:"/import-review",
           agent:"people (architects, data owners)", ins:["acord-alignment.html or .xlsx"], outs:["review-decisions.json or filled .xlsx","approvals.yaml"],
           folder:"api-catalog/alignment/<REGION>/", wait:"The only manual step. Reviewers approve, extend, rename or reject (Approve all… in the HTML, or fill down in Excel), then the decisions are imported.",
           what:"People decide; every approval records the reviewer, the time and a fingerprint of what was reviewed. If the source later changes, that approval becomes 'changed' and needs re-review."},
-  d6:    {kind:"agent", x:970, y:330, w:200,h:86, num:"STEP 6", title:"Canonical model", sub:"/build-canonical",
+  d6:    {kind:"agent", x:970, y:460, w:200,h:86, num:"STEP 6", title:"Canonical model", sub:"/build-canonical",
           agent:"canonical-model", ins:["approvals.yaml","ACORD model","baseline"], outs:["canonical-openapi.yaml / .json","canonical-model.json / .yaml","canonical-model.xlsx","source-to-canonical-mapping.json","canonical-viewer.html"],
           folder:"api-catalog/canonical/<REGION>/", what:"Builds the region's canonical entities, attributes and endpoints from approved decisions only, with full lineage from source attribute to ACORD attribute, and one canonical OpenAPI spec. Draft while anything is pending."},
-  rel:   {kind:"gate",  x:990, y:458, w:160,h:48, num:"GATE · --release", title:"Release v1.0.0",
+  rel:   {kind:"gate",  x:990, y:690, w:160,h:48, num:"GATE · --release", title:"Release v1.0.0",
           outs:["canonical/<REGION>/releases/<version>/"], folder:"api-catalog/canonical/<REGION>/releases/", wait:"You decide when a region is released. Releases are frozen.",
           what:"Freezes the approved canonical model. Only releases are used as the baseline of other regions and in the global model."},
-  d7:    {kind:"agent", x:490, y:574, w:200,h:86, num:"STEP 7", title:"Next region (UK)", sub:"steps 1–6 + baseline",
+  d7:    {kind:"agent", x:490, y:820, w:200,h:86, num:"STEP 7", title:"Next region (UK)", sub:"steps 1–6 + baseline",
           agent:"acord-alignment → canonical-model", ins:["UK applications","EU release as baseline","ACORD model"], outs:["alignment/UK/…","canonical/UK/…","canonical/UK/releases/…"],
           folder:"api-catalog/regions/UK.yaml", wait:"Starts after the EU release exists, and has its own human review (step 5).",
           what:"The next region aligns against the EU release first and ACORD second. Baseline entities are reused unchanged; the region only adds. Removing or retyping a baseline item fails validation."},
-  d8:    {kind:"agent", x:970, y:574, w:200,h:86, num:"STEP 8", title:"Global canonical", sub:"/build-global-canonical",
+  d8:    {kind:"agent", x:920, y:820, w:200,h:86, num:"STEP 8", title:"Global canonical", sub:"/build-global-canonical",
           agent:"canonical-model", ins:["all region releases"], outs:["global-canonical.html","global-canonical-openapi.yaml / .json","global-canonical-model.json / .yaml","global-canonical.xlsx","global-source-mapping.json"],
           folder:"api-catalog/canonical/GLOBAL/", what:"One enterprise model from all released regions. Every entity shows ACORD or custom, which regions have it and use it, and which applications it comes from. The explorer filters by region, application, domain and API and downloads the filtered spec as YAML or JSON."},
 };
 const E = [
   ["src","d1"],["style","d1"],["d1","d2"],["xl","d2"],
-  ["d2","d3",{path:"M580,196 L580,236 L340,236 L340,330"}],
-  ["ext","d3"],["d3","d4"],["acord","d4"],["d4","d5"],["d5","d6"],["d6","rel"],
-  ["rel","d7",{dash:true,label:"baseline",path:"M990,482 L590,482 L590,574"}],
-  ["d7","d8"],["rel","d8",{path:"M1070,506 L1070,574"}],
-  ["d1","d5",{dash:true,label:"source change → re-review",path:"M340,96 L340,24 L820,24 L820,330"}],
+  ["d2","d3",{path:"M670,153 L705,153 L705,348 L340,348 L340,460"}],
+  ["ext","d3"],["d3","d4"],["acord","d4"],["d4","d5"],["d5","d6"],["d6","rel",{path:"M1170,503 L1234,503 L1234,714 L1150,714"}],
+  ["rel","d7",{dash:true,label:"baseline",path:"M990,714 L590,714 L590,820"}],
+  ["d7","d8"],["rel","d8",{path:"M1070,738 L1070,820"}],
+  ["d1","d5",{dash:true,label:"source change → re-review",path:"M340,96 L340,24 L820,24 L820,460"}],
 ];
-const LANES=[{y:12,h:224,label:"PER APPLICATION"},{y:248,h:290,label:"PER REGION"},{y:550,h:160,label:"ACROSS REGIONS"}];
+const LANES=[{y:12,h:330,label:"PER APPLICATION"},{y:354,h:400,label:"PER REGION"},{y:766,h:300,label:"ACROSS REGIONS"}];
+// files written by each step (shown under the step); by: agent = the agent maintains it, people = reviewers decide
+const FILES={
+  d1:[["openapi",".yaml"],["inventory",".json"],["style-profile",".json"],["discovery-report",".md"],["overrides",".yaml","agent"],["validation",".json"]],
+  d2:[["1-openapi.enriched",".yaml"],["2-domains-capabilities",".json · .md"],["3-entities-attributes",".json · .md"],["4-duplicates-report",".json · .md"],["analysis-summary",".json"],["decisions",".yaml","agent"]],
+  d3:[["regional-view",".html"],["regional-view",".xlsx"],["regional-view-data",".json"],["spec-viewer",".html"],["validation",".json"]],
+  d4:[["acord.reference",".json"],["alignment",".json"],["acord-alignment",".html"],["acord-alignment",".xlsx"],["alignment-report",".md"],["alignment-overrides",".yaml","agent"]],
+  d5:[["review-decisions",".json","people"],["reviewed",".xlsx","people"],["approvals",".yaml","people"]],
+  d6:[["canonical-openapi",".yaml · .json"],["canonical-model",".json · .yaml"],["canonical-model",".xlsx · .md"],["source-to-canonical-mapping",".json"],["canonical-viewer",".html"],["CHANGELOG",".md"]],
+  d7:[["alignment/UK/…","same files as step 4"],["approvals",".yaml","people"],["canonical/UK/…","same files as step 6"]],
+  d8:[["global-canonical-openapi",".yaml · .json"],["global-canonical-model",".json · .yaml"],["global-canonical",".html"],["global-canonical",".xlsx"],["global-source-mapping",".json"]],
+};
+const EXTCLASS=e=>/html/.test(e)?"x-html":/xlsx/.test(e)?"x-xlsx":/yaml/.test(e)?"x-yaml":/json/.test(e)?"x-json":/md/.test(e)?"x-md":"x-other";
+let showFiles=true;
+try{const v=localStorage.getItem("flow:files");if(v!==null)showFiles=v==="1"}catch(e){}
 const ORDER=[
   ["1","Discovery","openapi.yaml, inventory.json, discovery-report.md","discovery/<REGION>/<app>/","auto"],
   ["2","Analysis","1-openapi.enriched.yaml, 2-domains-capabilities, 3-entities-attributes, 4-duplicates-report","analysis/<REGION>/<app>/","auto"],
@@ -212,6 +260,60 @@ const ORDER=[
   ["–","Release","releases/<version>/ (frozen copy)","canonical/<REGION>/releases/","wait"],
   ["7","Next region","same as 4–6 for UK, on the EU release","alignment/UK/, canonical/UK/","wait"],
   ["8","Global canonical","global-canonical.html, global-canonical-openapi.yaml/.json, global model, xlsx","canonical/GLOBAL/","auto"],
+];
+const CATALOG=[
+  ["Inputs you provide",[
+    ["api-catalog.config",".yaml","you","each repository","Region, application, source folders, output folders"],
+    ["domains",".xlsx","you","api-catalog/","Business domains, capabilities and keywords"],
+    ["style-examples/…",".yaml / .json","you","api-catalog/style-examples/_global/, <REGION>/","House-style examples; conventions only, never copied"],
+    ["reference/acord/…",".xlsx / .xsd / .yaml / .json","you","api-catalog/reference/acord/","Your licensed ACORD model"],
+    ["synonyms",".yaml","you","api-catalog/reference/","Your vocabulary for matching"],
+    ["regions/<REGION>",".yaml","you","api-catalog/regions/","ACORD source, baseline, thresholds, canonical version"],
+    ["external/<REGION>/<app>/openapi",".yaml / .json","you","api-catalog/external/","Specs of applications you cannot scan"]]],
+  ["Step 1 · Discovery",[
+    ["openapi",".yaml","script","discovery/<REGION>/<app>/","OpenAPI 3.0 spec: endpoints, parameters, request/response models, $ref graph"],
+    ["inventory",".json","script","discovery/<REGION>/<app>/","Everything the scanner found, plus items that need review"],
+    ["style-profile",".json","script","discovery/<REGION>/<app>/","Conventions learned from the style examples"],
+    ["discovery-report",".md","script","discovery/<REGION>/<app>/","Readable summary of projects and endpoints"],
+    ["overrides",".yaml","agent","discovery/<REGION>/<app>/","The agent's corrections, each with a file:line note"]]],
+  ["Step 2 · Analysis",[
+    ["domains",".json","script","api-catalog/","The domain Excel converted for the scripts"],
+    ["1-openapi.enriched",".yaml","script","analysis/<REGION>/<app>/","Spec tagged with domain, capability and entity"],
+    ["2-domains-capabilities",".json · .md","script","analysis/<REGION>/<app>/","Domain → capabilities → endpoints"],
+    ["3-entities-attributes",".json · .md","script","analysis/<REGION>/<app>/","Entities, attribute trees, relations, where used"],
+    ["4-duplicates-report",".json · .md","script","analysis/<REGION>/<app>/","Duplicate models, where used, mapping to one entity"],
+    ["analysis-summary",".json","script","analysis/<REGION>/<app>/","Counts used by the regional view"],
+    ["decisions",".yaml","agent","analysis/<REGION>/<app>/","The agent's domain and duplicate decisions with notes"]]],
+  ["Step 3 · Regional view",[
+    ["regional-view",".html","script","regional-view/","Interactive page: filter by region and application"],
+    ["regional-view",".xlsx","script","regional-view/","The same content as Excel sheets"],
+    ["regional-view-data",".json","script","regional-view/","Aggregated data; input for ACORD alignment"],
+    ["spec-viewer",".html","script","regional-view/","Every spec in the catalogue as YAML or JSON"]]],
+  ["Step 4 · ACORD alignment",[
+    ["acord.reference",".json","script","api-catalog/reference/","Your ACORD files normalised"],
+    ["alignment",".json","script","alignment/<REGION>/","All matches, scores and review state"],
+    ["acord-alignment",".html","script","alignment/<REGION>/","Review page: percentages, decisions, Approve all, export"],
+    ["acord-alignment",".xlsx","script","alignment/<REGION>/","Review workbook with yellow decision columns"],
+    ["alignment-report",".md","script","alignment/<REGION>/","Readable summary"],
+    ["alignment-overrides",".yaml","agent","alignment/<REGION>/","The agent's match corrections with notes"]]],
+  ["Step 5 · Human review",[
+    ["review-decisions",".json","people","handed back by the reviewer","Export from the review page"],
+    ["acord-alignment (filled)",".xlsx","people","handed back by the reviewer","The workbook with decisions filled in"],
+    ["approvals",".yaml","people","alignment/<REGION>/","Recorded decisions with reviewer and time (written by /import-review)"]]],
+  ["Step 6 · Canonical model",[
+    ["canonical-openapi",".yaml · .json","script","canonical/<REGION>/","One canonical OpenAPI spec for the region"],
+    ["canonical-model",".json · .yaml","script","canonical/<REGION>/","Canonical entities, attributes, relations, endpoints; baseline for the next region"],
+    ["canonical-model",".xlsx · .md","script","canonical/<REGION>/","The same model for reading and sharing"],
+    ["source-to-canonical-mapping",".json","script","canonical/<REGION>/","Source attribute → canonical attribute → ACORD attribute"],
+    ["canonical-viewer",".html","script","canonical/<REGION>/","Spec and model with a YAML / JSON toggle"],
+    ["CHANGELOG",".md","script","canonical/<REGION>/","Changes against the previous build and the baseline"],
+    ["releases/<version>/…","all of the above","script","canonical/<REGION>/releases/","Frozen copy made by --release"]]],
+  ["Step 8 · Global canonical",[
+    ["global-canonical-openapi",".yaml · .json","script","canonical/GLOBAL/","One spec across all released regions"],
+    ["global-canonical-model",".json · .yaml","script","canonical/GLOBAL/","Merged model with regions, applications, ACORD or custom"],
+    ["global-canonical",".html","script","canonical/GLOBAL/","Explorer: filter by region, application, API; filtered spec as YAML/JSON"],
+    ["global-canonical",".xlsx","script","canonical/GLOBAL/","Region matrix, entities, attributes, endpoints, mapping"],
+    ["global-source-mapping",".json","script","canonical/GLOBAL/","All regions' lineage rows"]]],
 ];
 const NS="http://www.w3.org/2000/svg";
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -241,7 +343,7 @@ function draw(){
     if(o.label){const m=(o.path||"").match(/M(\d+),(\d+) L(\d+),(\d+)/);
       const t=el("text",{class:"elabel"},eg);t.textContent=o.label;
       if(i===E.length-1){t.setAttribute("x",580);t.setAttribute("y",18);t.setAttribute("text-anchor","middle")}
-      else{t.setAttribute("x",780);t.setAttribute("y",476)}}
+      else{t.setAttribute("x",790);t.setAttribute("y",708)}}
   });
   const ng=document.getElementById("nodes");ng.innerHTML="";
   const related=new Set([selected]);E.forEach(([a,b])=>{if(a===selected)related.add(b);if(b===selected)related.add(a)});
@@ -255,7 +357,16 @@ function draw(){
     if(n.kind==="agent"){const t4=el("text",{x:n.x+14,y:n.y+78,class:"loop"},g);t4.textContent="↻ validates until pass"}
     if(n.kind==="wait"){const t4=el("text",{x:n.x+14,y:n.y+78,class:"loop"},g);t4.textContent="⏸ people decide"}
   }
-  // the gate's sub sits on the same line as its title; keep it short
+  if(showFiles){const fg=el("g",{"aria-label":"files"},ng);
+    for(const [id,list] of Object.entries(FILES)){const n=N[id];const dim=picked&&!related.has(id);
+      list.forEach((f,i)=>{const y=n.y+n.h+22+i*19;
+        const g=el("g",{class:"file"+(dim?" dim":"")},fg);
+        el("rect",{x:n.x+2,y:y-10,width:7,height:9,rx:1.5,class:"fdot "+EXTCLASS(f[1])},g);
+        const t=el("text",{x:n.x+15,y:y,class:"fname"},g);
+        const a=document.createElementNS(NS,"tspan");a.textContent=f[0];t.appendChild(a);
+        const b=document.createElementNS(NS,"tspan");b.textContent=f[1].startsWith(".")?f[1]:"  "+f[1];b.setAttribute("class","fext "+(f[1].startsWith(".")?EXTCLASS(f[1]):"x-note"));t.appendChild(b);
+        if(f[2]){const c=document.createElementNS(NS,"tspan");c.textContent=f[2]==="agent"?"  ✎ agent":"  ✔ people";c.setAttribute("class","fby");t.appendChild(c)}
+      })}}
 }
 function detail(){
   const n=N[selected];const kindName={agent:"Agent step",wait:"Wait for people",gate:"Release gate",input:"You provide"}[n.kind];
@@ -266,7 +377,7 @@ function detail(){
     <dl>
       ${n.agent?`<dt>Run by</dt><dd>${esc(n.agent)}${n.sub&&n.sub.startsWith("/")?` · <code>${esc(n.sub)}</code>`:""}</dd>`:""}
       ${n.ins&&n.ins.length?`<dt>Needs</dt><dd class="files">${n.ins.map(x=>`<span class="file">${esc(x)}</span>`).join("")}</dd>`:""}
-      <dt>${n.kind==="input"?"Files":"Produces"}</dt><dd class="files">${(n.outs||[]).map(x=>`<span class="file">${esc(x)}</span>`).join("")}</dd>
+      <dt>${n.kind==="input"?"Files":"Produces"}</dt><dd class="files">${FILES[selected]?FILES[selected].map(f=>`<span class="file">${esc(f[0])}${f[1].startsWith(".")?`<span class="ext ${EXTCLASS(f[1])}">${esc(f[1])}</span>`:" "+esc(f[1])}${f[2]?` <span style="color:var(--muted)">(${f[2]})</span>`:""}</span>`).join(""):(n.outs||[]).map(x=>`<span class="file">${esc(x)}</span>`).join("")}</dd>
       <dt>Folder</dt><dd><code>${esc(n.folder)}</code></dd>
     </dl>
     ${n.wait?`<div class="waitbox"><b>Wait:</b> ${esc(n.wait)}</div>`:""}
@@ -277,6 +388,12 @@ document.getElementById("nodes").addEventListener("click",e=>{const g=e.target.c
 document.getElementById("nodes").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest(".node");if(g){e.preventDefault();select(g.dataset.id);setTimeout(()=>{const n=document.querySelector(`.node[data-id="${g.dataset.id}"]`);n&&n.focus()},0)}}});
 document.getElementById("order").innerHTML=`<thead><tr><th>Step</th><th>Name</th><th>Artifacts</th><th>Folder</th><th></th></tr></thead><tbody>${
   ORDER.map(r=>`<tr><td class="step">${r[0]}</td><td><b>${esc(r[1])}</b></td><td class="mono" style="font-size:12.5px">${esc(r[2])}</td><td class="mono" style="font-size:12.5px;white-space:nowrap">${esc(r[3])}</td><td>${r[4]==="wait"?'<span class="pill wait">wait</span>':'<span class="pill auto">automatic</span>'}</td></tr>`).join("")}</tbody>`;
+const BY={script:"script",agent:"agent ✎",people:"people ✔",you:"you"};
+const extHtml=e=>e.split(/\s*([·/])\s*/).map(x=>x==="·"||x==="/"?` ${x} `:(x.startsWith(".")?`<span class="ext ${EXTCLASS(x)}">${esc(x)}</span>`:esc(x))).join("");
+document.getElementById("catalog").innerHTML=`<thead><tr><th>File</th><th>Extension</th><th>Made by</th><th>Folder</th><th>What it is</th></tr></thead><tbody>${
+  CATALOG.map(([grp,rows])=>`<tr><td colspan="5" style="background:var(--soft);font-weight:600">${esc(grp)}</td></tr>`+rows.map(r=>`<tr><td class="mono" style="font-size:12.5px;overflow-wrap:anywhere">${esc(r[0])}</td><td>${extHtml(r[1])}</td><td><span class="pill${r[2]==="people"?" wait":r[2]==="script"?" auto":""}">${BY[r[2]]}</span></td><td class="mono" style="font-size:12.5px">${esc(r[3])}</td><td>${esc(r[4])}</td></tr>`).join("")).join("")}</tbody>`;
+const ft=document.getElementById("filesToggle");ft.checked=showFiles;
+ft.addEventListener("change",()=>{showFiles=ft.checked;try{localStorage.setItem("flow:files",showFiles?"1":"0")}catch(e){}draw()});
 select(selected,picked);
 </script>
 
