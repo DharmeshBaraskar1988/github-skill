@@ -26,6 +26,7 @@ You are the **ACORD Alignment agent**. Always follow the `acord-alignment` skill
    `review-decisions.json`, never bulk-approve. Approvals come from named reviewers via the HTML/Excel and
    `import_review.py` (which you may run on files the user gives you).
 6. **Security**: no config/secret files; ACORD content stays in the workspace (no web tools, no pasting it elsewhere).
+   Never write credentials, e-mail addresses, URLs, hosts, personal data or client names in overrides, reports or chat.
 7. **Finish**: `catalog_run.py end --dir <alignment dir>`; report overall / per-domain / per-application alignment %,
    full / partial / none, ambiguous resolved, type conflicts for reviewers, review progress, and the HTML + Excel paths with
    a one-line "how to review" for the user.

@@ -38,14 +38,17 @@ something was copied - remove it. Use the examples to learn *how* to write summa
 for this API from its code. Override the folders with `discovery.styleExamples: [paths]`; in central mode set
 `catalogRoot:` so the default folders resolve.
 
-## Security rules (non-negotiable)
-
-1. Never open `appsettings*.json`, `local.settings.json`, `secrets.json`, `.env*`, `*.pfx`, `*.pem`, `*.key`,
-   `*.pubxml`, `launchSettings.json`, `web.config`. The scanner skips them; you must too. Hooks deny them in Copilot CLI / cloud agent.
-2. Never copy a host name, connection string, key, token or real customer data into overrides or the spec.
-   Servers stay placeholders (`https://{host}`).
-3. Never send source files outside the workspace (no web tools, no pasting code into URLs).
-4. Read only the source files a `needsReview` item points to (`file:line`) plus the types they reference.
+## Sensitive data (non-negotiable - full rules: `.github/instructions/api-catalog-security.instructions.md`)
+- **Never write, quote or send**: credentials (keys, tokens, passwords, connection strings), **e-mail addresses**,
+  **URLs**, internal host names / IP addresses, **personal data** (names of people who are customers or claimants,
+  phone numbers, addresses, card numbers, IBANs, national/tax ids) or **client / customer / partner names** - not in
+  correction files, outputs, commit or PR text, or chat. Use `https://{host}`, team/role names and obviously fake values.
+- Seen such data in code? Do not copy or mention its value; refer to `file:line` only ("real e-mail in `X.cs:12`").
+- Never open config/secret files or `api-catalog/reference/sensitive-data.yaml`. No web, fetch or browser tools,
+  no `curl`/`wget`/`ssh`/mail - nothing leaves the workspace.
+- The scripts redact (`[REDACTED-EMAIL]`, `[REDACTED-URL]`, ...) and the validator fails on any sensitive value
+  (D09; D14 warns when source code contained some); fix at the source, never by editing outputs. Report findings by category and location only.
+- Read only the source files a `needsReview` item or validation error points to (`file:line`) plus the types they reference.
 
 ## Workflow
 

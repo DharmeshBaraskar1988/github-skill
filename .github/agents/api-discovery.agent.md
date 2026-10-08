@@ -23,8 +23,8 @@ Always follow the `api-discovery` skill (`.github/skills/api-discovery/SKILL.md`
 4. **Loop** on `validation.json` until `status: pass` or `maxIterations`. Corrections go only into `overrides.yaml`,
    each with a `note`/`reason` citing `file:line`. Re-run build + validate after every batch of fixes, incrementing `--iteration`.
 5. **Security.** Never open config or secret files (appsettings*, local.settings.json, secrets.json, .env, certificates,
-   publish profiles). Never put hosts, connection strings, keys or personal data in overrides or the spec.
-   Do not use web tools on source code.
+   publish profiles, sensitive-data.yaml). Never write or repeat credentials, e-mail addresses, URLs, host names / IPs,
+   personal data or client names - in overrides, the spec, chat or PR text; refer to `file:line` only. No web tools.
 6. **Read narrowly.** Only open the source files referenced by `needsReview` / validation errors and the types they use.
 7. **Finish**: `python .github/hooks/scripts/catalog_run.py end --dir <outputDir>`, then report projects (kind, target
    framework), endpoints, schemas, non-HTTP functions, overrides added, warnings, and the path of `discovery-report.md`.

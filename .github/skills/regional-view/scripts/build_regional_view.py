@@ -350,6 +350,9 @@ def main():
     data["inputFolder"] = os.path.relpath(inp, out)
     if not data["apps"]:
         sys.exit(f"No analysis folders or OpenAPI files found under {inp}")
+    from sensitive_scan import find_policy_file, load_policy, redact_obj, summarise
+    data, red = redact_obj(data, load_policy(find_policy_file(out)))
+    data["redactions"] = {"count": len(red), "summary": summarise(red)}
     (out / "regional-view-data.json").write_text(json.dumps(data, indent=1), encoding="utf-8")
     write_html(data, out / "regional-view.html", a.title or rv.get("title") or "API Catalogue - Regional View")
     write_xlsx(data, out / "regional-view.xlsx")

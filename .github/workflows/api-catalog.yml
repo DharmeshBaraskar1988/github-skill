@@ -8,6 +8,8 @@ on:
   # Regions are processed in file-name order; name them so baselines come first (e.g. 01-EU.yaml, 02-UK.yaml)
   # or keep the baseline pointing at a release folder (immutable), as in the template.
   workflow_dispatch:
+permissions:
+  contents: read          # read-only token: CI never pushes, comments or calls other services
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -68,8 +70,19 @@ jobs:
           else
             echo "::notice::no released region yet - global canonical skipped"
           fi
+      - name: Sensitive-data scan (credentials, e-mails, URLs, hosts, PII, client names)
+        run: |
+          python .github/skills/api-discovery/scripts/sensitive_scan.py --scan \
+            api-catalog/discovery api-catalog/analysis api-catalog/regional-view api-catalog/alignment \
+            api-catalog/canonical api-catalog/external api-catalog/regions api-catalog/configs \
+            > sensitive-scan.json || { echo "::error::Sensitive data found - see the step log (values are never printed)"; \
+            python -c "import json;[print(f\"{x['where']}: {x['category']} / {x['label']}\") for x in json.load(open('sensitive-scan.json'))['findings']]"; exit 1; }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: api-catalog
-          path: api-catalog/
+          retention-days: 14
+          path: |
+            api-catalog/
+            !api-catalog/reference/sensitive-data.yaml
+            !api-catalog/reference/acord/

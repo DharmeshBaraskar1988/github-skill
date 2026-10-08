@@ -10,7 +10,7 @@
 | C06 | error | Baseline entity/attribute removed or retyped |
 | C07 | error / warning | Missing lineage row (error); canonical attribute without source (warning) |
 | C08 | error / warning | approvals.yaml missing or not written by import_review.py (error); stale approval keys (warning) |
-| C09 | error | Secret-like content |
+| C09 | error | Sensitive data (credentials, e-mails, URLs, hosts/IPs, PII, client names) in canonical outputs |
 | C10 | warning | Missing descriptions |
 | C11 | error / warning | Breaking change on a released version (error) / before release (warning) |
 | C12 | error | Alignment regenerated after the build |
@@ -24,4 +24,4 @@
 | G03 | error | Global OpenAPI invalid, unresolved $ref, YAML ≠ JSON, outputs missing |
 | G04 | error | Something from a region model is missing in the global model |
 | G05 | warning | operationId renamed because two regions used it for different endpoints |
-| G06 | error | Secret-like content |
+| G06 | error | Sensitive data (credentials, e-mails, URLs, hosts/IPs, PII, client names) in global outputs |

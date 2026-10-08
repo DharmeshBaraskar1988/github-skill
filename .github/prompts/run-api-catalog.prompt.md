@@ -3,7 +3,7 @@ description: Run the full API catalogue pipeline (discovery -> analysis -> regio
 agent: api-catalog
 ---
 Run the API catalogue pipeline for: ${input:configs:api-catalog.config.yaml} (application configs, comma separated)
-and region(s) ${input:regions:EU}.
+and region(s) ${input:regions:EU}, starting at stage ${input:startAt:1 discovery}.
 
 Stage gates: discovery -> analysis -> regional view -> ACORD alignment -> human review (stop and tell me what to review)
 -> canonical model. Finish with the stage status table, output paths, open warnings and pending review items.

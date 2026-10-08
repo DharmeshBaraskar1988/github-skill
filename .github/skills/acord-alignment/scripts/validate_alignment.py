@@ -12,7 +12,7 @@ canonical-model skill.
   AL06  overrides without a note
   AL07  regional input is stale (regional-view-data.json newer than alignment.json)
   AL08  same attribute typed differently across applications (warning)
-  AL09  secrets in outputs
+  AL09  sensitive data (credentials, e-mails, URLs, hosts, PII, client names) in outputs, overrides or approvals
   AL10  outputs present (html, xlsx, report) and the HTML embeds the data
   AL11  review progress (info: pending / changed approvals) and stale approval keys (warning)
 """
@@ -24,12 +24,6 @@ import re
 import sys
 from pathlib import Path
 
-SECRET_PATTERNS = [
-    r"(?i)(AccountKey|SharedAccessKey|Password|Pwd|ClientSecret)\s*=\s*[^;\s\"']{6,}",
-    r"Endpoint=sb://[^;]+;SharedAccessKeyName=",
-    r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}",
-    r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----",
-]
 
 
 def main():
@@ -124,11 +118,11 @@ def main():
             err("AL06", f"excludeEntities {x.get('entity')} has no reason", "Give a reason")
 
     # AL09
-    blob = (d / "alignment.json").read_text(encoding="utf-8")
     html_p = d / "acord-alignment.html"
-    for pat in SECRET_PATTERNS:
-        if re.search(pat, blob):
-            err("AL09", f"Secret-like content in alignment output (/{pat[:30]}.../)", "Find the source artifact and remove it")
+    from sensitive_scan import check_files, find_policy_file, load_policy, report
+    report(check_files([d / f for f in ("alignment.json", "acord-alignment.html", "alignment-report.md",
+                                         "alignment-overrides.yaml", "approvals.yaml")], load_policy(find_policy_file(d.resolve()))),
+           err, "AL09", "Remove it at the source (overrides/decisions/config/comments) and rebuild; never write e-mails, URLs, hosts, keys, personal or client data into catalogue files")
 
     # AL10
     for f in ("acord-alignment.html", "acord-alignment.xlsx", "alignment-report.md"):

@@ -2,8 +2,20 @@
 """
 Convert the business domain catalogue (Excel) into domains.json.
 
-Expected sheet layout (first sheet, or --sheet). Header names are matched
+Two layouts are accepted (first sheet, or --sheet). Header names are matched
 case-insensitively and loosely; only "Domain" is mandatory.
+
+Grouped layout (business capability map) - domain name only on its first row, merged cells allowed:
+
+  | Domain | Domain Description | SubCapability | SubCapability Description | Business Outcomes | Domain Keywords | SubCapability Keywords |
+  | Claims Management | ... | FNOL | Captures First Notification of Loss ... | Fair Claims Handling | claim, claimant, loss | fnol, register claim |
+  |                   |     | Settlement | ...                                | Loss Control         |                       | approve, settle      |
+  | (Including Bind)  |     | ...  <- a "(...)" cell under a domain name is a scope note: its terms become domain keywords
+
+  Empty Domain cells belong to the domain above. Business Outcomes are collected per domain.
+  Without keyword columns, keywords are derived from the names and scope notes (marked keywordsDerived).
+
+Flat layout:
 
   | Domain | Capability | Description | Keywords | Region | Application |
   |--------|------------|-------------|----------|--------|-------------|
@@ -37,9 +49,17 @@ except ImportError:  # pragma: no cover
 HEADER_ALIASES = {
     "domain": ["domain", "business domain", "domain name", "bounded context"],
     "subdomain": ["sub domain", "subdomain", "sub-domain"],
-    "capability": ["capability", "business capability", "capability name", "function"],
+    "capability": ["capability", "business capability", "capability name", "function",
+                   "subcapability", "sub capability", "sub-capability", "sub capabilities", "subcapabilities"],
     "description": ["description", "definition", "details"],
+    "domain_description": ["domain description", "domain definition"],
+    "capability_description": ["subcapability description", "sub capability description", "sub-capability description",
+                               "capability description"],
+    "outcomes": ["business outcomes", "business outcome", "outcomes", "benefits"],
     "keywords": ["keywords", "keyword", "synonyms", "terms", "aliases"],
+    "domain_keywords": ["domain keywords", "domain keyword", "domain synonyms"],
+    "capability_keywords": ["subcapability keywords", "sub capability keywords", "sub-capability keywords",
+                            "capability keywords"],
     "region": ["region", "regions"],
     "application": ["application", "applications", "app", "project", "projects", "system"],
 }
@@ -47,6 +67,21 @@ HEADER_ALIASES = {
 
 def norm(s) -> str:
     return re.sub(r"\s+", " ", str(s or "")).strip()
+
+
+GENERIC = {"management", "manage", "lifecycle", "data", "others", "other", "check", "including", "service", "services",
+            "processing", "and", "the", "of", "&", "-", "s"}
+
+
+def derive_keywords(*texts) -> list:
+    """Keywords from names / scope notes when the Excel has none: lower-case words minus generic ones."""
+    out = []
+    for t in texts:
+        for w in re.split(r"[^A-Za-z0-9-]+", str(t or "")):
+            w = w.strip("-").lower()
+            if len(w) > 1 and w not in GENERIC and w not in out:
+                out.append(w)
+    return out
 
 
 def split_list(s) -> list:
@@ -78,34 +113,67 @@ def load(xlsx: Path, sheet: str | None) -> dict:
 
     domains: dict = {}
     issues = []
+    current = None
     for n, row in enumerate(rows[header_row + 1:], start=header_row + 2):
         get = lambda k: row[idx[k]] if k in idx and idx[k] < len(row) else None  # noqa: E731
-        dname = norm(get("domain"))
-        if not dname:
-            if any(norm(c) for c in row):
-                issues.append(f"row {n}: no Domain value - skipped")
+        if not any(norm(c) for c in row):
             continue
-        d = domains.setdefault(dname, {"name": dname, "description": "", "keywords": [], "subdomains": [],
-                                       "regions": [], "applications": [], "capabilities": []})
+        dcell = norm(get("domain"))
+        scope = ""
+        if dcell.startswith("(") and dcell.endswith(")") and current:
+            scope = dcell[1:-1]                      # "(KYC, Sanctions, ...)" under a domain name
+        elif dcell:
+            current = dcell
+        if not current:
+            issues.append(f"row {n}: no Domain value - skipped")
+            continue
+        dname = current
+        d = domains.setdefault(dname, {"name": dname, "description": "", "keywords": [], "subdomains": [], "scope": [],
+                                       "outcomes": [], "regions": [], "applications": [], "capabilities": [],
+                                       "keywordsDerived": False})
         cap = norm(get("capability"))
-        desc = norm(get("description"))
-        kws = split_list(get("keywords"))
+        generic_desc = norm(get("description"))
+        d_desc = norm(get("domain_description")) or ("" if cap else generic_desc)
+        c_desc = norm(get("capability_description")) or (generic_desc if cap else "")
+        generic_kws = split_list(get("keywords"))
+        d_kws = split_list(get("domain_keywords")) + ([] if cap else generic_kws)
+        c_kws = split_list(get("capability_keywords")) + (generic_kws if cap else [])
         regions = split_list(get("region"))
         apps = split_list(get("application"))
         sub = norm(get("subdomain"))
+        if scope:
+            d["scope"] += [x for x in split_list(scope) if x not in d["scope"]]
         if sub and sub not in d["subdomains"]:
             d["subdomains"].append(sub)
+        if d_desc and not d["description"]:
+            d["description"] = d_desc
+        d["keywords"] += [k for k in d_kws if k not in d["keywords"]]
+        for o in split_list(get("outcomes")):
+            if o not in d["outcomes"]:
+                d["outcomes"].append(o)
         if not cap:
-            d["description"] = d["description"] or desc
-            d["keywords"] += [k for k in kws if k not in d["keywords"]]
             d["regions"] += [r for r in regions if r not in d["regions"]]
             d["applications"] += [a for a in apps if a not in d["applications"]]
         else:
             if any(c["name"].lower() == cap.lower() for c in d["capabilities"]):
                 issues.append(f"row {n}: duplicate capability '{cap}' in domain '{dname}'")
                 continue
-            d["capabilities"].append({"name": cap, "description": desc, "keywords": kws,
+            d["capabilities"].append({"name": cap, "description": c_desc, "keywords": c_kws,
+                                      "keywordsDerived": not c_kws,
                                       "subdomain": sub, "regions": regions, "applications": apps, "row": n})
+    for d in domains.values():
+        if not d["keywords"]:
+            d["keywords"] = derive_keywords(d["name"], *d["scope"])
+            d["keywordsDerived"] = True
+            issues.append(f"domain '{d['name']}': no keywords in the Excel - derived {d['keywords']}; add a Domain Keywords "
+                          f"column with the nouns your APIs use for reliable mapping")
+        else:
+            d["keywords"] += [k for k in derive_keywords(*d["scope"]) if k not in d["keywords"]]
+        for c in d["capabilities"]:
+            if not c["keywords"]:
+                c["keywords"] = derive_keywords(c["name"])
+        if not d["capabilities"]:
+            issues.append(f"domain '{d['name']}': no capabilities - endpoints mapped to it get proposed capabilities")
     return {"source": str(xlsx), "sheet": ws.title, "domains": list(domains.values()), "issues": issues}
 
 

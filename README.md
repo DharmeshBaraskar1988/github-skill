@@ -41,7 +41,9 @@ flowchart LR
   CM -->|--release| BL[releases/1.0.0 = baseline for UK]
 ```
 
-**Start here: [docs/HOW-IT-WORKS.md](docs/HOW-IT-WORKS.md)** - steps, which artifact comes after which, where you
+**Start here: [docs/HOW-TO-RUN.md](docs/HOW-TO-RUN.md)** (prompts, stages, folders),
+**[docs/SECURITY-AND-GOVERNANCE.md](docs/SECURITY-AND-GOVERNANCE.md)** (data protection, approvals, releases),
+[docs/HOW-IT-WORKS.md](docs/HOW-IT-WORKS.md) and the interactive flow diagram `docs/flow-diagram.html` - steps, which artifact comes after which, where you
 wait (human review, releases), and the folder map per region.
 
 ## What is in the kit
@@ -50,7 +52,7 @@ wait (human review, releases), and the folder map per region.
 .github/
   copilot-instructions.md                  repo-wide rules (pipeline, never hand-edit outputs, security)
   instructions/
-    api-catalog-security.instructions.md   applyTo "**"            secret files off-limits
+    api-catalog-security.instructions.md   applyTo "**"            secret files off-limits; no credentials, e-mails, URLs, PII, client names
     api-catalog-artifacts.instructions.md  applyTo "api-catalog/**" change outputs only via overrides/decisions
   agents/
     api-discovery.agent.md                 stage 1 agent (hands off to analysis)
@@ -63,6 +65,7 @@ wait (human review, releases), and the folder map per region.
     discover-apis  analyze-apis  build-regional-view  align-acord  import-review  build-canonical  run-api-catalog (.prompt.md)
   skills/
     requirements.txt                       pyyaml, openpyxl, openapi-spec-validator
+    */scripts/sensitive_scan.py            same file in every skill: detection + redaction of sensitive data
     api-discovery/   SKILL.md  scripts/{cs_parser,scan_dotnet,build_openapi,validate_discovery}.py
                      references/{dotnet-patterns,overrides-reference,validation-codes}.md  templates/
     api-analysis/    SKILL.md  scripts/{load_domains,analysis_core,analyze,validate_analysis}.py
@@ -73,17 +76,19 @@ wait (human review, releases), and the folder map per region.
     canonical-model/ SKILL.md  scripts/{build_canonical,validate_canonical}.py  references/
   hooks/
     api-catalog.json                       preToolUse guard + agentStop/subagentStop validation gate
-    scripts/{guard_tools,stop_gate,catalog_run}.py
+    scripts/{guard_tools,stop_gate,catalog_run,sensitive_scan}.py
   workflows/api-catalog.yml                CI: rebuild everything, fail on any validation error
 api-catalog.config.yaml                    per-application config (region, app, paths, thresholds, maxIterations)
-api-catalog/domains.xlsx                   EXAMPLE domain catalogue - replace with yours
+api-catalog/domains.xlsx                   your capability map: 11 domains, 65 subcapabilities, with keyword columns
 api-catalog/regions/{EU,UK}.yaml           region configs (ACORD export, baseline, thresholds, canonical version)
-api-catalog/reference/                     put your licensed ACORD export here (+ synonyms.yaml)
+api-catalog/reference/                     put your licensed ACORD export here (+ synonyms.yaml, sensitive-data.yaml)
 api-catalog/configs/                       central-repo mode: one config per application
 tools/TypeExtractor/                       C# tool: dump model types from DLLs/NuGet packages (for D05)
 examples/                                  output of a full run on the sample repos (open regional-view.html)
 tests/sample-repos/                        small Claims (EU) and Policy (EU) .NET solutions used for testing
 tests/run_e2e.sh                           full regression run (discovery → canonical EU → canonical UK)
+tests/run_security_tests.sh                redaction, validator, hook and scanner-sync checks
+docs/                                      HOW-TO-RUN, SECURITY-AND-GOVERNANCE, HOW-IT-WORKS, flow-diagram.html
 ```
 
 ## How the Copilot pieces work together
@@ -170,15 +175,23 @@ type changes), `CHANGELOG.md`. `--release` freezes `releases/<version>/` - set i
 
 ## Security model
 
+Full details: [docs/SECURITY-AND-GOVERNANCE.md](docs/SECURITY-AND-GOVERNANCE.md).
+
+- **No sensitive data anywhere**: credentials, e-mail addresses, URLs, internal hosts / IPs, personal data (phone,
+  card, IBAN, national ids) and client names (from `api-catalog/reference/sensitive-data.yaml`, hashes supported) are
+  never written, quoted or sent - by the agent, the scripts, the HTML/Excel views or CI.
 - The scanner opens only `*.cs`, `*.csproj` and `host.json` (route prefix only) and refuses config/secret files.
-- The `preToolUse` hook denies any tool call that names `appsettings*.json`, `local.settings.json`, `secrets.json`,
-  `.env`, certificates/keys, publish profiles, `launchSettings.json`, `web.config`. It also denies direct edits of
-  generated outputs.
-- Validators scan every output for connection strings, keys, JWTs and private keys (D09 / A10 / R08).
-- Servers in specs are placeholders (`https://{host}`); real hosts are injected per environment, outside the catalogue.
-- Agents are told not to use web tools on source code and to read only the files a finding points to.
+- Every builder redacts sensitive values before writing (`[REDACTED-EMAIL]`, `[REDACTED-URL]` ...), including the
+  `inventory.json` the agent reads. Every validator fails on sensitive data (D09 / A10 / R08 / AL09 / C09 / G06) and
+  D14 reports source code that contained some. Findings show category and location, never the value.
+- The `preToolUse` hook denies secret files, network tools and commands (web/fetch, curl, wget, ssh, mail) during
+  catalogue work, any write that contains sensitive data, and hand edits of generated outputs and approvals.
+- CI uses a read-only token, re-runs all gates, re-scans committed catalogue files and never uploads
+  `sensitive-data.yaml` or ACORD files.
+- Servers in specs are placeholders (`https://{host}` with a reserved `*.example` default).
 - The hook scripts need `python3` (bash) / `python` (PowerShell) on PATH. If the guard itself crashes it allows the call
-  (to avoid locking the agent); content exclusion and the in-script checks remain in force.
+  (to avoid locking the agent); redaction, validators and CI remain in force.
+- Regression: `bash tests/run_security_tests.sh`.
 
 ## What was tested
 

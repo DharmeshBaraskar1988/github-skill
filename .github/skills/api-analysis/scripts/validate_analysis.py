@@ -12,7 +12,7 @@ The agent loops: fix decisions.yaml (or the domain Excel) -> analyze.py -> valid
   A07  no undecided near-duplicate groups
   A08  relations point to existing entities; canonical names unique
   A09  enriched spec is valid OpenAPI, refs resolve, same operation count as discovery
-  A10  no secrets in any artifact
+  A10  no sensitive data (credentials, e-mails, URLs, hosts, PII, client names) in any artifact or decisions.yaml
   A11  description coverage (warning; error when analysis.requireDescriptions)
   A12  decisions.yaml has no stale references
 """
@@ -26,13 +26,6 @@ from pathlib import Path
 
 import yaml
 
-SECRET_PATTERNS = [
-    r"(?i)(AccountKey|SharedAccessKey|Password|Pwd|ClientSecret)\s*=\s*[^;\s\"']{6,}",
-    r"(?i)DefaultEndpointsProtocol=https?;AccountName=",
-    r"Endpoint=sb://[^;]+;SharedAccessKeyName=",
-    r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}",
-    r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----",
-]
 
 
 def main():
@@ -134,10 +127,10 @@ def main():
         err("A09", f"Enriched spec operations differ from discovery ({len(enr_ops)} vs {len(spec_ops)})", "Re-run analyze.py")
 
     # A10
-    blob = enr_text + json.dumps(dc) + json.dumps(ea) + json.dumps(du)
-    for pat in SECRET_PATTERNS:
-        if re.search(pat, blob):
-            err("A10", f"Secret-like content matched /{pat[:40]}.../ in analysis output", "Remove it from decisions/spec")
+    from sensitive_scan import check_files, find_policy_file, load_policy, report
+    _pol = load_policy(find_policy_file(d))
+    report(check_files(sorted(p for p in d.iterdir() if p.suffix in (".json", ".yaml", ".md") and p.name != "validation.json"), _pol),
+           err, "A10", "Remove it at the source (overrides/decisions/config/comments) and rebuild; never write e-mails, URLs, hosts, keys, personal or client data into catalogue files")
 
     # A11
     no_desc_e = [e["name"] for e in ea["entities"] if not e["description"]]

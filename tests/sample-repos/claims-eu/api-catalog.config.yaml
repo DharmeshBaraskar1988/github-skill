@@ -1,8 +1,0 @@
-catalogRoot: ../../output/api-catalog
-region: EU
-application: claims
-version: 1.0.0
-sourceRoots: [src]
-exclude: []
-discovery:
-  outputDir: ../../output/api-catalog/discovery/EU/claims

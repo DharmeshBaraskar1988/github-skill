@@ -1,5 +1,7 @@
 # How the API catalogue works - steps, artifacts, waits, folders
 
+> Commands and prompts: [HOW-TO-RUN.md](HOW-TO-RUN.md) · Data protection and approvals: [SECURITY-AND-GOVERNANCE.md](SECURITY-AND-GOVERNANCE.md)
+
 ## 1. The flow at a glance
 
 | # | Step | Who runs it | Needs (input) | Produces (artifact) | Then |

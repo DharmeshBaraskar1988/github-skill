@@ -29,6 +29,17 @@ So teams can simply drop specs into `api-catalog/external/<REGION>/<app>/openapi
   models, each viewable as **YAML or JSON** with outline, `$ref` navigation, search, copy and download. Rebuild the
   regional view after a canonical build to include the canonical specs.
 
+## Sensitive data (non-negotiable - full rules: `.github/instructions/api-catalog-security.instructions.md`)
+- **Never write, quote or send**: credentials (keys, tokens, passwords, connection strings), **e-mail addresses**,
+  **URLs**, internal host names / IP addresses, **personal data** (names of people who are customers or claimants,
+  phone numbers, addresses, card numbers, IBANs, national/tax ids) or **client / customer / partner names** - not in
+  correction files, outputs, commit or PR text, or chat. Use `https://{host}`, team/role names and obviously fake values.
+- Seen such data in code? Do not copy or mention its value; refer to `file:line` only ("real e-mail in `X.cs:12`").
+- Never open config/secret files or `api-catalog/reference/sensitive-data.yaml`. No web, fetch or browser tools,
+  no `curl`/`wget`/`ssh`/mail - nothing leaves the workspace.
+- The scripts redact (`[REDACTED-EMAIL]`, `[REDACTED-URL]`, ...) and the validator fails on any sensitive value
+  (R08 on the HTML, data and spec viewer; external specs are redacted when loaded); fix at the source, never by editing outputs. Report findings by category and location only.
+
 ## Workflow
 ```bash
 S=.github/skills/regional-view/scripts
@@ -42,7 +53,7 @@ Repeat until `validation.json.status == "pass"` or `maxIterations`:
 - **R05** an input application failed discovery/analysis validation → run those skills' loops for that application
   (or, only if the user explicitly accepts it, rebuild with `--allow-failed` and say so in the report).
 - **R01/R02/R03/R04** → rebuild; if it persists, an input artifact is stale or corrupt - re-run analyze.py for that app.
-- **R08** secret in output → find which input contains it, fix at the source (overrides/decisions), rebuild everything downstream.
+- **R08** sensitive data in output → find which input contains it (category + file are in the message), fix at the source (overrides/decisions, or ask the team that dumped the external spec), rebuild everything downstream.
 - Warnings R06 (external specs not validated) and R07 (unclassified / undecided) go into the final report.
 
 ### Finish

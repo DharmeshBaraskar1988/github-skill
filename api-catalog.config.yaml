@@ -15,7 +15,7 @@ servers:
   - url: https://{host}
     description: Injected per environment
     variables:
-      host: {default: claims.eu.example.internal}
+      host: {default: claims.eu.example}   # reserved example host - never a real one
 
 maxIterations: 5              # validation loop limit for every skill
 

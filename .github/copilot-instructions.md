@@ -29,8 +29,11 @@ Style examples (`api-catalog/style-examples/`) are a reference for conventions o
 - ACORD material is licensed: keep it inside the repository, never send it to web tools or other services.
 - Python 3.10+, dependencies in `.github/skills/requirements.txt`. Commands run from the repository root.
 
-## Security
-- Do not open or quote `appsettings*.json`, `local.settings.json`, `secrets.json`, `.env*`, certificates/keys,
-  publish profiles, `launchSettings.json`, `web.config`. They are not needed for API discovery.
-- No real host names, connection strings, keys, tokens or personal data in any artifact. Servers are placeholders.
-- No web tools on source code or artifacts.
+## Security (details: `.github/instructions/api-catalog-security.instructions.md`)
+- Never open config/secret files (`appsettings*.json`, `local.settings.json`, `secrets.json`, `.env*`, certificates/keys,
+  publish profiles, `launchSettings.json`, `web.config`) or `api-catalog/reference/sensitive-data.yaml`.
+- Never write, quote or send **credentials, e-mail addresses, URLs, host names / IPs, personal data (PII) or client /
+  customer / partner names** - not in artifacts, correction files, commits, PR text or chat. Servers are `https://{host}`;
+  examples are obviously fake; refer to sensitive code by `file:line` only.
+- Nothing leaves the workspace: no web/fetch/browser tools, no curl/wget/ssh/mail.
+- Scripts redact, validators fail (D09, A10, R08, AL09, C09, G06), hooks deny, CI re-scans.

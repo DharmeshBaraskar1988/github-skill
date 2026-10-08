@@ -35,6 +35,17 @@ description: Build the approved canonical model of a region from reviewed ACORD 
 - Rejected entities: their endpoints are left out (`dropEndpointsWithRejectedEntities`, default true) and listed.
 - Pending / changed approvals → model status **draft** and validation fails (C01) unless `canonical.allowPending: true`.
 
+## Sensitive data (non-negotiable - full rules: `.github/instructions/api-catalog-security.instructions.md`)
+- **Never write, quote or send**: credentials (keys, tokens, passwords, connection strings), **e-mail addresses**,
+  **URLs**, internal host names / IP addresses, **personal data** (names of people who are customers or claimants,
+  phone numbers, addresses, card numbers, IBANs, national/tax ids) or **client / customer / partner names** - not in
+  correction files, outputs, commit or PR text, or chat. Use `https://{host}`, team/role names and obviously fake values.
+- Seen such data in code? Do not copy or mention its value; refer to `file:line` only ("real e-mail in `X.cs:12`").
+- Never open config/secret files or `api-catalog/reference/sensitive-data.yaml`. No web, fetch or browser tools,
+  no `curl`/`wget`/`ssh`/mail - nothing leaves the workspace.
+- The scripts redact (`[REDACTED-EMAIL]`, `[REDACTED-URL]`, ...) and the validator fails on any sensitive value
+  (C09 / G06); fix at the source, never by editing outputs. Report findings by category and location only.
+
 ## Workflow
 ```bash
 S=.github/skills/canonical-model/scripts

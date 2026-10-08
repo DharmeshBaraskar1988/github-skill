@@ -133,6 +133,9 @@ def main():
     res["summary"]["inputs"] = {"spec": os.path.relpath(spec_p, out), "domains": os.path.relpath(dom_p, out),
                                 "decisions": dec_p.name if dec_p.exists() else None}
 
+    from sensitive_scan import find_policy_file, load_policy, redact_obj, summarise
+    res, red = redact_obj(res, load_policy(find_policy_file(out)))
+    res["summary"]["redactions"] = {"count": len(red), "summary": summarise(red)}
     with open(out / "1-openapi.enriched.yaml", "w", encoding="utf-8") as f:
         yaml.dump(res["enrichedSpec"], f, Dumper=NoAlias, sort_keys=False, allow_unicode=True, width=120)
     (out / "2-domains-capabilities.json").write_text(json.dumps(res["domainsCapabilities"], indent=2), encoding="utf-8")

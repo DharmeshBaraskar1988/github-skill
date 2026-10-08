@@ -1,7 +1,0 @@
-region: EU
-maxIterations: 5
-regionalViewData: ../regional-view/regional-view-data.json
-reference: {source: ../reference/reference-sample.xlsx, name: "SAMPLE (not ACORD)", version: "0.1", json: ../reference/acord.reference.json}
-baseline: null
-alignment: {outputDir: ../alignment/EU}
-canonical: {outputDir: ../canonical/EU, version: 1.0.0, title: EU Canonical Insurance API}

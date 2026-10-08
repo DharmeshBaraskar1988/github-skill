@@ -1,1 +1,0 @@
-{ "Values": { "ServiceBus": "Endpoint=sb://prod.servicebus.windows.net/;SharedAccessKeyName=root;SharedAccessKey=abc123secret" } }

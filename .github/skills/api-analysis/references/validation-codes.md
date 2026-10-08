@@ -11,6 +11,6 @@
 | A07 | error | Near-duplicate group without a decision |
 | A08 | error | Entity name collision or relation to a missing entity |
 | A09 | error | Enriched spec invalid or operation count differs from discovery |
-| A10 | error | Secret-like content in outputs |
+| A10 | error | Sensitive data (credentials, e-mails, URLs, hosts/IPs, PII, client names) in outputs or `decisions.yaml` |
 | A11 | warn / error (`requireDescriptions`) | Entities/attributes without description |
 | A12 | error | Stale decision (unknown operationId/schema) |

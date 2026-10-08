@@ -320,6 +320,10 @@ def main():
     for r in model["regions"]:
         r["file"] = str(Path(r["file"]).relative_to(catalog)) if str(r["file"]).startswith(str(catalog)) else r["file"]
     spec = global_openapi(model, gcfg)
+    from sensitive_scan import find_policy_file, load_policy, redact_obj
+    pol = load_policy(find_policy_file(out))
+    model, _ = redact_obj(model, pol)
+    spec, _ = redact_obj(spec, pol)
     (out / "global-canonical-model.json").write_text(json.dumps(model, indent=1), encoding="utf-8")
     with open(out / "global-canonical-model.yaml", "w", encoding="utf-8") as f:
         f.write(f"# {model['title']} v{model['version']} - same content as global-canonical-model.json\n")

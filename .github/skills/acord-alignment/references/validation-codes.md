@@ -10,6 +10,6 @@
 | AL06 | error | Override without note / reason |
 | AL07 | error | Regional input newer than alignment / missing |
 | AL08 | warning | Same attribute typed differently across applications |
-| AL09 | error | Secret-like content |
+| AL09 | error | Sensitive data (credentials, e-mails, URLs, hosts/IPs, PII, client names) in outputs, `alignment-overrides.yaml` or `approvals.yaml` |
 | AL10 | error | HTML / Excel / report missing or HTML without data |
 | AL11 | warning | Approvals changed since review or referring to rows that no longer exist |

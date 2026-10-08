@@ -1,0 +1,29 @@
+# api-catalog/reference/sensitive-data.yaml - organisation list of data that must never appear in any
+# catalogue artifact, HTML/Excel view, correction file or chat. Read only by the skill scripts and hooks.
+# The agent is blocked from opening this file (hooks) and told never to read it (instructions).
+#
+# Built-in (always on, no configuration needed): credentials/keys/tokens/connection strings, e-mail addresses,
+# URLs, internal host names (*.internal, *.corp, *.local ...), IP addresses, phone numbers, payment card numbers,
+# IBANs, national/tax ids (SSN, NINO, PAN, Aadhaar).
+
+# Client / customer / partner / broker names and other confidential terms.
+# Prefer hashes so this file does not itself list the names:
+#   python .github/skills/api-discovery/scripts/sensitive_scan.py --hash "Acme Insurance"
+blockedTermHashes: []
+#  - 3b7f...e1   # (one sha256 per term, lower-case words; up to hashMaxWords words)
+hashMaxWords: 4
+
+# Clear-text terms (only if the repo is restricted enough to hold them).
+blockedTerms: []
+
+# Words that look like a blocked term but are fine (e.g. a product name that is also a client name).
+allowedTerms: []
+
+# Hosts allowed in URLs besides template variables (https://{host}), reserved example hosts
+# (*.example, *.test, *.invalid, example.com) and technical namespaces (w3.org, json-schema.org, spec.openapis.org ...).
+# Example: the ACORD namespace host, if you want it kept in reference descriptions.
+allowedUrlHosts: []
+
+# Extra organisation-specific patterns, e.g. policy or customer number formats that are real data.
+extraPatterns: []
+#  - {regex: "\\bPOL-\\d{8}\\b", label: "real policy number", category: pii}

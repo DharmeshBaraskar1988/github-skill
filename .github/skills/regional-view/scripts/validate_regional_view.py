@@ -9,7 +9,7 @@ Validate the regional view against its inputs. Writes validation.json; exit 1 on
   R05  applications whose discovery/analysis validation failed (error unless --allow-failed)
   R06  applications analysed inline (external specs, no discovery validation) - warning
   R07  undecided duplicates / unclassified endpoints still present - warning
-  R08  no secrets in the HTML or the workbook data
+  R08  no sensitive data (credentials, e-mails, URLs, hosts, PII, client names) in the HTML, data or spec viewer
 """
 from __future__ import annotations
 
@@ -19,12 +19,6 @@ import re
 import sys
 from pathlib import Path
 
-SECRET_PATTERNS = [
-    r"(?i)(AccountKey|SharedAccessKey|Password|Pwd|ClientSecret)\s*=\s*[^;\s\"']{6,}",
-    r"Endpoint=sb://[^;]+;SharedAccessKeyName=",
-    r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}",
-    r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----",
-]
 
 
 def main():
@@ -123,9 +117,9 @@ def main():
         warn("R07", f"{len(und)} undecided duplicate groups are shown in the view")
 
     # R08
-    for pat in SECRET_PATTERNS:
-        if re.search(pat, html):
-            err("R08", f"Secret-like content in regional-view.html (/{pat[:30]}.../)", "Find the source artifact and remove it")
+    from sensitive_scan import check_files, find_policy_file, load_policy, report
+    report(check_files([out / "regional-view.html", out / "regional-view-data.json", out / "spec-viewer.html"],
+                       load_policy(find_policy_file(out.resolve()))), err, "R08", "Remove it at the source (overrides/decisions/config/comments) and rebuild; never write e-mails, URLs, hosts, keys, personal or client data into catalogue files")
 
     status = "pass" if not errors else "fail"
     report = {"skill": "regional-view", "status": status, "iteration": a.iteration, "totals": data["totals"],

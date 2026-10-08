@@ -84,6 +84,8 @@ def scan(root: Path) -> list:
 
 
 def build(docs: list, out: Path, title: str):
+    from sensitive_scan import find_policy_file, load_policy, redact_obj
+    docs, _ = redact_obj(docs, load_policy(find_policy_file(out.parent)))
     payload = json.dumps({"title": title, "docs": docs}, separators=(",", ":")).replace("</", "<\\/")
     page = TEMPLATE.read_text(encoding="utf-8").replace("{{TITLE}}", html.escape(title)).replace("/*__DATA__*/null", payload)
     out.parent.mkdir(parents=True, exist_ok=True)

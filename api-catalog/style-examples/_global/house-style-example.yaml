@@ -5,7 +5,7 @@ info:
   title: Billing Example API
   version: 2.3.0
   description: Example used only to show the house style for generated API specifications in this organisation.
-  contact: {name: Example Team, email: example-team@example.invalid}
+  contact: {name: Example Team}
   x-audience: internal
 servers:
   - url: https://{host}

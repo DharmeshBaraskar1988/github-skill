@@ -456,6 +456,9 @@ def main():
         if e["kind"] != "enum" and not e["attributes"] and e.get("codeValues"):
             e["kind"] = "enum"
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+    from sensitive_scan import find_policy_file, load_policy, redact_obj, summarise
+    doc, red = redact_obj(doc, load_policy(find_policy_file(Path(a.out).resolve().parent)))
+    doc["redactions"] = {"count": len(red), "summary": summarise(red)}
     Path(a.out).write_text(json.dumps(doc, indent=1), encoding="utf-8")
     print(json.dumps({"output": a.out, "source": doc["source"], "name": doc["name"], "version": doc.get("version", ""),
                       "entities": len(doc["entities"]),

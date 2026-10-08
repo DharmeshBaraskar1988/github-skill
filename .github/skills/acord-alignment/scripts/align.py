@@ -121,6 +121,9 @@ def main():
                                                                  "baselinePreference") if r["cfg"].get(k) is not None},
                    "overridesFile": ov_p.name if ov_p.exists() else None, "approvalsFile": ap_p.name if ap_p.exists() else None}
     res["overrides"] = overrides or {}
+    from sensitive_scan import find_policy_file, load_policy, redact_obj, summarise
+    res, red = redact_obj(res, load_policy(find_policy_file(out)))
+    res["meta"]["redactions"] = {"count": len(red), "summary": summarise(red)}
     (out / "alignment.json").write_text(json.dumps(res, indent=1), encoding="utf-8")
     write_md(res, out / "alignment-report.md")
     write_xlsx(res, out / "acord-alignment.xlsx")

@@ -8,7 +8,7 @@ Validate the global canonical model. Writes canonical/GLOBAL/validation.json; ex
   G03  global OpenAPI valid, $refs resolve; YAML and JSON forms identical
   G04  completeness: every entity, attribute, code value and endpoint of every region model is in the global model
   G05  operationIds renamed because two regions used the same id for different endpoints (warning)
-  G06  secrets in outputs
+  G06  sensitive data (credentials, e-mails, URLs, hosts, PII, client names) in outputs
 """
 from __future__ import annotations
 
@@ -20,8 +20,6 @@ from pathlib import Path
 
 import yaml
 
-SECRET = [r"(?i)(AccountKey|SharedAccessKey|Password|Pwd|ClientSecret)\s*=\s*[^;\s\"']{6,}",
-          r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}", r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----"]
 
 
 def main():
@@ -85,10 +83,10 @@ def main():
         for ep in rm.get("endpoints", []):
             if (ep["method"], ep["path"]) not in g_eps:
                 err("G04", f"{r['region']}: {ep['method']} {ep['path']} missing", "Re-run merge_global.py")
-    text = (out / "global-canonical-model.json").read_text(encoding="utf-8") + (out / "global-canonical-openapi.yaml").read_text(encoding="utf-8")
-    for p in SECRET:
-        if re.search(p, text):
-            err("G06", "Secret-like content in global outputs", "Find the source region artifact and fix it there")
+    from sensitive_scan import check_files, find_policy_file, load_policy, report
+    report(check_files([out / f for f in ("global-canonical-model.json", "global-canonical-openapi.yaml",
+                                           "global-canonical.html", "global-source-mapping.json")],
+                       load_policy(find_policy_file(out))), err, "G06", "Remove it at the source (overrides/decisions/config/comments) and rebuild; never write e-mails, URLs, hosts, keys, personal or client data into catalogue files")
     for f in ("global-canonical.html", "global-canonical.xlsx", "global-source-mapping.json"):
         if not (out / f).exists():
             err("G03", f"{f} missing", "Re-run merge_global.py")

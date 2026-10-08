@@ -37,6 +37,17 @@ description: Align a region's de-duplicated entities, attributes, domains and en
 5. Endpoint alignment = average of the entities in its request/response; a canonical path is proposed
    (`/api/v1/claims/{id}/claimants` → `/claims/{id}/claim-parties`).
 
+## Sensitive data (non-negotiable - full rules: `.github/instructions/api-catalog-security.instructions.md`)
+- **Never write, quote or send**: credentials (keys, tokens, passwords, connection strings), **e-mail addresses**,
+  **URLs**, internal host names / IP addresses, **personal data** (names of people who are customers or claimants,
+  phone numbers, addresses, card numbers, IBANs, national/tax ids) or **client / customer / partner names** - not in
+  correction files, outputs, commit or PR text, or chat. Use `https://{host}`, team/role names and obviously fake values.
+- Seen such data in code? Do not copy or mention its value; refer to `file:line` only ("real e-mail in `X.cs:12`").
+- Never open config/secret files or `api-catalog/reference/sensitive-data.yaml`. No web, fetch or browser tools,
+  no `curl`/`wget`/`ssh`/mail - nothing leaves the workspace.
+- The scripts redact (`[REDACTED-EMAIL]`, `[REDACTED-URL]`, ...) and the validator fails on any sensitive value
+  (AL09, also on `alignment-overrides.yaml` and `approvals.yaml`; `import_review.py` strips e-mails and other sensitive values from reviewer and comment fields); fix at the source, never by editing outputs. Report findings by category and location only.
+
 ## Workflow
 ```bash
 S=.github/skills/acord-alignment/scripts

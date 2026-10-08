@@ -21,10 +21,17 @@ description: Analyse a discovered OpenAPI spec against the business domain catal
 | 4 | `4-duplicates-report.json` / `.md` | Exact and near duplicate groups, where each variant is defined and used, decision, canonical entity, schema → entity mapping |
 | – | `analysis-summary.json`, `validation.json` | Counts and last validation result |
 
-## Security rules
-- Work only from the spec, the Excel and `decisions.yaml`. Open C# source only to confirm a duplicate or a description,
-  and never config/secret files (same list as api-discovery).
-- Descriptions you write are business language. No customer data, hosts, keys, or internal ticket links.
+## Sensitive data (non-negotiable - full rules: `.github/instructions/api-catalog-security.instructions.md`)
+- **Never write, quote or send**: credentials (keys, tokens, passwords, connection strings), **e-mail addresses**,
+  **URLs**, internal host names / IP addresses, **personal data** (names of people who are customers or claimants,
+  phone numbers, addresses, card numbers, IBANs, national/tax ids) or **client / customer / partner names** - not in
+  correction files, outputs, commit or PR text, or chat. Use `https://{host}`, team/role names and obviously fake values.
+- Seen such data in code? Do not copy or mention its value; refer to `file:line` only ("real e-mail in `X.cs:12`").
+- Never open config/secret files or `api-catalog/reference/sensitive-data.yaml`. No web, fetch or browser tools,
+  no `curl`/`wget`/`ssh`/mail - nothing leaves the workspace.
+- The scripts redact (`[REDACTED-EMAIL]`, `[REDACTED-URL]`, ...) and the validator fails on any sensitive value
+  (A10, also on `decisions.yaml`); fix at the source, never by editing outputs. Report findings by category and location only.
+- Work from the spec, the Excel and `decisions.yaml`; open C# source only to confirm a duplicate or a description.
 
 ## Workflow (from the repository root)
 ```bash

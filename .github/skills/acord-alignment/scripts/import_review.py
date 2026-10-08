@@ -122,6 +122,8 @@ def main():
             problems.append(f"{x}: exported from an alignment generated at {doc['alignmentGeneratedAt']}, current is "
                             f"{al['meta']['generatedAt']} - rows whose basis changed will show as 'changed'")
         batches.append((Path(x), b))
+    from sensitive_scan import find_policy_file, load_policy, redact_obj, summarise
+    pol, redacted = load_policy(find_policy_file(d.resolve())), []
     seen = {}
     for src, batch in batches:
         for kind, rows in batch.items():
@@ -152,6 +154,9 @@ def main():
                     cand = next((c for c in ids[kind][rid]["candidates"] if c["reference"] == dec["reference"]), None)
                     if cand:
                         dec.setdefault("source", cand["source"])
+                dec, red = redact_obj(dec, pol)
+                if red:
+                    redacted.append(f"{src.name}: {rid}: removed {summarise(red)} from reviewer / comment fields")
                 dec["at"] = now
                 dec["file"] = src.name
                 approvals[kind][rid] = dec
@@ -164,7 +169,7 @@ def main():
         f.write("# Human review decisions - written by import_review.py. Do not edit by hand; re-import a reviewed file.\n")
         yaml.safe_dump(approvals, f, sort_keys=False, allow_unicode=True, width=120)
     print(json.dumps({"approvals": str(ap_path), "applied": applied, "cleared": cleared, "conflicts": conflicts,
-                      "problems": problems,
+                      "problems": problems, "redacted": redacted,
                       "totals": {k: len(approvals[k]) for k in ("entities", "attributes", "endpoints")}}, indent=2))
     sys.exit(1 if problems else 0)
 

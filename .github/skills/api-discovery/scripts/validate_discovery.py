@@ -15,7 +15,8 @@ Checks
   D06  no operation still flagged x-needs-review
   D07  every operation has a 2xx response; POST/PUT/PATCH have a request body (warning)
   D08  operationIds unique
-  D09  no secrets / connection strings / tokens in the spec
+  D09  no sensitive data (credentials, e-mails, URLs, hosts, PII, client names) in spec/overrides/inventory
+  D14  sensitive values found in source code were redacted - warning
   D10  every schema has x-source-project (traceability)
   D11  description coverage (warning; error if config discovery.requireDescriptions)
 """
@@ -29,18 +30,6 @@ from pathlib import Path
 
 import yaml
 
-SECRET_PATTERNS = [
-    (r"(?i)(AccountKey|SharedAccessKey|Password|Pwd|ClientSecret|ApiKey)\s*=\s*[^;\s\"']{6,}", "connection-string style secret"),
-    (r"(?i)Server=[^;]+;.*(?:Database|Initial Catalog)=", "SQL connection string"),
-    (r"(?i)DefaultEndpointsProtocol=https?;AccountName=", "Azure Storage connection string"),
-    (r"Endpoint=sb://[^;]+;SharedAccessKeyName=", "Service Bus connection string"),
-    (r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}", "JWT token"),
-    (r"(?i)bearer\s+[A-Za-z0-9\-_\.=]{20,}", "bearer token"),
-    (r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----", "private key"),
-    (r"(?i)\b(?:sk|pk)_(?:live|test)_[A-Za-z0-9]{16,}", "API key"),
-    (r"AKIA[0-9A-Z]{16}", "AWS access key"),
-    (r"(?i)code=[A-Za-z0-9_\-]{30,}={0,2}", "Azure Functions key in URL"),
-]
 
 
 def walk_refs(node, acc):
@@ -177,11 +166,18 @@ def main():
                 missing_desc_ops += 1
 
     # D09
-    for pat, label in SECRET_PATTERNS:
-        for mm in re.finditer(pat, spec_text):
-            snippet = mm.group(0)[:12] + "..."
-            err("D09", f"Possible {label} in openapi.yaml ('{snippet}')",
-                "Remove it. Use server variables / placeholders; never copy config values into the spec")
+    from sensitive_scan import check_files, find_policy_file, load_policy, report
+    _pol = load_policy(find_policy_file(d))
+    report(check_files([d / "openapi.yaml", d / "overrides.yaml", d / "inventory.json", d / "style-profile.json"], _pol),
+           err, "D09", "Remove it at the source (overrides/decisions/config/comments) and rebuild; never write e-mails, URLs, hosts, keys, personal or client data into catalogue files")
+    _inv_p = d / "inventory.json"
+    _inv_red = (json.loads(_inv_p.read_text(encoding="utf-8")).get("redactions") or {}) if _inv_p.exists() else {}
+    _spec_red = spec.get("x-redactions") or {}
+    _red = _inv_red.get("count", 0) + _spec_red.get("count", 0)
+    if _red:
+        _sum = "; ".join(x for x in (_inv_red.get("summary"), _spec_red.get("summary")) if x)
+        warn("D14", f"{_red} sensitive values found in the source code were redacted ({_sum})",
+             "Nothing to fix in the spec. Tell the code owners: comments, defaults or examples in code contain real data")
 
     # D10 / D11 schemas
     missing_desc_schemas, missing_desc_props = 0, 0

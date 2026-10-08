@@ -122,6 +122,10 @@ def main():
     if baseline:
         model["changesVsBaseline"] = diff_models(baseline, model, "baseline")
     spec = to_openapi(model, ccfg)
+    from sensitive_scan import find_policy_file, load_policy, redact_obj
+    pol = load_policy(find_policy_file(out))
+    model, _ = redact_obj(model, pol)
+    spec, _ = redact_obj(spec, pol)
     write_all(out, model, spec)
     if a.release:
         if model["status"] != "approved":
@@ -685,7 +689,7 @@ def to_openapi(model, ccfg):
                  "description": f"Canonical API of region {model['region']}. Generated from approved alignment decisions; do not edit by hand.",
                  "x-region": model["region"], "x-status": model["status"],
                  "x-baseline": model["baseline"], "x-references": model["references"], "x-approved-by": model["reviewers"]},
-        "servers": ccfg.get("servers") or [{"url": "https://{host}", "variables": {"host": {"default": f"api.{model['region'].lower()}.example.internal"}}}],
+        "servers": ccfg.get("servers") or [{"url": "https://{host}", "variables": {"host": {"default": f"api.{model['region'].lower()}.example"}}}],
         "tags": [{"name": t} for t in sorted(tags)],
         "paths": dict(sorted(paths.items())),
         "components": {"schemas": dict(sorted(schemas.items()))},

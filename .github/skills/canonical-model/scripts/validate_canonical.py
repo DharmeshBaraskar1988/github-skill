@@ -10,7 +10,7 @@ Validate a canonical model build. Writes validation.json; exit 1 on errors.
   C06  baseline not preserved (baseline entity/attribute removed or retyped)
   C07  lineage incomplete (a source attribute of an approved entity has no mapping row; canonical attribute with no source)
   C08  approvals file missing, hand-edited (no import history) or refers to rows that no longer exist
-  C09  secrets in outputs
+  C09  sensitive data (credentials, e-mails, URLs, hosts, PII, client names) in outputs
   C10  descriptions missing (warning)
   C11  breaking change against the previous build without a version bump
   C12  model is stale (alignment.json regenerated after this build)
@@ -26,12 +26,6 @@ from pathlib import Path
 
 import yaml
 
-SECRET_PATTERNS = [
-    r"(?i)(AccountKey|SharedAccessKey|Password|Pwd|ClientSecret)\s*=\s*[^;\s\"']{6,}",
-    r"Endpoint=sb://[^;]+;SharedAccessKeyName=",
-    r"eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}",
-    r"-----BEGIN (?:RSA |EC )?PRIVATE KEY-----",
-]
 
 
 def walk_refs(node, acc):
@@ -148,10 +142,10 @@ def main():
     if json.loads((out / "canonical-openapi.json").read_text(encoding="utf-8")) != spec:
         err("C13", "canonical-openapi.json differs from canonical-openapi.yaml", "Re-run build_canonical.py")
     # C09
-    blob = "".join((out / f).read_text(encoding="utf-8") for f in ("canonical-model.json", "canonical-openapi.yaml"))
-    for pat in SECRET_PATTERNS:
-        if re.search(pat, blob):
-            err("C09", f"Secret-like content in canonical outputs (/{pat[:30]}.../)", "Remove at the source and rebuild")
+    from sensitive_scan import check_files, find_policy_file, load_policy, report
+    report(check_files([out / f for f in ("canonical-model.json", "canonical-openapi.yaml", "canonical-model.md",
+                                           "CHANGELOG.md", "source-to-canonical-mapping.json", "canonical-viewer.html")],
+                       load_policy(find_policy_file(out))), err, "C09", "Remove it at the source (overrides/decisions/config/comments) and rebuild; never write e-mails, URLs, hosts, keys, personal or client data into catalogue files")
     # C10
     nd_e = [e["name"] for e in model["entities"] if not e.get("description")]
     nd_a = sum(1 for e in model["entities"] for x in e["attributes"] if not x.get("description"))

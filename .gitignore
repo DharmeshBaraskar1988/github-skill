@@ -3,3 +3,4 @@ __pycache__/
 tests/output/
 tools/TypeExtractor/bin/
 tools/TypeExtractor/obj/
+tests/output-security/

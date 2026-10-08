@@ -365,7 +365,7 @@ class Builder:
         servers = cfg.get("servers") if cfg else None
         if not servers:
             servers = [{"url": "https://{host}", "description": f"{app} ({region}) - placeholder, real hosts are injected per environment",
-                        "variables": {"host": {"default": f"{app}.{region.lower()}.example.internal"}}}]
+                        "variables": {"host": {"default": f"{app}.{region.lower()}.example"}}}]
         spec = {
             "openapi": "3.0.3",
             "info": {
@@ -552,6 +552,10 @@ def main():
         spec = apply_style(spec, json.loads(prof_p.read_text(encoding="utf-8")), cfg)
     if b.unresolved:
         spec["x-unresolved-types"] = {k: sorted(v) for k, v in sorted(b.unresolved.items())}
+    from sensitive_scan import find_policy_file, load_policy, redact_obj, summarise
+    spec, red = redact_obj(spec, load_policy(find_policy_file(d)))
+    if red:
+        spec["x-redactions"] = {"count": len(red), "summary": summarise(red)}
     dump_yaml(spec, d / "openapi.yaml")
     n_ops = sum(len(v) for v in spec["paths"].values())
     print(json.dumps({"output": str(d / "openapi.yaml"), "paths": len(spec["paths"]), "operations": n_ops,

@@ -10,7 +10,8 @@
 | D06 | error | Operation still flagged `x-needs-review` | Read the handler, set the real request/response in overrides |
 | D07 | error/warn | No 2xx response (error); POST without body or 2xx without schema (warning) | Confirm in code; declare in overrides |
 | D08 | error | Duplicate operationId | `set.operationId` |
-| D09 | error | Secret-like text in spec | Remove it from overrides; never copy config values |
+| D09 | error | Sensitive data (credentials, e-mails, URLs, hosts/IPs, PII, client names) in spec, overrides, inventory or style profile | Remove it from overrides/config at the source; the message gives category + file:line only |
+| D14 | warning | Source code contained sensitive values that were redacted from inventory/spec | Nothing to fix in the catalogue; tell the code owners (comments, defaults or examples hold real data) |
 | D10 | error | Schema without `x-source-project` | externalTypes entries must declare `x-source-project` |
 | D11 | warn (error if `discovery.requireDescriptions`) | Missing summaries/descriptions | Add via `endpoints[].set.summary` / `types.<T>.description` from XML docs or code meaning |
 | D12 | warn (error if `discovery.style.strict`) | Deviates from the style examples (path/property case, info fields, common headers, summaries) | Code change, config `info:`, or overrides after checking code |

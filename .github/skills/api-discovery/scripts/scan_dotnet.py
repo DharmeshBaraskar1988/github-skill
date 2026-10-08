@@ -255,6 +255,11 @@ def main():
         "needsReview": review,
         "skippedForbiddenFiles": skipped_forbidden,
     }
+    # Sensitive data (credentials, e-mails, URLs, hosts, PII, client names) never reaches the inventory the agent reads
+    from sensitive_scan import find_policy_file, load_policy, redact_obj, summarise
+    inventory, red = redact_obj(inventory, load_policy(find_policy_file(out)))
+    inventory["redactions"] = {"count": len(red), "summary": summarise(red),
+                               "paths": sorted({r["path"] for r in red})[:100]}
     (out / "inventory.json").write_text(json.dumps(inventory, indent=2), encoding="utf-8")
 
     print(json.dumps({

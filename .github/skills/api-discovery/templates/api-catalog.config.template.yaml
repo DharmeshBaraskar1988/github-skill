@@ -4,7 +4,7 @@ application: claims           # application / product name (lowercase, no spaces
 version: 1.0.0                # info.version of the generated spec
 catalogRoot: api-catalog      # where style-examples/, regions/ ... live (central mode: "..")
 info:                         # YOUR values for info fields the style examples always have (never copied from examples)
-  contact: {name: Claims Platform Team, email: claims-platform@your-company.example}
+  contact: {name: Claims Platform Team}   # team name only - no e-mail addresses or URLs (security policy)
   # x-audience: internal
 # title: Claims API
 # description: ...
@@ -19,7 +19,7 @@ servers:
   - url: https://{host}
     description: Injected per environment
     variables:
-      host: {default: claims.eu.example.internal}
+      host: {default: claims.eu.example}   # reserved example host - never a real one
 
 maxIterations: 5              # validation loop limit for every skill
 
